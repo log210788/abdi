@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" width="100%" height="100%">
+  <defs>
+    <!-- Soft Magic Shadows -->
+    <filter id="bookShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#142618" flood-opacity="0.35" />
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#8b5a2b" flood-opacity="0.2" />
+    </filter>
+
+    <radialGradient id="bookAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffbcf" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#fcd34d" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#e5a93c" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Leather Cover Gradients -->
+    <linearGradient id="coverForest" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d6b38" />
+      <stop offset="50%" stop-color="#2d5229" />
+      <stop offset="100%" stop-color="#1b3619" />
+    </linearGradient>
+
+    <linearGradient id="coverSpine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#172b15" />
+      <stop offset="50%" stop-color="#2c4d28" />
+      <stop offset="100%" stop-color="#182e16" />
+    </linearGradient>
+
+    <linearGradient id="goldLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1b0" />
+      <stop offset="40%" stop-color="#fcd34d" />
+      <stop offset="80%" stop-color="#d97724" />
+      <stop offset="100%" stop-color="#92400e" />
+    </linearGradient>
+
+    <linearGradient id="paperPages" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ede7d8" />
+      <stop offset="30%" stop-color="#fffdf7" />
+      <stop offset="70%" stop-color="#f5efe0" />
+      <stop offset="100%" stop-color="#dfd6c2" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Magic Aura -->
+  <ellipse cx="300" cy="260" rx="260" ry="180" fill="url(#bookAura)" />
+
+  <!-- Main Book Group -->
+  <g filter="url(#bookShadow)">
+
+    <!-- Paper Page Stack (Underneath Cover) -->
+    <path d="
+      M 130 110
+      C 200 95, 420 95, 490 115
+      L 505 385
+      C 430 365, 200 365, 130 380
+      Z"
+      fill="url(#paperPages)" stroke="#c4b89c" stroke-width="3" />
+
+    <!-- Individual Page Lines Effect -->
+    <path d="M 495 120 L 510 380" stroke="#b0a283" stroke-width="2" stroke-dasharray="2,2" />
+    <path d="M 490 125 L 505 383" stroke="#b0a283" stroke-width="2" stroke-dasharray="2,2" />
+
+    <!-- Ribbon Bookmarks Hanging Out -->
+    <path d="M 330 365 C 340 410, 310 440, 335 465 L 355 450 L 360 470 C 340 440, 360 410, 350 365 Z" fill="#d97724" stroke="#92400e" stroke-width="2" />
+    <path d="M 370 365 C 380 400, 400 425, 390 455 L 410 445 L 410 460 C 410 425, 395 400, 388 365 Z" fill="#4a86b8" stroke="#254a69" stroke-width="2" />
+
+    <!-- Front Leather Cover -->
+    <path d="
+      M 115 95
+      C 190 75, 430 75, 500 100
+      C 512 104, 515 115, 512 125
+      L 490 400
+      C 420 375, 180 375, 115 395
+      Z"
+      fill="url(#coverForest)" stroke="#132412" stroke-width="6" stroke-linejoin="round" />
+
+    <!-- Leather Spine Edge -->
+    <path d="
+      M 115 95
+      C 105 100, 95 115, 95 240
+      C 95 365, 105 390, 115 395
+      C 125 390, 132 365, 132 240
+      C 132 115, 125 100, 115 95 Z"
+      fill="url(#coverSpine)" stroke="#0e1a0d" stroke-width="5" />
+
+    <!-- Spine Gold Rib Highlights -->
+    <line x1="97" y1="140" x2="128" y2="140" stroke="url(#goldLeaf)" stroke-width="4" />
+    <line x1="96" y1="210" x2="131" y2="210" stroke="url(#goldLeaf)" stroke-width="4" />
+    <line x1="96" y1="280" x2="131" y2="280" stroke="url(#goldLeaf)" stroke-width="4" />
+    <line x1="97" y1="350" x2="128" y2="350" stroke="url(#goldLeaf)" stroke-width="4" />
+
+    <!-- Gold Filigree Corners -->
+    <!-- Top Left Corner -->
+    <path d="M 140 100 L 190 92 L 180 125 L 140 100 Z" fill="url(#goldLeaf)" stroke="#78350f" stroke-width="2" />
+    <circle cx="155" cy="106" r="4" fill="#fff" />
+
+    <!-- Top Right Corner -->
+    <path d="M 480 105 L 430 98 L 445 130 L 480 105 Z" fill="url(#goldLeaf)" stroke="#78350f" stroke-width="2" />
+    <circle cx="462" cy="110" r="4" fill="#fff" />
+
+    <!-- Bottom Right Corner -->
+    <path d="M 472 385 L 425 375 L 440 348 L 472 385 Z" fill="url(#goldLeaf)" stroke="#78350f" stroke-width="2" />
+
+    <!-- Bottom Left Corner -->
+    <path d="M 140 382 L 185 372 L 175 348 L 140 382 Z" fill="url(#goldLeaf)" stroke="#78350f" stroke-width="2" />
+
+    <!-- Decorative Gold Frame Line on Cover -->
+    <path d="
+      M 155 120
+      C 210 108, 400 108, 465 125
+      L 450 365
+      C 390 350, 210 350, 155 365
+      Z"
+      fill="none" stroke="url(#goldLeaf)" stroke-width="3" stroke-dasharray="12,4" />
+
+    <!-- Central Gold Leaf Crest / Emblem -->
+    <g transform="translate(305, 235)">
+      <!-- Outer Emblem Ring -->
+      <circle cx="0" cy="0" r="75" fill="rgba(20, 38, 22, 0.4)" stroke="url(#goldLeaf)" stroke-width="5" />
+      <circle cx="0" cy="0" r="66" fill="none" stroke="url(#goldLeaf)" stroke-width="2" stroke-dasharray="6,4" />
+
+      <!-- Center Botanical Leaf & Star -->
+      <path d="M 0 -42 C 28 -20, 38 20, 0 45 C -38 20, -28 -20, 0 -42 Z" fill="url(#goldLeaf)" stroke="#5c2e0b" stroke-width="3" />
+      <line x1="0" y1="-32" x2="0" y2="35" stroke="#5c2e0b" stroke-width="3" />
+
+      <!-- Book Title Text Engraving -->
+      <text x="0" y="96" text-anchor="middle" font-family="'Outfit', 'Segoe UI', sans-serif" font-weight="800" font-size="18" fill="url(#goldLeaf)" letter-spacing="1">STICKER BOOK</text>
+      <text x="0" y="114" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#e5a93c" letter-spacing="2">TEACHER LEWIS</text>
+    </g>
+
+    <!-- Mini Stickers Peeking Out of Pages (Backpack, Teapot, Compass) -->
+    <!-- Backpack Sticker Image Badge on Side -->
+    <g transform="translate(420, 170) rotate(12)">
+      <rect x="-24" y="-24" width="48" height="48" rx="10" fill="#ffffff" stroke="#e5a93c" stroke-width="3" />
+      <image href="images/ghibli/backpack_sticker.svg" x="-20" y="-20" width="40" height="40" />
+    </g>
+
+    <!-- Teapot Sticker Badge -->
+    <g transform="translate(180, 270) rotate(-15)">
+      <rect x="-20" y="-20" width="40" height="40" rx="8" fill="#ffffff" stroke="#7ea04d" stroke-width="3" />
+      <text x="0" y="8" text-anchor="middle" font-size="22">☕</text>
+    </g>
+
+    <!-- Compass Badge -->
+    <g transform="translate(410, 290) rotate(8)">
+      <rect x="-18" y="-18" width="36" height="36" rx="8" fill="#ffffff" stroke="#4a86b8" stroke-width="3" />
+      <text x="0" y="7" text-anchor="middle" font-size="18">🌟</text>
+    </g>
+
+  </g>
+
+  <!-- Floating Ghibli Magic Sparkles -->
+  <g fill="#ffe899">
+    <path transform="translate(100, 70) scale(1)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.9" />
+    <path transform="translate(510, 75) scale(1.2)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.95" />
+    <path transform="translate(530, 410) scale(0.8)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.85" />
+    <path transform="translate(70, 420) scale(1.1)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.9" />
+  </g>
+</svg>

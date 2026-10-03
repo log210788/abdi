@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Ghibli Soft Gradient Presets -->
+    <filter id="stickerShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1e3223" flood-opacity="0.22" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#8b5a2b" flood-opacity="0.15" />
+    </filter>
+
+    <radialGradient id="sparkleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffbcf" stop-opacity="1" />
+      <stop offset="60%" stop-color="#fcd34d" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Backpack Leather Gradients -->
+    <linearGradient id="leatherMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a06030" />
+      <stop offset="50%" stop-color="#844820" />
+      <stop offset="100%" stop-color="#5c2e10" />
+    </linearGradient>
+
+    <linearGradient id="leatherFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8733a" />
+      <stop offset="100%" stop-color="#7a4018" />
+    </linearGradient>
+
+    <linearGradient id="pocketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#965626" />
+      <stop offset="100%" stop-color="#693412" />
+    </linearGradient>
+
+    <linearGradient id="blanketRoll" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5b7843" />
+      <stop offset="30%" stop-color="#7ea04d" />
+      <stop offset="70%" stop-color="#8eb85c" />
+      <stop offset="100%" stop-color="#4e6837" />
+    </linearGradient>
+
+    <linearGradient id="brassGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe899" />
+      <stop offset="50%" stop-color="#e5a93c" />
+      <stop offset="100%" stop-color="#996a15" />
+    </linearGradient>
+
+    <linearGradient id="canteenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7da3a1" />
+      <stop offset="100%" stop-color="#3d5c5a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Ambient Sparkle Glow -->
+  <circle cx="256" cy="256" r="220" fill="url(#sparkleGlow)" opacity="0.6" />
+
+  <!-- Outer Sticker White Cutout Border -->
+  <g filter="url(#stickerShadow)">
+    <path d="
+      M 160 80
+      C 200 65, 312 65, 352 80
+      C 410 90, 440 140, 440 220
+      C 440 320, 420 420, 370 445
+      C 320 465, 192 465, 142 445
+      C 92 420, 72 320, 72 220
+      C 72 140, 102 90, 160 80 Z"
+      fill="#ffffff"
+      stroke="#f5eedc"
+      stroke-width="12"
+      stroke-linejoin="round" />
+  </g>
+
+  <!-- Main Ghibli Travel Backpack Group -->
+  <g transform="translate(0, 5)">
+
+    <!-- Backpack Shadow Base -->
+    <ellipse cx="256" cy="430" rx="140" ry="24" fill="#3b2414" opacity="0.25" />
+
+    <!-- Hanging Water Canteen (Left) -->
+    <g transform="translate(100, 260)">
+      <rect x="0" y="0" width="36" height="60" rx="12" fill="url(#canteenGrad)" stroke="#273d3b" stroke-width="3" />
+      <rect x="8" y="-10" width="20" height="12" rx="3" fill="url(#brassGold)" stroke="#66470d" stroke-width="2" />
+      <!-- Canteen Strap -->
+      <path d="M -15 -40 Q 18 -10 18 10" fill="none" stroke="#5c2e10" stroke-width="4" />
+    </g>
+
+    <!-- Backpack Body Base -->
+    <path d="
+      M 140 160
+      C 140 140, 372 140, 372 160
+      L 385 360
+      C 385 410, 350 430, 256 430
+      C 162 430, 127 410, 127 360
+      Z"
+      fill="url(#leatherMain)"
+      stroke="#3b1d0a"
+      stroke-width="6"
+      stroke-linejoin="round" />
+
+    <!-- Side Pockets -->
+    <!-- Left Pocket -->
+    <path d="M 125 270 L 105 280 C 95 330, 105 370, 128 375 Z" fill="url(#pocketGrad)" stroke="#3b1d0a" stroke-width="5" />
+    <!-- Right Pocket -->
+    <path d="M 387 270 L 407 280 C 417 330, 407 370, 384 375 Z" fill="url(#pocketGrad)" stroke="#3b1d0a" stroke-width="5" />
+
+    <!-- Front Lower Zip Pocket -->
+    <rect x="176" y="295" width="160" height="100" rx="16" fill="url(#pocketGrad)" stroke="#3b1d0a" stroke-width="5" />
+    <path d="M 190 308 L 322 308" stroke="#ffe899" stroke-width="4" stroke-dasharray="8,5" stroke-linecap="round" />
+    <circle cx="315" cy="308" r="6" fill="url(#brassGold)" stroke="#3b1d0a" stroke-width="2" />
+
+    <!-- Main Top Flap -->
+    <path d="
+      M 142 160
+      C 142 160, 256 185, 370 160
+      L 362 275
+      C 362 295, 310 305, 256 305
+      C 202 305, 150 295, 150 275
+      Z"
+      fill="url(#leatherFlap)"
+      stroke="#3b1d0a"
+      stroke-width="6"
+      stroke-linejoin="round" />
+
+    <!-- Leather Vertical Straps & Brass Buckles -->
+    <!-- Left Strap -->
+    <rect x="195" y="155" width="22" height="155" rx="4" fill="#5c2e10" stroke="#261205" stroke-width="3" />
+    <rect x="190" y="275" width="32" height="20" rx="4" fill="url(#brassGold)" stroke="#4a3206" stroke-width="3" />
+    <line x1="206" y1="270" x2="206" y2="300" stroke="#3b1d0a" stroke-width="3" />
+
+    <!-- Right Strap -->
+    <rect x="295" y="155" width="22" height="155" rx="4" fill="#5c2e10" stroke="#261205" stroke-width="3" />
+    <rect x="290" y="275" width="32" height="20" rx="4" fill="url(#brassGold)" stroke="#4a3206" stroke-width="3" />
+    <line x1="306" y1="270" x2="306" y2="300" stroke="#3b1d0a" stroke-width="3" />
+
+    <!-- Top Rolled Sleeping Blanket / Mat -->
+    <g transform="translate(0, -10)">
+      <!-- Rolled Blanket Cylinders -->
+      <rect x="130" y="90" width="252" height="65" rx="28" fill="url(#blanketRoll)" stroke="#263817" stroke-width="6" />
+      <ellipse cx="145" cy="122.5" rx="14" ry="30" fill="#425730" stroke="#263817" stroke-width="4" />
+      <ellipse cx="367" cy="122.5" rx="14" ry="30" fill="#8eb85c" stroke="#263817" stroke-width="4" />
+
+      <!-- Blanket Tie Straps -->
+      <rect x="185" y="86" width="18" height="72" rx="3" fill="#5c2e10" stroke="#261205" stroke-width="3" />
+      <rect x="182" y="112" width="24" height="16" rx="3" fill="url(#brassGold)" stroke="#3b1d0a" stroke-width="2" />
+
+      <rect x="309" y="86" width="18" height="72" rx="3" fill="#5c2e10" stroke="#261205" stroke-width="3" />
+      <rect x="306" y="112" width="24" height="16" rx="3" fill="url(#brassGold)" stroke="#3b1d0a" stroke-width="2" />
+    </g>
+
+    <!-- Top Grab Loop Handle -->
+    <path d="M 226 80 C 226 50, 286 50, 286 80" fill="none" stroke="#5c2e10" stroke-width="10" stroke-linecap="round" />
+
+    <!-- Botanical Leaf Pin Attached to Flap -->
+    <g transform="translate(256, 215)">
+      <!-- Pin Leaf Badge -->
+      <path d="M 0 -18 C 15 -10, 22 10, 0 22 C -22 10, -15 -10, 0 -18 Z" fill="#7ea04d" stroke="#fff" stroke-width="3" />
+      <path d="M 0 -14 L 0 16" stroke="#fff" stroke-width="2" />
+      <!-- Metallic Shine Highlight -->
+      <circle cx="-3" cy="-5" r="3" fill="#ffffff" opacity="0.7" />
+    </g>
+
+    <!-- Watercolor Highlights & Stitches -->
+    <path d="M 160 175 Q 256 195 352 175" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.35" stroke-dasharray="6,4" />
+    <path d="M 185 320 L 327 320" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.25" />
+
+  </g>
+
+  <!-- Ghibli Magical Sparkle Stars -->
+  <g fill="#ffe899">
+    <!-- Star 1 (Top Left) -->
+    <path transform="translate(90, 80) scale(0.8)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.9" />
+    <!-- Star 2 (Top Right) -->
+    <path transform="translate(420, 110) scale(1.1)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.95" />
+    <!-- Star 3 (Bottom Right) -->
+    <path transform="translate(435, 380) scale(0.7)" d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" opacity="0.85" />
+  </g>
+</svg>

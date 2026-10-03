@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preply English Practice - Abdi</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --success: #16a34a;
+      --error: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    header {
+      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+      color: white;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    header p {
+      font-size: 15px;
+      opacity: 0.92;
+    }
+    .content {
+      padding: 24px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 20px 0 14px;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flashcard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .flashcard {
+      background: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: transform 0.15s ease, border-color 0.15s;
+    }
+    .flashcard:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+    .flashcard .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .flashcard .word {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .flashcard .meaning {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .quiz-card {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .quiz-question {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .opt-btn {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 110px;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      background: white;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #eef2ff;
+      color: var(--primary);
+    }
+    .opt-btn.correct {
+      background: #dcfce7 !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+    }
+    .opt-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: var(--error) !important;
+      color: var(--error) !important;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+    }
+    .feedback.show {
+      display: block;
+    }
+    .feedback.correct-text {
+      color: var(--success);
+    }
+    .feedback.wrong-text {
+      color: var(--error);
+    }
+    .score-banner {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 24px;
+    }
+    .score-banner h3 {
+      color: #1e40af;
+      margin-bottom: 4px;
+    }
+    .reset-btn {
+      margin-top: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .reset-btn:hover {
+      background: var(--primary-hover);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>English Practice with Abdi</h1>
+      <p>Lesson 1 Review: Introductions & Prepositions of Place</p>
+    </header>
+
+    <div class="content">
+      <div class="section-title"><span>📚</span> Quick Reference: Prepositions</div>
+      <div class="flashcard-grid">
+        <div class="flashcard">
+          <div class="icon">📥</div>
+          <div class="word">IN</div>
+          <div class="meaning">Inside something</div>
+        </div>
+        <div class="flashcard">
+          <div class="icon">🔝</div>
+          <div class="word">ON</div>
+          <div class="meaning">On top of surface</div>
+        </div>
+        <div class="flashcard">
+          <div class="icon">⬇️</div>
+          <div class="word">UNDER</div>
+          <div class="meaning">Below / beneath</div>
+        </div>
+        <div class="flashcard">
+          <div class="icon">👉👈</div>
+          <div class="word">NEXT TO</div>
+          <div class="meaning">Beside / at the side</div>
+        </div>
+      </div>
+
+      <div class="section-title"><span>✍️</span> Preposition Practice Questions</div>
+      <div id="quiz-container"></div>
+
+      <div class="score-banner" id="score-banner" style="display:none;">
+        <h3 id="score-text">You scored 0 / 0</h3>
+        <p>Great job practicing your English today!</p>
+        <button class="reset-btn" onclick="initQuiz()">Try Again 🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. The pencils are _______ the pencil case.",
+        emoji: "✏️ 🎒",
+        options: ["in", "on", "under", "next to"],
+        answer: "in"
+      },
+      {
+        q: "2. The laptop is sitting _______ the wooden table.",
+        emoji: "💻 🪵",
+        options: ["in", "on", "under", "next to"],
+        answer: "on"
+      },
+      {
+        q: "3. My cat likes to sleep _______ the bed on the floor.",
+        emoji: "🐱 🛏️",
+        options: ["in", "on", "under", "next to"],
+        answer: "under"
+      },
+      {
+        q: "4. The water bottle is right _______ my notebook.",
+        emoji: "💧 📓",
+        options: ["in", "on", "under", "next to"],
+        answer: "next to"
+      },
+      {
+        q: "5. We keep fresh milk _______ the refrigerator.",
+        emoji: "🥛 🧊",
+        options: ["in", "on", "under", "next to"],
+        answer: "in"
+      },
+      {
+        q: "6. The football rolled _______ the parked car.",
+        emoji: "⚽ 🚗",
+        options: ["in", "on", "under", "next to"],
+        answer: "under"
+      },
+      {
+        q: "7. The picture frame is hanging _______ the wall.",
+        emoji: "🖼️ 🧱",
+        options: ["in", "on", "under", "next to"],
+        answer: "on"
+      },
+      {
+        q: "8. Ahmed sits _______ Abdi in English class.",
+        emoji: "👦 👦",
+        options: ["in", "on", "under", "next to"],
+        answer: "next to"
+      }
+    ];
+
+    let score = 0;
+    let answered = 0;
+
+    function initQuiz() {
+      score = 0;
+      answered = 0;
+      document.getElementById('score-banner').style.display = 'none';
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      questions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        card.id = `q-${index}`;
+
+        const qTitle = document.createElement('div');
+        qTitle.className = 'quiz-question';
+        qTitle.innerHTML = `<span>${item.emoji}</span> <span>${item.q}</span>`;
+        card.appendChild(qTitle);
+
+        const optsDiv = document.createElement('div');
+        optsDiv.className = 'options';
+
+        item.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'opt-btn';
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(index, opt, btn);
+          optsDiv.appendChild(btn);
+        });
+
+        card.appendChild(optsDiv);
+
+        const feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        feedback.id = `fb-${index}`;
+        card.appendChild(feedback);
+
+        container.appendChild(card);
+      });
+    }
+
+    function checkAnswer(qIndex, selectedOpt, clickedBtn) {
+      const q = questions[qIndex];
+      const card = document.getElementById(`q-${qIndex}`);
+      const buttons = card.querySelectorAll('.opt-btn');
+      const feedback = document.getElementById(`fb-${qIndex}`);
+
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (selectedOpt === q.answer) {
+        clickedBtn.classList.add('correct');
+        feedback.textContent = `✅ Excellent! "${q.answer}" is correct.`;
+        feedback.className = 'feedback show correct-text';
+        score++;
+      } else {
+        clickedBtn.classList.add('wrong');
+        buttons.forEach(btn => {
+          if (btn.textContent === q.answer) btn.classList.add('correct');
+        });
+        feedback.textContent = `❌ Not quite! The correct preposition is "${q.answer}".`;
+        feedback.className = 'feedback show wrong-text';
+      }
+
+      answered++;
+      if (answered === questions.length) {
+        document.getElementById('score-banner').style.display = 'block';
+        document.getElementById('score-text').textContent = `You scored ${score} out of ${questions.length}! 🎉`;
+      }
+    }
+
+    initQuiz();
+  </script>
+</body>
+</html>

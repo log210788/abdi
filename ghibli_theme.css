@@ -1,0 +1,3137 @@
+/* ==========================================================================
+   Studio Ghibli Interactive Edition — Design Tokens & Theme Engine
+   ghibli_theme.css
+   ========================================================================== */
+
+:root {
+  /* Ghibli Watercolor Color Palette (Day Theme) */
+  --ghibli-bg-green: #2c4a38;
+  --ghibli-parchment: #fdfaf2;
+  --ghibli-card-bg: rgba(255, 253, 245, 0.95);
+  --ghibli-card-border: rgba(226, 215, 195, 0.8);
+  --ghibli-accent-gold: #e5a93c;
+  --ghibli-accent-amber: #d97724;
+  --ghibli-accent-green: #48825c;
+  --ghibli-accent-blue: #3d7ea6;
+  --ghibli-text-main: #2b261f;
+  --ghibli-text-muted: #5c5446;
+  --ghibli-border: #e2d7c3;
+  --ghibli-shadow: 0 10px 30px rgba(44, 74, 56, 0.18);
+  --ghibli-glow-gold: 0 0 16px rgba(229, 169, 60, 0.5);
+
+  /* Validation Feedback Colors */
+  --ghibli-success: #2e7d32;
+  --ghibli-success-bg: rgba(46, 125, 50, 0.14);
+  --ghibli-error: #c62828;
+  --ghibli-error-bg: rgba(198, 40, 40, 0.14);
+
+  /* Border Radii */
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 50px;
+
+  /* Typography */
+  --font-heading: 'Outfit', 'Playfair Display', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Atmospheric Background Asset */
+  --ghibli-bg-url: url('images/ghibli/bg.webp');
+}
+
+/* 🌅 Sunset Theme Overrides */
+body.theme-sunset, html.theme-sunset body {
+  --ghibli-bg-url: url('images/ghibli/sunset.webp');
+  --ghibli-card-bg: rgba(255, 246, 235, 0.95);
+  --ghibli-accent-amber: #e65100;
+  --ghibli-border: #f0cbab;
+  --ghibli-text-main: #2d1e18;
+  --ghibli-shadow: 0 10px 30px rgba(120, 50, 20, 0.22);
+}
+
+/* 🌙 Night Theme High-Contrast Overrides */
+body.theme-night, html.theme-night body {
+  --ghibli-bg-url: url('images/ghibli/night.webp');
+  --ghibli-card-bg: rgba(20, 32, 44, 0.93);
+  --ghibli-card-border: rgba(51, 65, 85, 0.8);
+  --ghibli-parchment: #182430;
+  --ghibli-text-main: #f8fafc;
+  --ghibli-text-muted: #cbd5e1;
+  --ghibli-border: #334155;
+  --ghibli-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+  --ghibli-success-bg: rgba(46, 125, 50, 0.35);
+  --ghibli-error-bg: rgba(198, 40, 40, 0.35);
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ghibli-avatar-img {
+  width: 76px;
+  height: 76px;
+  max-width: 76px;
+  max-height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--ghibli-accent-gold, #e5a93c);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--ghibli-bg-green);
+  color: var(--ghibli-text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* Fixed Background Overlay & Vignette */
+.ghibli-bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--ghibli-bg-url);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: background-image 0.8s ease-in-out;
+}
+
+.ghibli-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+#firefliesContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.firefly {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #ffee58;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ffee58, 0 0 22px #ffeb3b;
+  pointer-events: none;
+  z-index: 0;
+  animation: float-firefly 6s ease-in-out infinite alternate;
+}
+
+@keyframes float-firefly {
+  0% { transform: translate(0, 0) scale(0.7); opacity: 0.2; }
+  50% { opacity: 1; transform: translate(25px, -45px) scale(1.3); }
+  100% { transform: translate(-20px, -90px) scale(0.8); opacity: 0.3; }
+}
+
+/* ==========================================================================
+   Layout Containers
+   ========================================================================== */
+
+.ghibli-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 20px 140px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header Navbar */
+.ghibli-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--ghibli-card-bg);
+  border: 1px solid var(--ghibli-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ghibli-shadow);
+  backdrop-filter: blur(14px);
+  margin-bottom: 20px;
+}
+
+.ghibli-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ghibli-logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ghibli-accent-gold), var(--ghibli-accent-amber));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(229, 169, 60, 0.4);
+}
+
+.ghibli-title-wrap h1 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ghibli-subtitle {
+  font-size: 0.85rem;
+  color: var(--ghibli-text-muted);
+  font-weight: 500;
+}
+
+.ghibli-header-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Time of Day Theme Switcher Group */
+.tod-group {
+  display: flex;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--ghibli-border);
+}
+
+body.theme-night .tod-group {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tod-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ghibli-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tod-btn.active {
+  background: linear-gradient(135deg, var(--ghibli-accent-gold), var(--ghibli-accent-amber));
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(229, 169, 60, 0.4);
+}
+
+.tod-btn:hover:not(.active) {
+  color: var(--ghibli-text-main);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Score Badge */
+.ghibli-score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(229, 169, 60, 0.15);
+  border: 1.5px solid var(--ghibli-accent-gold);
+  border-radius: var(--radius-pill);
+  color: var(--ghibli-accent-amber);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+body.theme-night .ghibli-score-badge {
+  color: var(--ghibli-accent-gold);
+}
+
+.ghibli-score-badge.bump {
+  animation: score-bump 0.4s ease;
+}
+
+@keyframes score-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Standard Action Buttons */
+.ghibli-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ghibli-btn-primary {
+  background: linear-gradient(135deg, var(--ghibli-accent-gold), var(--ghibli-accent-amber));
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(217, 119, 36, 0.35);
+}
+
+.ghibli-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(217, 119, 36, 0.45);
+}
+
+.ghibli-btn-secondary {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--ghibli-text-main);
+  border: 1px solid var(--ghibli-border);
+}
+
+body.theme-night .ghibli-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ghibli-btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Navigation Bar (.chapter-nav-bar and .page-nav-bar) */
+.chapter-nav-bar,
+.page-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--ghibli-card-bg);
+  border: 1px solid var(--ghibli-card-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--ghibli-shadow);
+  margin-bottom: 24px;
+}
+
+.nav-link-btn,
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--ghibli-parchment);
+  color: var(--ghibli-text-main);
+  border: 1.5px solid var(--ghibli-border);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+}
+
+.nav-link-btn:hover:not(.disabled),
+.nav-btn:hover:not(.disabled) {
+  border-color: var(--ghibli-accent-gold);
+  color: var(--ghibli-accent-amber);
+  transform: translateY(-1px);
+}
+
+.nav-link-btn.disabled,
+.nav-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-page-badge {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ghibli-accent-green);
+  background: rgba(72, 130, 92, 0.12);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+}
+
+body.theme-night .nav-page-badge {
+  color: #6ee7b7;
+  background: rgba(110, 231, 183, 0.15);
+}
+
+/* ==========================================================================
+   Hero Header Banner
+   ========================================================================== */
+
+.ghibli-hero-card {
+  padding: 28px 36px;
+  background: var(--ghibli-card-bg);
+  border: 1px solid var(--ghibli-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ghibli-shadow);
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+/* Column layout fallback for simple hero cards without key box */
+.ghibli-hero-card:not(:has(.ghibli-unit-key-box)) {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ghibli-hero-main {
+  flex: 1 1 300px;
+  max-width: 400px;
+  min-width: 0;
+  padding-right: 24px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.ghibli-hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--ghibli-accent-gold), var(--ghibli-accent-green));
+}
+
+.ghibli-unit-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ghibli-accent-amber);
+  margin-bottom: 6px;
+}
+
+.ghibli-hero-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--ghibli-text-main);
+  line-height: 1.25;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.ghibli-hero-desc {
+  color: var(--ghibli-text-muted);
+  font-size: 0.95rem;
+  margin-top: 10px;
+  line-height: 1.55;
+  font-weight: 500;
+  max-width: 360px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Key Box Next to Description */
+.ghibli-unit-key-box {
+  flex: 0 0 320px;
+  width: 320px;
+  max-width: 100%;
+  margin-left: auto;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f6edd9 100%);
+  border: 2px solid #e2d2b5;
+  outline: 1px dashed rgba(229, 169, 60, 0.45);
+  outline-offset: -6px;
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: inset 0 0 15px rgba(229, 169, 60, 0.08), 0 8px 20px rgba(44, 74, 56, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ghibli-unit-key-box:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 20px rgba(229, 169, 60, 0.12), 0 12px 28px rgba(44, 74, 56, 0.16);
+}
+
+body.theme-night .ghibli-unit-key-box {
+  background: linear-gradient(135deg, #192634 0%, #121c27 100%);
+  border-color: #2e4156;
+  outline-color: rgba(72, 130, 92, 0.4);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 860px) {
+  .ghibli-hero-card {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .ghibli-hero-main {
+    max-width: 100%;
+    padding-right: 0;
+  }
+  .ghibli-unit-key-box {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
+}
+
+.key-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  border-left: 4px solid var(--ghibli-accent-green);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+body.theme-night .key-item {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.key-item:nth-child(1) {
+  border-left-color: var(--ghibli-accent-amber);
+  background: rgba(217, 119, 36, 0.06);
+}
+
+.key-item:nth-child(2) {
+  border-left-color: var(--ghibli-accent-green);
+  background: rgba(72, 130, 92, 0.06);
+}
+
+.key-item:nth-child(3) {
+  border-left-color: var(--ghibli-accent-blue);
+  background: rgba(61, 126, 166, 0.06);
+}
+
+body.theme-night .key-item:nth-child(1) {
+  background: rgba(217, 119, 36, 0.12);
+}
+body.theme-night .key-item:nth-child(2) {
+  background: rgba(72, 130, 92, 0.12);
+}
+body.theme-night .key-item:nth-child(3) {
+  background: rgba(61, 126, 166, 0.12);
+}
+
+.key-item:hover {
+  transform: translateX(4px);
+}
+
+.key-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--ghibli-accent-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.key-item:nth-child(1) .key-label { color: #c86817; }
+.key-item:nth-child(2) .key-label { color: #356b49; }
+.key-item:nth-child(3) .key-label { color: #2b6488; }
+
+body.theme-night .key-item:nth-child(1) .key-label { color: #f97316; }
+body.theme-night .key-item:nth-child(2) .key-label { color: #4ade80; }
+body.theme-night .key-item:nth-child(3) .key-label { color: #38bdf8; }
+
+.key-label i {
+  font-size: 0.82rem;
+}
+
+.key-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ghibli-text-main);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   Exercise Cards & Modules
+   ========================================================================== */
+
+.ghibli-exercises-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.ghibli-exercise-card {
+  background: var(--ghibli-card-bg);
+  border: 1px solid var(--ghibli-card-border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--ghibli-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exercise-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--ghibli-border);
+}
+
+.exercise-num {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ghibli-accent-green), #2c5e3b);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+.exercise-instruction {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ghibli-text-main);
+  line-height: 1.35;
+}
+/* Section Container & Exercise Header Fallback Classes */
+.ghibli-section {
+  background: var(--ghibli-card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--ghibli-card-border);
+  box-shadow: var(--ghibli-shadow);
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.ghibli-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--ghibli-border);
+}
+
+.ghibli-ex-num {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ghibli-accent-green), #2c5e3b);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ghibli-ex-instruction {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ghibli-text-main);
+  line-height: 1.35;
+}
+
+.ghibli-ex-subtext {
+  font-size: 0.95rem;
+  color: var(--ghibli-text-muted);
+  margin-top: 4px;
+}
+
+
+
+
+.exercise-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ==========================================================================
+   Interactive Input Elements & Media Controls
+   ========================================================================== */
+
+/* Universal Inputs */
+.ghibli-input,
+.ex1-1-input,
+.order-input {
+  padding: 10px 16px;
+  border: 2px solid var(--ghibli-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  background: var(--ghibli-parchment);
+  color: var(--ghibli-text-main);
+  outline: none;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+body.theme-night .ghibli-input,
+body.theme-night .ex1-1-input,
+body.theme-night .order-input {
+  background: #1e2c38;
+  color: #ffffff;
+}
+
+.ghibli-input:focus,
+.ex1-1-input:focus,
+.order-input:focus {
+  border-color: var(--ghibli-accent-gold);
+  box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.25);
+}
+
+/* Validation Feedback Highlights */
+.ghibli-input.correct,
+.ex1-1-input.correct,
+.order-input.correct,
+.ghibli-drop-slot.correct,
+.ghibli-matching-select.correct,
+.ghibli-select-matching.correct,
+.ghibli-option.correct,
+.tf-btn.correct,
+select.ghibli-input.correct,
+select.ghibli-select-matching.correct,
+select.ghibli-matching-select.correct {
+  border: 2.5px solid #22c55e !important;
+  background-color: rgba(34, 197, 94, 0.18) !important;
+  color: #166534 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25) !important;
+}
+
+body.theme-night .ghibli-input.correct,
+body.theme-night .ex1-1-input.correct,
+body.theme-night .order-input.correct,
+body.theme-night .ghibli-drop-slot.correct,
+body.theme-night .ghibli-matching-select.correct,
+body.theme-night .ghibli-select-matching.correct,
+body.theme-night .ghibli-option.correct,
+body.theme-night .tf-btn.correct,
+body.theme-night select.ghibli-input.correct,
+body.theme-night select.ghibli-select-matching.correct,
+body.theme-night select.ghibli-matching-select.correct {
+  color: #4ade80 !important;
+  border: 2.5px solid #22c55e !important;
+  background-color: rgba(34, 197, 94, 0.2) !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
+}
+
+.ghibli-input.incorrect,
+.ex1-1-input.incorrect,
+.order-input.incorrect,
+.ghibli-drop-slot.incorrect,
+.ghibli-matching-select.incorrect,
+.ghibli-select-matching.incorrect,
+.ghibli-option.incorrect,
+.tf-btn.incorrect,
+select.ghibli-input.incorrect,
+select.ghibli-select-matching.incorrect,
+select.ghibli-matching-select.incorrect {
+  border: 2.5px solid #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.18) !important;
+  color: #991b1b !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
+  animation: ghibli-shake 0.4s ease;
+}
+
+body.theme-night .ghibli-input.incorrect,
+body.theme-night .ex1-1-input.incorrect,
+body.theme-night .order-input.incorrect,
+body.theme-night .ghibli-drop-slot.incorrect,
+body.theme-night .ghibli-matching-select.incorrect,
+body.theme-night .ghibli-select-matching.incorrect,
+body.theme-night .ghibli-option.incorrect,
+body.theme-night .tf-btn.incorrect,
+body.theme-night select.ghibli-input.incorrect,
+body.theme-night select.ghibli-select-matching.incorrect,
+body.theme-night select.ghibli-matching-select.incorrect {
+  color: #f87171 !important;
+  border: 2.5px solid #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3) !important;
+}
+
+@keyframes ghibli-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* Audio Player Trigger Button */
+.ghibli-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ghibli-accent-blue), #2b5978);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(61, 126, 166, 0.3);
+}
+
+.ghibli-audio-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(61, 126, 166, 0.45);
+}
+
+.ghibli-audio-btn.playing {
+  background: linear-gradient(135deg, var(--ghibli-accent-gold), var(--ghibli-accent-amber));
+  animation: audio-glow 1.2s infinite alternate;
+}
+
+@keyframes audio-glow {
+  0% { box-shadow: 0 0 4px var(--ghibli-accent-gold); }
+  100% { box-shadow: 0 0 16px var(--ghibli-accent-amber); }
+}
+
+/* Voice Recorder Buttons */
+.ghibli-rec-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--ghibli-border);
+  color: var(--ghibli-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ghibli-rec-btn:hover {
+  border-color: var(--ghibli-error);
+  color: var(--ghibli-error);
+}
+
+.ghibli-rec-btn.recording {
+  background: var(--ghibli-error);
+  color: #ffffff;
+  border-color: var(--ghibli-error);
+  animation: rec-pulse 1s infinite alternate;
+}
+
+@keyframes rec-pulse {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.my-voice-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(46, 125, 50, 0.15);
+  border: 1px solid var(--ghibli-success);
+  color: var(--ghibli-success);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.my-voice-btn:hover {
+  background: var(--ghibli-success);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Exercise Type 1: Fill in the Blank
+   ========================================================================== */
+
+.fill-blank-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ghibli-border);
+}
+
+body.theme-night .fill-blank-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.item-index {
+  font-weight: 700;
+  color: var(--ghibli-accent-amber);
+  min-width: 24px;
+}
+
+.item-text {
+  font-size: 1.05rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+/* ==========================================================================
+   Exercise Type 2: Sentence Ordering
+   ========================================================================== */
+
+.ghibli-ordering-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ghibli-border);
+}
+
+.word-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  background: var(--ghibli-parchment);
+  border: 1.5px dashed var(--ghibli-border);
+  border-radius: var(--radius-sm);
+  min-height: 48px;
+}
+
+body.theme-night .word-pool {
+  background: #182430;
+}
+
+.word-chip {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--ghibli-card-bg);
+  border: 1.5px solid var(--ghibli-accent-gold);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ghibli-text-main);
+  cursor: grab;
+  user-select: none;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.word-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--ghibli-accent-amber);
+}
+
+.word-chip.dragging {
+  opacity: 0.5;
+}
+
+/* Drop target area */
+.ghibli-drop-slot {
+  min-height: 52px;
+  padding: 8px 12px;
+  background: rgba(229, 169, 60, 0.08);
+  border: 2px dashed var(--ghibli-accent-gold);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+/* ==========================================================================
+   Exercise Type 3: Multiple Choice
+   ========================================================================== */
+
+.ghibli-mc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mc-prompt-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.mc-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.ghibli-option {
+  padding: 12px 18px;
+  background: var(--ghibli-parchment);
+  border: 2px solid var(--ghibli-border);
+  border-radius: var(--radius-md);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ghibli-text-main);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body.theme-night .ghibli-option {
+  background: #1e2c38;
+}
+
+.ghibli-option:hover {
+  border-color: var(--ghibli-accent-gold);
+  transform: translateY(-1px);
+}
+
+.ghibli-option.selected {
+  border-color: var(--ghibli-accent-blue);
+  background: rgba(61, 126, 166, 0.12);
+  color: var(--ghibli-accent-blue);
+}
+
+body.theme-night .ghibli-option.selected {
+  color: #38bdf8;
+  border-color: #38bdf8;
+}
+
+/* ==========================================================================
+   Exercise Type: Cross-Out In-Sentence Choice Exercises
+   ========================================================================== */
+
+.ghibli-crossout-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: var(--ghibli-text-main, #2b261f);
+  line-height: 1.8;
+}
+
+.ghibli-crossout-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45, 90, 39, 0.07);
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1.5px dashed rgba(45, 90, 39, 0.3);
+  margin: 0 4px;
+  transition: all 0.2s ease;
+}
+
+.ghibli-crossout-group.unattempted {
+  border-color: #f59e0b !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+  animation: ghibli-shake 0.4s ease;
+}
+
+body.theme-night .ghibli-crossout-group {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.theme-night .ghibli-crossout-group.unattempted {
+  background: rgba(245, 158, 11, 0.16) !important;
+  border-color: #fbbf24 !important;
+}
+
+.crossout-slash {
+  font-weight: 800;
+  color: var(--ghibli-accent-amber, #d97724);
+  font-size: 1.1rem;
+  user-select: none;
+  padding: 0 2px;
+}
+
+.ghibli-crossout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-family: inherit;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ghibli-text-main, #2b261f);
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body.theme-night .ghibli-crossout-btn {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+.ghibli-crossout-btn:hover {
+  border-color: var(--ghibli-accent-gold, #e5a93c);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Visual Cross-Out when selected / clicked */
+.ghibli-crossout-btn.crossed-out,
+.ghibli-crossout-btn.selected {
+  color: #94a3b8 !important;
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  text-decoration: line-through 3px #ef4444;
+  text-decoration-color: #ef4444;
+  transform: scale(0.96);
+  opacity: 0.88;
+}
+
+body.theme-night .ghibli-crossout-btn.crossed-out,
+body.theme-night .ghibli-crossout-btn.selected {
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #94a3b8 !important;
+  border-color: #b91c1c !important;
+  text-decoration: line-through 3px #f87171;
+  text-decoration-color: #f87171;
+}
+
+.ghibli-crossout-btn.crossed-out::after,
+.ghibli-crossout-btn.selected::after {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 50%;
+  height: 3px;
+  background: #ef4444;
+  transform: translateY(-50%) rotate(-4deg);
+  border-radius: 2px;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(239, 68, 68, 0.5);
+}
+
+/* Graded States */
+.ghibli-crossout-btn.correct {
+  border-color: #16a34a !important;
+  background: #f0fdf4 !important;
+  color: #15803d !important;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25) !important;
+}
+
+body.theme-night .ghibli-crossout-btn.correct {
+  background: rgba(34, 197, 94, 0.2) !important;
+  color: #86efac !important;
+  border-color: #22c55e !important;
+}
+
+.ghibli-crossout-btn.correct::after {
+  background: #16a34a !important;
+  box-shadow: 0 0 4px rgba(22, 163, 74, 0.5);
+}
+
+.ghibli-crossout-btn.incorrect {
+  border-color: #dc2626 !important;
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3) !important;
+  animation: ghibli-shake 0.4s ease;
+}
+
+body.theme-night .ghibli-crossout-btn.incorrect {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #fca5a5 !important;
+  border-color: #ef4444 !important;
+}
+
+.ghibli-crossout-btn.should-cross {
+  border: 2px dashed #16a34a !important;
+  position: relative;
+}
+
+.ghibli-crossout-btn.should-cross::before {
+  content: 'Cross out';
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid #bbf7d0;
+  z-index: 5;
+}
+
+body.theme-night .ghibli-crossout-btn.should-cross::before {
+  background: #14532d;
+  color: #86efac;
+  border-color: #22c55e;
+}
+
+/* ==========================================================================
+   Exercise Type 4: Matching
+   ========================================================================== */
+
+.ghibli-matching-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.matching-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ghibli-border);
+}
+
+body.theme-night .matching-row {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.matching-prompt {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.ghibli-matching-select {
+  padding: 10px 14px;
+  border: 2px solid var(--ghibli-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: var(--ghibli-parchment);
+  color: var(--ghibli-text-main);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+body.theme-night .ghibli-matching-select {
+  background: #1e2c38;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Exercise Type 5: Audio Listen
+   ========================================================================== */
+
+.ghibli-audio-listen-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.audio-item-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(61, 126, 166, 0.06);
+  border: 1px solid rgba(61, 126, 166, 0.25);
+  border-radius: var(--radius-md);
+}
+
+body.theme-night .audio-item-row {
+  background: rgba(61, 126, 166, 0.15);
+}
+
+/* ==========================================================================
+   Exercise Type 6: True / False
+   ========================================================================== */
+
+.ghibli-tf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tf-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ghibli-border);
+}
+
+body.theme-night .tf-row {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tf-statement {
+  font-size: 1.02rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* True / False Segmented Toggle System */
+.tf-btn-group {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  background: rgba(45, 90, 39, 0.05);
+  padding: 4px;
+  border-radius: 14px;
+  border: 1.5px solid var(--ghibli-border, #e2d7c3);
+}
+
+.tf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  min-width: 86px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: #334155;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  user-select: none;
+}
+
+.tf-btn i {
+  font-size: 0.85rem;
+}
+
+.tf-btn:hover {
+  background: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.tf-btn-true:hover {
+  color: #2d5a27;
+  border-color: rgba(45, 90, 39, 0.3);
+}
+
+.tf-btn-false:hover {
+  color: #c0392b;
+  border-color: rgba(192, 57, 43, 0.3);
+}
+
+/* Selected States */
+.tf-btn.selected,
+.tf-btn-true.selected {
+  background: #2d5a27 !important;
+  color: #ffffff !important;
+  border-color: #2d5a27 !important;
+  box-shadow: 0 3px 10px rgba(45, 90, 39, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.tf-btn-false.selected {
+  background: #c0392b !important;
+  color: #ffffff !important;
+  border-color: #c0392b !important;
+  box-shadow: 0 3px 10px rgba(192, 57, 43, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+body.theme-sunset .tf-btn-true.selected {
+  background: #2d5a27 !important;
+  border-color: #2d5a27 !important;
+  color: #ffffff !important;
+}
+
+body.theme-sunset .tf-btn-false.selected {
+  background: #c0744e !important;
+  border-color: #c0744e !important;
+  color: #ffffff !important;
+}
+
+body.theme-night .tf-btn-group {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.theme-night .tf-btn {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+body.theme-night .tf-btn:hover {
+  background: #334155;
+}
+
+body.theme-night .tf-btn-true.selected {
+  background: #22c55e !important;
+  color: #0f172a !important;
+  border-color: #22c55e !important;
+}
+
+body.theme-night .tf-btn-false.selected {
+  background: #f87171 !important;
+  color: #0f172a !important;
+  border-color: #f87171 !important;
+}
+
+/* ==========================================================================
+   Kodama Mascot & Pomodoro Timer Widget
+   ========================================================================== */
+
+#mascotWidget,
+.ghibli-mascot-container {
+  position: fixed !important;
+  bottom: 28px !important;
+  right: 28px !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  gap: 16px !important;
+}
+
+.mascot-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mascot-avatar {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+  transform: none;
+  animation: mascot-float 4s ease-in-out infinite alternate;
+  transition: transform 0.2s ease;
+}
+
+.mascot-avatar:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+@keyframes mascot-float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+#mascotBubble,
+.mascot-speech-bubble {
+  position: relative;
+  min-width: 260px;
+  max-width: 320px;
+  background: var(--ghibli-card-bg);
+  border: 2px solid var(--ghibli-accent-gold);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ghibli-text-main);
+  display: none;
+  animation: bubble-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#mascotBubble::after,
+.mascot-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 24px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--ghibli-accent-gold);
+}
+
+@keyframes bubble-pop {
+  0% { opacity: 0; transform: scale(0.7) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Pomodoro Pill */
+.pomodoro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(20, 30, 25, 0.85);
+  color: #ffffff;
+  border: 2px solid var(--ghibli-accent-gold);
+  border-radius: var(--radius-pill);
+  font-family: monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.pomodoro-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(229, 169, 60, 0.4);
+}
+
+.pomodoro-pill.break-mode {
+  border-color: var(--ghibli-accent-amber);
+  background: rgba(45, 20, 10, 0.85);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .ghibli-container {
+    padding: 16px 12px 140px 12px;
+  }
+
+  .ghibli-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ghibli-header-actions {
+    justify-content: space-between;
+  }
+
+  .matching-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .mc-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #mascotWidget {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  #mascotBubble {
+    max-width: 260px;
+  }
+}
+
+/* ==========================================================================
+   Full-Width & Expandable Input Rules (Prevents text clipping in Ex 3.2 & cards)
+   ========================================================================== */
+.fill-blank-item .ghibli-input {
+  min-width: 200px !important;
+  flex: 2 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 1.05rem !important;
+  padding: 10px 16px !important;
+}
+
+.ghibli-char-card .ghibli-input-wrap .ghibli-input,
+.everyday-grid .ghibli-input {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 1rem !important;
+  padding: 8px 12px !important;
+}
+
+.ghibli-input-sentence,
+.ex32-sentence-input {
+  width: 100% !important;
+  min-width: 280px !important;
+  box-sizing: border-box !important;
+  font-size: 1.05rem !important;
+  padding: 10px 16px !important;
+  letter-spacing: 0.2px;
+}
+
+/* Explicit Inline Gap Fill Inputs Rule (Fixes Clipping in Ex 3.4, Ex 6.5 & multi-gap cards) */
+.ghibli-input.ghibli-inline-input,
+.ghibli-sentence-text .ghibli-input,
+.ghibli-prompt-text .ghibli-input.ghibli-inline-input,
+.item-text .ghibli-input,
+.fill-blank-item .item-text .ghibli-input {
+  width: auto !important;
+  min-width: 60px !important;
+  max-width: 240px !important;
+  display: inline-block !important;
+  flex: none !important;
+  margin: 0 4px !important;
+  padding: 4px 10px !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  font-size: 1.02rem !important;
+  border-radius: 8px !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
+  height: 38px !important;
+  line-height: normal !important;
+}
+
+.ghibli-input.ghibli-inline-input.short-gap,
+.ghibli-sentence-text .ghibli-input.short-gap,
+.item-text .ghibli-input.short-gap {
+  width: 72px !important;
+  min-width: 60px !important;
+  max-width: 90px !important;
+  padding: 4px 6px !important;
+}
+
+.ghibli-card-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.ghibli-sentence-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ghibli-text-main, #2b261f);
+  line-height: 2.2;
+  margin-bottom: 8px;
+  word-break: normal;
+}
+
+.fill-blank-item .item-text {
+  line-height: 2.2 !important;
+}
+
+.ghibli-input.example-input {
+  border-color: #2d5a27 !important;
+  background: rgba(45, 90, 39, 0.12) !important;
+  font-weight: 700 !important;
+  color: #2d5a27 !important;
+}
+
+.ghibli-char-grid.ex32-grid {
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)) !important;
+  gap: 24px !important;
+}
+
+@media (max-width: 768px) {
+  .ghibli-char-grid.ex32-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .fill-blank-item {
+    flex-wrap: wrap !important;
+  }
+  .fill-blank-item .ghibli-input {
+    width: 100% !important;
+    min-width: 100% !important;
+    margin-top: 8px !important;
+  }
+}
+
+/* ==========================================================================
+   Studio Ghibli Family Tree Component (Page 18 • Exercise 4.1)
+   ========================================================================== */
+
+.ghibli-family-word-bank {
+  background: var(--ghibli-card-bg, rgba(255, 253, 245, 0.95)) !important;
+  border: 2px dashed var(--ghibli-accent-green, #48825c) !important;
+  border-radius: var(--radius-lg, 20px) !important;
+  padding: 18px 24px !important;
+  margin-bottom: 24px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+.family-word-chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(45, 90, 39, 0.1);
+  color: #2d5a27;
+  border: 1.5px solid rgba(45, 90, 39, 0.3);
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+body.theme-night .family-word-chip {
+  background: rgba(72, 130, 92, 0.25);
+  color: #82e0a1;
+  border-color: rgba(130, 224, 161, 0.4);
+}
+
+.family-word-chip.example-chip {
+  background: #2d5a27;
+  color: #fff;
+  border-color: #1e3f1a;
+}
+
+.ghibli-family-tree-canvas {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 252, 243, 0.96), rgba(244, 238, 222, 0.92));
+  border: 3px solid #6b533a;
+  border-radius: 28px;
+  padding: 32px 20px;
+  box-shadow: 0 10px 30px rgba(43, 38, 31, 0.12);
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+body.theme-night .ghibli-family-tree-canvas {
+  background: linear-gradient(135deg, rgba(20, 32, 44, 0.96), rgba(15, 23, 32, 0.94));
+  border-color: #48825c;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+}
+
+.tree-gen-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.tree-gen-title {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #5c442d;
+  background: rgba(220, 202, 175, 0.45);
+  padding: 4px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(107, 83, 58, 0.25);
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body.theme-night .tree-gen-title {
+  color: #e2d7c3;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tree-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.tree-couple {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px dashed rgba(107, 83, 58, 0.35);
+  border-radius: 24px;
+  padding: 12px 16px;
+  position: relative;
+}
+
+body.theme-night .tree-couple {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.tree-node {
+  width: 165px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: none !important;
+  transition: transform 0.25s ease;
+  position: relative;
+}
+
+.tree-node:hover {
+  transform: translateY(-4px);
+}
+
+.tree-node.example-card,
+.tree-node.hero-node {
+  background: transparent !important;
+  border: none !important;
+}
+
+body.theme-night .tree-node {
+  background: transparent !important;
+  border: none !important;
+  color: #fff;
+}
+
+.tree-avatar-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 130px;
+  margin-bottom: 8px;
+}
+
+.tree-avatar {
+  height: 125px;
+  width: auto;
+  max-width: 140px;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
+}
+
+.tree-node.hero-node .tree-avatar {
+  filter: drop-shadow(0 4px 12px rgba(193, 127, 78, 0.4));
+}
+
+.tree-audio-btn-wrap {
+  position: absolute;
+  top: 4px;
+  right: -12px;
+}
+
+.tree-marriage-heart {
+  color: #e63946;
+  font-size: 1.1rem;
+  padding: 0 4px;
+  filter: drop-shadow(0 2px 4px rgba(230, 57, 70, 0.3));
+}
+
+/* Precise Household Branch Cards & Tags */
+.tree-couple-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px dashed rgba(107, 83, 58, 0.35);
+  border-radius: 24px;
+  padding: 14px 20px;
+}
+
+body.theme-night .tree-couple-box {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.marriage-badge-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.marriage-badge {
+  background: rgba(230, 57, 70, 0.12);
+  color: #c1272d;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(230, 57, 70, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body.theme-night .marriage-badge {
+  background: rgba(230, 57, 70, 0.25);
+  color: #ff7b88;
+}
+
+.gen2-wide-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.family-branch-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2.5px solid #6b533a;
+  border-radius: 24px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+body.theme-night .family-branch-card {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: #48825c;
+}
+
+.family-branch-card.hero-branch {
+  border-color: #c17f4e;
+  background: rgba(253, 246, 237, 0.95);
+}
+
+body.theme-night .family-branch-card.hero-branch {
+  background: rgba(45, 30, 20, 0.9);
+  border-color: #c17f4e;
+}
+
+.branch-header {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #5c442d;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+body.theme-night .branch-header {
+  color: #e2d7c3;
+}
+
+.branch-header.hero-header {
+  color: #c17f4e;
+}
+
+.branch-couple {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marriage-mini-link {
+  color: #e63946;
+  font-size: 1.2rem;
+  padding: 0 4px;
+}
+
+.in-law-tag {
+  background: #785a3c;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.blood-tag {
+  background: #2d5a27;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.blood-tag.hero-tag {
+  background: #c17f4e;
+}
+
+.brother-sibling-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sibling-link-badge {
+  background: #2d5a27;
+  color: #ffffff;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 8px rgba(45, 90, 39, 0.2);
+}
+
+/* Tree Descent Connectors with Labels */
+.tree-descent-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: -6px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.descent-stem-top {
+  width: 3px;
+  height: 32px;
+  background: #2d5a27;
+  border-radius: 2px;
+  margin-top: -8px;
+}
+
+body.theme-night .descent-stem-top,
+body.theme-night .descent-fork-bar,
+body.theme-night .stem-down {
+  background: #48825c;
+}
+
+.descent-fork-bar {
+  height: 3px;
+  background: #2d5a27;
+  border-radius: 2px;
+}
+
+.tree-descent-connector.gen1-to-gen2 {
+  margin-left: 90px;
+}
+
+.descent-fork-bar.bar-gen1-to-gen2 {
+  width: 280px;
+  margin-left: 85px;
+}
+
+.descent-stems-pair.pair-gen1-to-gen2 {
+  width: 280px;
+  margin-left: 85px;
+}
+
+.tree-descent-connector.align-parents-branch {
+  margin-left: -190px;
+}
+
+.tree-descent-connector.align-parents-branch .descent-fork-bar.bar-mid,
+.tree-descent-connector.align-parents-branch .descent-stems-pair.pair-mid {
+  width: 410px;
+  margin-left: -60px;
+}
+
+.tree-descent-connector.align-pablo-branch {
+  margin-left: 140px;
+}
+
+.tree-descent-connector.align-pablo-branch .descent-fork-bar.bar-narrow,
+.tree-descent-connector.align-pablo-branch .descent-stems-pair.pair-narrow {
+  width: 280px;
+  margin-left: 160px;
+}
+
+.gen4-row {
+  margin-left: 120px;
+}
+
+.tree-descent-connector.align-daughter-branch .descent-stem-top {
+  margin-left: 80px;
+}
+
+.gen5-row {
+  margin-left: -60px;
+}
+
+.tree-descent-connector.align-daughter-branch .descent-fork-bar.bar-narrow,
+.tree-descent-connector.align-daughter-branch .descent-stems-pair.pair-narrow {
+  width: 200px;
+  margin-left: 0px;
+}
+
+.descent-fork-bar.bar-wide,
+.descent-stems-pair.pair-wide {
+  width: 480px;
+  max-width: 90%;
+}
+
+.descent-fork-bar.bar-mid,
+.descent-stems-pair.pair-mid {
+  width: 280px;
+  max-width: 80%;
+}
+
+.descent-fork-bar.bar-narrow,
+.descent-stems-pair.pair-narrow {
+  width: 200px;
+}
+
+.descent-stems-pair {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stem-down {
+  width: 3px;
+  height: 16px;
+  background: #2d5a27;
+  border-radius: 2px;
+}
+
+.given-role-badge {
+  display: inline-block;
+  background: #2d5a27;
+  color: #ffffff;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 14px;
+  margin-top: 6px;
+  text-transform: lowercase;
+}
+
+.given-role-badge.hero-badge {
+  background: #c17f4e;
+  font-weight: 800;
+}
+
+/* Floating Check Answers Button */
+.ghibli-floating-check-btn {
+  position: fixed !important;
+  bottom: 28px !important;
+  left: 28px !important;
+  z-index: 99999 !important;
+  background: linear-gradient(135deg, #2d5a27, #1b4315) !important;
+  color: #ffffff !important;
+  font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  padding: 14px 26px !important;
+  border-radius: 35px !important;
+  border: 2.5px solid #a3c99e !important;
+  box-shadow: 0 10px 30px rgba(45, 90, 39, 0.45), 0 0 15px rgba(163, 201, 158, 0.3) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
+}
+
+.ghibli-floating-check-btn i {
+  font-size: 1.2rem !important;
+  color: #a3e635 !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+.ghibli-floating-check-btn:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow: 0 14px 35px rgba(45, 90, 39, 0.6), 0 0 22px rgba(163, 201, 158, 0.6) !important;
+  background: linear-gradient(135deg, #376d30, #22521b) !important;
+  border-color: #bef264 !important;
+}
+
+.ghibli-floating-check-btn:active {
+  transform: translateY(-1px) scale(0.98) !important;
+}
+
+@media (max-width: 768px) {
+  .ghibli-floating-check-btn {
+    bottom: 18px !important;
+    left: 18px !important;
+    padding: 10px 18px !important;
+    font-size: 0.92rem !important;
+  }
+}
+
+/* ==========================================================================
+   Sentence Ordering & Enhanced Drag and Drop Workspace
+   ========================================================================== */
+
+.ghibli-ordering-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  background: var(--ghibli-card-bg, rgba(255, 255, 255, 0.95));
+  border-radius: 18px;
+  border: 2px solid var(--ghibli-border, #e2d7c3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 22px;
+  transition: all 0.25s ease;
+}
+
+body.theme-night .ghibli-ordering-container {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: #334155;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ordering-zone-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.ordering-zone-label {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ghibli-accent-amber, #d97706);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ordering-zone-label.drop-label {
+  color: var(--ghibli-accent-green, #2d5a27);
+}
+
+body.theme-night .ordering-zone-label {
+  color: #fbbf24;
+}
+
+body.theme-night .ordering-zone-label.drop-label {
+  color: #4ade80;
+}
+
+.ordering-zone-label .zone-hint {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--ghibli-text-muted, #64748b);
+  opacity: 0.85;
+}
+
+/* Word Pool / Bank (HORIZONTAL ROW) */
+.ghibli-ordering-container .word-pool,
+.word-pool {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 14px 16px !important;
+  background: rgba(245, 240, 230, 0.6) !important;
+  border: 2px dashed rgba(200, 185, 160, 0.8) !important;
+  border-radius: 14px !important;
+  min-height: 58px !important;
+  width: 100% !important;
+  transition: all 0.25s ease;
+}
+
+body.theme-night .ghibli-ordering-container .word-pool,
+body.theme-night .word-pool {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-color: rgba(71, 85, 105, 0.8) !important;
+}
+
+.word-pool.drag-over {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Sentence Drop Slot (HORIZONTAL LEFT-TO-RIGHT ROW) */
+.ghibli-ordering-container .ghibli-drop-slot,
+.ghibli-drop-slot.sentence-slot,
+.drop-slot-wrap .ghibli-drop-slot {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 14px 16px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2.5px dashed #2d5a27 !important;
+  border-radius: 14px !important;
+  min-height: 60px !important;
+  width: 100% !important;
+  position: relative !important;
+  margin-top: 0 !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.theme-night .ghibli-ordering-container .ghibli-drop-slot,
+body.theme-night .ghibli-drop-slot.sentence-slot,
+body.theme-night .drop-slot-wrap .ghibli-drop-slot {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: #4ade80 !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ghibli-ordering-container .ghibli-drop-slot.drag-over,
+.ghibli-drop-slot.sentence-slot.drag-over {
+  background: rgba(45, 90, 39, 0.15) !important;
+  border-color: #16a34a !important;
+  border-style: solid !important;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), inset 0 0 12px rgba(34, 197, 94, 0.15) !important;
+  transform: scale(1.01);
+}
+
+.ghibli-ordering-container .ghibli-drop-slot.correct,
+.ghibli-drop-slot.sentence-slot.correct {
+  border: 2.5px solid #16a34a !important;
+  background: rgba(34, 197, 94, 0.12) !important;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.35) !important;
+}
+
+.ghibli-ordering-container .ghibli-drop-slot.incorrect,
+.ghibli-drop-slot.sentence-slot.incorrect {
+  border: 2.5px solid #ef4444 !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* Empty Drop Placeholder */
+.drop-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  color: var(--ghibli-text-muted, #64748b);
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.drop-placeholder i {
+  font-size: 1.1rem;
+  color: #2d5a27;
+}
+
+body.theme-night .drop-placeholder i {
+  color: #4ade80;
+}
+
+.ghibli-drop-slot:has(.word-chip) .drop-placeholder,
+.ghibli-drop-slot.has-chips .drop-placeholder {
+  display: none !important;
+}
+
+/* Word Chips (ALWAYS HORIZONTAL INLINE PILL BUTTONS) */
+.word-chip {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: fit-content !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  padding: 9px 18px !important;
+  background: #eef2ff !important;
+  color: #312e81 !important;
+  border: 2px solid #c7d2fe !important;
+  border-radius: 14px !important;
+  font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  cursor: grab !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  box-shadow: 0 3px 8px rgba(49, 46, 129, 0.08) !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+.word-chip:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 6px 14px rgba(49, 46, 129, 0.16) !important;
+  border-color: #818cf8 !important;
+  background: #e0e7ff !important;
+}
+
+.word-chip:active {
+  cursor: grabbing !important;
+  transform: scale(0.97) !important;
+}
+
+.word-chip.is-dragging {
+  opacity: 0.35 !important;
+  cursor: grabbing !important;
+  transform: scale(0.95) !important;
+  box-shadow: none !important;
+}
+
+/* Chips inside Drop Slot (Active Placed Look) */
+.ghibli-drop-slot .word-chip {
+  background: #f0fdf4 !important;
+  color: #14532d !important;
+  border-color: #86efac !important;
+  box-shadow: 0 3px 8px rgba(20, 83, 45, 0.1) !important;
+}
+
+.ghibli-drop-slot .word-chip:hover {
+  border-color: #22c55e !important;
+  background: #dcfce7 !important;
+  box-shadow: 0 6px 14px rgba(20, 83, 45, 0.2) !important;
+}
+
+body.theme-night .word-chip {
+  background: #1e1b4b !important;
+  color: #e0e7ff !important;
+  border-color: #4338ca !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.theme-night .word-chip:hover {
+  background: #312e81 !important;
+  border-color: #6366f1 !important;
+}
+
+body.theme-night .ghibli-drop-slot .word-chip {
+  background: #064e3b !important;
+  color: #d1fae5 !important;
+  border-color: #059669 !important;
+}
+
+body.theme-night .ghibli-drop-slot .word-chip:hover {
+  background: #047857 !important;
+  border-color: #10b981 !important;
+}
+
+/* Item Reset Mini Button */
+.ghibli-order-reset-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1.5px solid var(--ghibli-border, #cbd5e1);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--ghibli-text-muted, #64748b);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.ghibli-order-reset-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border-color: #fca5a5;
+  transform: translateY(-1px);
+}
+
+body.theme-night .ghibli-order-reset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #475569;
+  color: #94a3b8;
+}
+
+body.theme-night .ghibli-order-reset-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: #ef4444;
+}
+
+/* ==========================================================================
+   Book-Accurate 2-Column Rewrite Exercise
+   ========================================================================== */
+.book-rewrite-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+.book-table-header-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 140px;
+  gap: 16px;
+  padding: 10px 18px;
+  background: rgba(45, 90, 39, 0.1);
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: #2d5a27;
+  text-transform: uppercase;
+  align-items: center;
+}
+body.theme-night .book-table-header-row {
+  background: rgba(255, 255, 255, 0.08);
+  color: #a7f3d0;
+}
+.book-th-meta { text-align: center; }
+.book-th-tools { text-align: center; }
+.book-rewrite-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 140px;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  border: 1.5px solid rgba(45, 90, 39, 0.16);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+body.theme-night .book-rewrite-row {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+.book-rewrite-row:hover {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(45, 90, 39, 0.4);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.1);
+  transform: translateY(-1px);
+}
+body.theme-night .book-rewrite-row:hover {
+  background: rgba(30, 41, 59, 0.98);
+  border-color: rgba(167, 243, 208, 0.3);
+}
+.book-rewrite-row.example-row {
+  background: rgba(45, 90, 39, 0.07);
+  border: 2px solid #2d5a27;
+  box-shadow: 0 4px 16px rgba(45, 90, 39, 0.12);
+}
+body.theme-night .book-rewrite-row.example-row {
+  background: rgba(45, 90, 39, 0.25);
+  border-color: #52a290;
+}
+.book-row-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.book-row-meta .ghibli-avatar-wrap {
+  width: 56px;
+  height: 56px;
+}
+.book-row-meta .ghibli-avatar-img {
+  width: 56px;
+  height: 56px;
+  max-width: 56px;
+  max-height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(45, 90, 39, 0.35);
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.book-row-meta .book-item-img {
+  object-fit: contain;
+  padding: 5px;
+  background: #ffffff;
+}
+.item-index-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: #2d5a27;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(45,90,39,0.3);
+}
+.book-cell {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 4px 12px;
+  border-bottom: 2.5px solid #4a8b79;
+  border-radius: 6px 6px 0 0;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+  position: relative;
+}
+body.theme-night .book-cell {
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: #52a290;
+}
+.book-cell-given .book-line-text {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #2b261f;
+  line-height: 1.4;
+}
+body.theme-night .book-cell-given .book-line-text {
+  color: #f1f5f9;
+}
+.book-cell .book-line-input {
+  width: 100%;
+  border: none !important;
+  background: transparent !important;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #1b4315;
+  padding: 6px 4px;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: inherit;
+}
+body.theme-night .book-cell .book-line-input {
+  color: #a7f3d0;
+}
+.book-cell .book-line-input::placeholder {
+  color: #8c857b;
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+body.theme-night .book-cell .book-line-input::placeholder {
+  color: #94a3b8;
+}
+.book-cell .book-line-input.example-input {
+  color: #2d5a27;
+  font-style: italic;
+  font-weight: 700;
+}
+body.theme-night .book-cell .book-line-input.example-input {
+  color: #6ee7b7;
+}
+.book-cell:focus-within {
+  border-bottom-color: #2d5a27;
+  border-bottom-width: 3px;
+  background: rgba(45, 90, 39, 0.08);
+}
+body.theme-night .book-cell:focus-within {
+  border-bottom-color: #6ee7b7;
+  background: rgba(255, 255, 255, 0.08);
+}
+.book-cell .book-line-input.correct {
+  background: rgba(45, 90, 39, 0.12) !important;
+  color: #1a4f15 !important;
+  border-radius: 4px;
+}
+.book-cell .book-line-input.incorrect {
+  background: rgba(184, 51, 42, 0.12) !important;
+  color: #8b1e16 !important;
+  border-radius: 4px;
+}
+.book-row-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.book-row-tools .ghibli-audio-play-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e5a93c;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(229, 169, 60, 0.35);
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+.book-row-tools .ghibli-audio-play-btn:hover {
+  transform: scale(1.1);
+  background: #d49526;
+}
+.book-row-tools .voice-recorder-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  justify-content: center;
+}
+.book-row-tools .voice-btn {
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  border-radius: 8px;
+}
+@media (max-width: 860px) {
+  .book-table-header-row {
+    display: none;
+  }
+  .book-rewrite-row {
+    grid-template-columns: 60px 1fr;
+    gap: 12px;
+  }
+  .book-row-columns-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    grid-column: 2;
+  }
+  .book-row-tools {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top: 1px dashed rgba(45,90,39,0.2);
+    padding-top: 8px;
+  }
+}
+
+/* ==========================================================================
+   Live Sentence Mirroring for Fill-in-the-Blank Exercises
+   ========================================================================== */
+.ghibli-mirrored-blank {
+  display: inline-block;
+  min-width: 48px;
+  padding: 2px 10px;
+  margin: 0 4px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  vertical-align: baseline;
+  line-height: 1.3;
+}
+
+.ghibli-mirrored-blank.placeholder {
+  color: #8b7355;
+  border-bottom: 2.5px dashed #2d5a27;
+  background: rgba(45, 90, 39, 0.05);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.ghibli-mirrored-blank.has-value {
+  color: #1a4d2e;
+  background: rgba(45, 90, 39, 0.12);
+  border: 1.5px solid rgba(45, 90, 39, 0.35);
+  border-bottom: 2.5px solid #2d5a27;
+  box-shadow: 0 2px 6px rgba(45, 90, 39, 0.1);
+  transform: translateY(-1px);
+}
+
+.ghibli-mirrored-blank.correct {
+  color: #15803d !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+  border-color: #22c55e !important;
+  border-bottom: 2.5px solid #16a34a !important;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.25) !important;
+}
+
+.ghibli-mirrored-blank.incorrect {
+  color: #b91c1c !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  border-bottom: 2.5px solid #dc2626 !important;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25) !important;
+}
+
+.ghibli-clue-hint {
+  color: #8b7355;
+  font-size: 0.9em;
+  font-weight: 500;
+  margin-left: 4px;
+  transition: opacity 0.2s ease;
+}
+
+/* Sunset Theme */
+body.theme-sunset .ghibli-mirrored-blank.placeholder {
+  color: #a05a2c;
+  border-bottom-color: #b8500b;
+  background: rgba(184, 80, 11, 0.06);
+}
+
+body.theme-sunset .ghibli-mirrored-blank.has-value {
+  color: #853b05;
+  background: rgba(184, 80, 11, 0.12);
+  border-color: rgba(184, 80, 11, 0.35);
+  border-bottom: 2.5px solid #b8500b;
+}
+
+body.theme-sunset .ghibli-clue-hint {
+  color: #a05a2c;
+}
+
+/* Night Theme */
+body.theme-night .ghibli-mirrored-blank.placeholder {
+  color: #94a3b8;
+  border-bottom-color: #e5a93c;
+  background: rgba(229, 169, 60, 0.08);
+}
+
+body.theme-night .ghibli-mirrored-blank.has-value {
+  color: #f8fafc;
+  background: rgba(229, 169, 60, 0.18);
+  border-color: rgba(229, 169, 60, 0.45);
+  border-bottom: 2.5px solid #e5a93c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-night .ghibli-clue-hint {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   Interactive Connecting & Line-Matching Exercise (e.g. Page 28 Ex 8.6)
+   ========================================================================== */
+.ghibli-connecting-container {
+  position: relative;
+  background: var(--ghibli-card-bg, rgba(255, 253, 245, 0.95));
+  border: 1.5px solid var(--ghibli-border, #e2d7c3);
+  border-radius: var(--radius-lg, 20px);
+  padding: 28px 24px;
+  box-shadow: var(--ghibli-shadow, 0 10px 30px rgba(44, 74, 56, 0.1));
+  overflow: visible;
+  margin-top: 12px;
+}
+
+.ghibli-connecting-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.connecting-line {
+  fill: none;
+  stroke: var(--ghibli-accent-gold, #e5a93c);
+  stroke-width: 3.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.connecting-line.example-line {
+  stroke: #3d7ea6;
+  stroke-width: 3px;
+  stroke-dasharray: 6, 5;
+  opacity: 0.85;
+}
+
+.connecting-line.user-line {
+  stroke: #d97724;
+  stroke-width: 3.5px;
+}
+
+.connecting-line.line-correct {
+  stroke: #2e7d32 !important;
+  stroke-width: 4px !important;
+}
+
+.connecting-line.line-incorrect {
+  stroke: #c62828 !important;
+  stroke-dasharray: 5, 4 !important;
+  stroke-width: 3.5px !important;
+}
+
+.connecting-columns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .connecting-columns-grid {
+    gap: 32px;
+  }
+}
+
+.connecting-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.column-header {
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(45, 90, 39, 0.15);
+  margin-bottom: 6px;
+}
+
+.column-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--ghibli-text-main, #2b261f);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.connecting-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  min-height: 52px;
+  background: #ffffff;
+  border: 2px solid var(--ghibli-border, #e2d7c3);
+  border-radius: var(--radius-pill, 50px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.connecting-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ghibli-accent-gold, #e5a93c);
+  box-shadow: 0 6px 16px rgba(229, 169, 60, 0.2);
+}
+
+.connecting-card.active-source {
+  border-color: var(--ghibli-accent-amber, #d97724);
+  background: rgba(217, 119, 36, 0.08);
+  box-shadow: 0 0 0 3px rgba(217, 119, 36, 0.25), 0 4px 12px rgba(217, 119, 36, 0.2);
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 2px rgba(217, 119, 36, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(217, 119, 36, 0.15); }
+  100% { box-shadow: 0 0 0 2px rgba(217, 119, 36, 0.3); }
+}
+
+.connecting-card.is-connected {
+  border-color: var(--ghibli-accent-green, #48825c);
+  background: rgba(72, 130, 92, 0.06);
+}
+
+.connecting-card.example-card {
+  background: rgba(61, 126, 166, 0.08);
+  border-color: #3d7ea6;
+  cursor: default;
+}
+
+.connecting-card.connected-correct {
+  border-color: #2e7d32 !important;
+  background: rgba(46, 125, 50, 0.12) !important;
+}
+
+.connecting-card.connected-incorrect {
+  border-color: #c62828 !important;
+  background: rgba(198, 40, 40, 0.12) !important;
+}
+
+.connecting-card.unattempted-pulse {
+  border-color: #d97724 !important;
+  animation: pulse-border 1.5s infinite;
+}
+
+.connecting-card .ghibli-audio-play-btn {
+  position: static;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ghibli-accent-green, #2d5a27);
+  color: #ffffff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(45, 90, 39, 0.25);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.connecting-card .ghibli-audio-play-btn:hover {
+  transform: scale(1.15);
+  background: var(--ghibli-accent-amber, #d97724);
+  box-shadow: 0 3px 10px rgba(217, 119, 36, 0.35);
+}
+
+.connecting-card .ghibli-audio-play-btn i {
+  margin-left: 2px;
+}
+
+.item-index-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--ghibli-accent-green, #2d5a27);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.example-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #3d7ea6;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.connecting-card .word-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ghibli-text-main, #2b261f);
+  letter-spacing: 0.3px;
+}
+
+.anchor-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid var(--ghibli-border, #e2d7c3);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.25s ease;
+  z-index: 12;
+}
+
+.anchor-dot.right-dot {
+  right: -8px;
+}
+
+.anchor-dot.left-dot {
+  left: -8px;
+}
+
+.connecting-card:hover .anchor-dot {
+  border-color: var(--ghibli-accent-gold, #e5a93c);
+  transform: translateY(-50%) scale(1.25);
+  background: var(--ghibli-accent-gold, #e5a93c);
+}
+
+.connecting-card.active-source .anchor-dot {
+  border-color: var(--ghibli-accent-amber, #d97724);
+  background: var(--ghibli-accent-amber, #d97724);
+  box-shadow: 0 0 10px rgba(217, 119, 36, 0.6);
+}
+
+.connecting-card.is-connected .anchor-dot {
+  border-color: var(--ghibli-accent-green, #48825c);
+  background: var(--ghibli-accent-green, #48825c);
+}
+
+.connecting-card.example-card .anchor-dot {
+  border-color: #3d7ea6;
+  background: #3d7ea6;
+}
+
+.connecting-card.connected-correct .anchor-dot {
+  border-color: #2e7d32 !important;
+  background: #2e7d32 !important;
+}
+
+.connecting-card.connected-incorrect .anchor-dot {
+  border-color: #c62828 !important;
+  background: #c62828 !important;
+}
+
+/* Night Mode Overrides */
+body.theme-night .ghibli-connecting-container {
+  background: rgba(20, 32, 44, 0.94);
+  border-color: #334155;
+}
+
+body.theme-night .connecting-card {
+  background: #1e2c38;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+body.theme-night .connecting-card .word-text {
+  color: #ffffff;
+}
+
+body.theme-night .anchor-dot {
+  background: #1e2c38;
+  border-color: #475569;
+}
