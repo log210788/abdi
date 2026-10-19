@@ -101,7 +101,7 @@
 
   function restoreHomeworkState() {
     try {
-      const savedName = localStorage.getItem(STORAGE_KEY_NAME) || localStorage.getItem('ghibli_student_name') || '';
+      const savedName = localStorage.getItem(STORAGE_KEY_NAME) || localStorage.getItem('ghibli_student_name') || 'Abdi';
       const savedNote = localStorage.getItem(STORAGE_KEY_NOTE) || '';
       const topName = document.getElementById('hwStudentNameTop');
       const botName = document.getElementById('hwStudentNameBottom');
