@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animal Flashcard Game • Unit 1 Pets & Animals | Teacher Lewis's Practice Book</title>
+
+  <!-- Early Theme Init to prevent white flash (FOUC) -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('ghibli_theme') || 'day';
+        if (t !== 'day') document.documentElement.className = 'theme-' + t;
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Local Stylesheets -->
+  <link rel="stylesheet" href="ghibli_page12.css">
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <!-- External Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       Animal Flashcard Studio - Custom Styles
+       ========================================================================== */
+    .flashcard-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 30px;
+      background: var(--ghibli-card-bg, rgba(255, 253, 245, 0.96));
+      border: 2px solid var(--ghibli-border, #e2d7c3);
+      border-radius: 24px;
+      box-shadow: var(--ghibli-shadow);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .mode-tabs-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 24px;
+      background: var(--ghibli-card-bg);
+      padding: 10px;
+      border-radius: 20px;
+      border: 2px solid var(--ghibli-border);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .mode-tab-btn {
+      flex: 1;
+      min-width: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      background: transparent;
+      color: var(--ghibli-text-muted);
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .mode-tab-btn:hover {
+      background: rgba(72, 130, 92, 0.1);
+      color: var(--ghibli-text-main);
+      transform: translateY(-1px);
+    }
+
+    .mode-tab-btn.active {
+      background: linear-gradient(135deg, #2d5a27, #48825c);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(45, 90, 39, 0.3);
+    }
+
+    /* Stats & Toolbar Row */
+    .game-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 14px 20px;
+      background: var(--ghibli-card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--ghibli-border);
+    }
+
+    .stat-pills-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: rgba(72, 130, 92, 0.12);
+      color: var(--ghibli-text-main);
+      border: 1px solid rgba(72, 130, 92, 0.25);
+    }
+
+    .stat-pill.gold {
+      background: rgba(229, 169, 60, 0.16);
+      border-color: rgba(229, 169, 60, 0.4);
+      color: #b7791f;
+    }
+
+    body.theme-night .stat-pill.gold {
+      color: #fbd38d;
+    }
+
+    .stat-pill.success {
+      background: rgba(46, 125, 50, 0.15);
+      border-color: rgba(46, 125, 50, 0.35);
+      color: #2e7d32;
+    }
+
+    body.theme-night .stat-pill.success {
+      color: #81c784;
+    }
+
+    .toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-ctrl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--ghibli-border);
+      background: var(--ghibli-parchment);
+      color: var(--ghibli-text-main);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mini-ctrl-btn:hover {
+      border-color: var(--ghibli-accent-green);
+      transform: translateY(-1px);
+    }
+
+    .mini-ctrl-btn.active {
+      background: rgba(72, 130, 92, 0.18);
+      border-color: #2d5a27;
+      color: #2d5a27;
+    }
+
+    body.theme-night .mini-ctrl-btn.active {
+      color: #81c784;
+      border-color: #81c784;
+    }
+
+    /* ==========================================================================
+       MODE 1: 3D FLIP FLASHCARD STAGE
+       ========================================================================== */
+    .flashcard-stage-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .flashcard-scene {
+      width: 100%;
+      max-width: 580px;
+      height: 430px;
+      perspective: 1400px;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .flashcard-3d {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.62s cubic-bezier(0.34, 1.45, 0.64, 1);
+      border-radius: 28px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
+    }
+
+    .flashcard-3d.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 28px;
+      background: var(--ghibli-card-bg, #ffffff);
+      border: 3px solid var(--ghibli-border, #e2d7c3);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .flashcard-face::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #2d5a27, #e5a93c, #48825c);
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+      border-color: #48825c;
+    }
+
+    .card-top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-index-badge {
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: rgba(45, 90, 39, 0.12);
+      color: var(--ghibli-text-main);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .card-status-tag {
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-status-tag.mastered {
+      background: rgba(46, 125, 50, 0.16);
+      color: #2e7d32;
+    }
+
+    .card-status-tag.learning {
+      background: rgba(229, 169, 60, 0.2);
+      color: #b7791f;
+    }
+
+    .card-status-tag.unseen {
+      background: rgba(100, 116, 139, 0.14);
+      color: var(--ghibli-text-muted);
+    }
+
+    .card-image-box {
+      width: 100%;
+      max-width: 340px;
+      height: 235px;
+      background: #ffffff;
+      border-radius: 22px;
+      border: 2px solid rgba(45, 90, 39, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.03);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .flashcard-scene:hover .card-image-box {
+      transform: scale(1.02);
+    }
+
+    .card-image-box img {
+      max-width: 92%;
+      max-height: 92%;
+      object-fit: contain;
+      transition: all 0.25s ease;
+    }
+
+    .card-flip-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--ghibli-text-muted);
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 99px;
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    body.theme-night .card-flip-hint {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Back of Flashcard */
+    .back-content-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .back-thumb-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .back-mini-img {
+      width: 84px;
+      height: 84px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid rgba(45, 90, 39, 0.2);
+      padding: 8px;
+      object-fit: contain;
+    }
+
+    .animal-word-title {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2d5a27;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    body.theme-night .animal-word-title {
+      color: #81c784;
+    }
+
+    .animal-ipa {
+      font-size: 1.05rem;
+      color: var(--ghibli-text-muted);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .animal-grammar-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .grammar-chip {
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(72, 130, 92, 0.12);
+      color: var(--ghibli-text-main);
+      border: 1px solid rgba(72, 130, 92, 0.25);
+    }
+
+    .animal-sentence-box {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(45, 90, 39, 0.07);
+      border: 1px dashed rgba(45, 90, 39, 0.3);
+      font-size: 0.98rem;
+      color: var(--ghibli-text-main);
+      font-style: italic;
+    }
+
+    body.theme-night .animal-sentence-box {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card-audio-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .big-audio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 99px;
+      border: none;
+      background: linear-gradient(135deg, #e5a93c, #d97724);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(217, 119, 36, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .big-audio-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 18px rgba(217, 119, 36, 0.45);
+    }
+
+    .big-audio-btn.playing {
+      animation: pulse-gold 1s infinite alternate;
+    }
+
+    @keyframes pulse-gold {
+      from { box-shadow: 0 0 0 0 rgba(229, 169, 60, 0.6); }
+      to { box-shadow: 0 0 0 10px rgba(229, 169, 60, 0); }
+    }
+
+    /* Navigation & Confidence Controls below Card */
+    .flashcard-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .nav-circle-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--ghibli-border);
+      background: var(--ghibli-card-bg);
+      color: var(--ghibli-text-main);
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-circle-btn:hover {
+      border-color: #2d5a27;
+      background: #2d5a27;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .rate-btn {
+      flex: 1;
+      min-width: 145px;
+      padding: 13px 20px;
+      border-radius: 16px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .rate-btn.learning {
+      background: rgba(229, 169, 60, 0.15);
+      border: 2px solid #e5a93c;
+      color: #b7791f;
+    }
+
+    body.theme-night .rate-btn.learning {
+      color: #fbd38d;
+    }
+
+    .rate-btn.learning:hover {
+      background: #e5a93c;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .rate-btn.mastered {
+      background: rgba(46, 125, 50, 0.15);
+      border: 2px solid #2e7d32;
+      color: #2e7d32;
+    }
+
+    body.theme-night .rate-btn.mastered {
+      color: #81c784;
+    }
+
+    .rate-btn.mastered:hover {
+      background: #2e7d32;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Deck Strip Grid */
+    .deck-overview-strip {
+      width: 100%;
+      background: var(--ghibli-card-bg);
+      border: 1.5px solid var(--ghibli-border);
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 10px;
+    }
+
+    .deck-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .deck-mini-card {
+      background: #ffffff;
+      border: 2px solid var(--ghibli-border);
+      border-radius: 12px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    body.theme-night .deck-mini-card {
+      background: #1e2c38;
+    }
+
+    .deck-mini-card:hover {
+      transform: translateY(-2px);
+      border-color: #48825c;
+    }
+
+    .deck-mini-card.current {
+      border-color: #2d5a27;
+      box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.25);
+    }
+
+    .deck-mini-card.mastered {
+      border-color: #2e7d32;
+      background: rgba(46, 125, 50, 0.08);
+    }
+
+    .deck-mini-card.learning {
+      border-color: #e5a93c;
+      background: rgba(229, 169, 60, 0.08);
+    }
+
+    .deck-mini-card img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .deck-mini-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ghibli-text-main);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       MODE 2: 4-CHOICE SPEED QUIZ
+       ========================================================================== */
+    .quiz-stage {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--ghibli-card-bg);
+      border: 2px solid var(--ghibli-border);
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: var(--ghibli-shadow);
+      text-align: center;
+    }
+
+    .quiz-prompt-box {
+      width: 100%;
+      max-width: 320px;
+      height: 210px;
+      margin: 16px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 2px solid rgba(45, 90, 39, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      position: relative;
+    }
+
+    .quiz-prompt-box img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .quiz-options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .quiz-option-btn {
+      padding: 16px 20px;
+      border-radius: 16px;
+      border: 2px solid var(--ghibli-border);
+      background: var(--ghibli-parchment);
+      color: var(--ghibli-text-main);
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      border-color: #2d5a27;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+    }
+
+    .quiz-option-btn.correct {
+      background: #2e7d32 !important;
+      border-color: #1b5e20 !important;
+      color: #ffffff !important;
+    }
+
+    .quiz-option-btn.wrong {
+      background: #c62828 !important;
+      border-color: #8e0000 !important;
+      color: #ffffff !important;
+    }
+
+    /* ==========================================================================
+       MODE 3: MEMORY MATCH PAIRS GAME
+       ========================================================================== */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .quiz-options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .memory-card {
+      height: 130px;
+      perspective: 900px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .memory-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+      border-radius: 18px;
+    }
+
+    .memory-card.flipped .memory-card-inner,
+    .memory-card.matched .memory-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .memory-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 2px solid var(--ghibli-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .memory-front {
+      background: linear-gradient(135deg, #2d5a27, #48825c);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.8rem;
+    }
+
+    .memory-back {
+      transform: rotateY(180deg);
+      background: #ffffff;
+      color: #2b261f;
+    }
+
+    .memory-card.matched .memory-back {
+      border-color: #2e7d32;
+      background: rgba(46, 125, 50, 0.12);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.25);
+    }
+
+    .memory-back img {
+      max-width: 85%;
+      max-height: 80px;
+      object-fit: contain;
+    }
+
+    .memory-word-text {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #2d5a27;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       MODE 4: SPELLING BEE SCRAMBLE
+       ========================================================================== */
+    .spelling-slots-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      min-height: 54px;
+    }
+
+    .letter-slot {
+      width: 44px;
+      height: 52px;
+      border-radius: 12px;
+      border: 2.5px dashed rgba(45, 90, 39, 0.4);
+      background: var(--ghibli-parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--ghibli-text-main);
+      text-transform: lowercase;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .letter-slot.filled {
+      border-style: solid;
+      border-color: #2d5a27;
+      background: rgba(45, 90, 39, 0.1);
+    }
+
+    .letter-slot.space-slot {
+      width: 24px;
+      border: none;
+      background: transparent;
+      cursor: default;
+    }
+
+    .letter-slot.correct {
+      background: #2e7d32;
+      border-color: #1b5e20;
+      color: #ffffff;
+    }
+
+    .letter-tiles-pool {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .letter-tile-btn {
+      width: 46px;
+      height: 48px;
+      border-radius: 12px;
+      border: 2px solid var(--ghibli-border);
+      background: #ffffff;
+      color: #2b261f;
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.15s ease;
+    }
+
+    .letter-tile-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: #2d5a27;
+    }
+
+    .letter-tile-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+      transform: none;
+    }
+
+    .hidden-panel {
+      display: none !important;
+    }
+
+    .kbd-shortcut-bar {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ghibli-text-muted);
+      margin-top: 8px;
+    }
+
+    .kbd-key {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.07);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      font-family: monospace;
+      font-weight: 700;
+      font-size: 0.78rem;
+      margin: 0 2px;
+    }
+
+    body.theme-night .kbd-key {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+  </style>
+</head>
+<body class="theme-day">
+  <div class="ghibli-bg-overlay"></div>
+  <div class="ghibli-vignette"></div>
+  <div id="firefliesContainer"></div>
+
+  <div class="ghibli-container">
+    <!-- Top Header -->
+    <header class="ghibli-header">
+      <a href="index.html" class="ghibli-brand" style="text-decoration:none; color:inherit;">
+        <div class="ghibli-logo-badge"><i class="fa-solid fa-paw"></i></div>
+        <div class="ghibli-title-wrap">
+          <h1>Animal Flashcard Studio</h1>
+          <span class="ghibli-subtitle">🌿 Unit 1 • Exercise 4.2 Pets &amp; Animals Interactive Game</span>
+        </div>
+      </a>
+      <div class="ghibli-header-actions">
+        <a href="index.html#page-19" class="ghibli-btn ghibli-btn-gold"><i class="fa-solid fa-arrow-left"></i> Back to Homework (Ex 4.2)</a>
+        
+        <button class="ghibli-btn ghibli-btn-secondary" id="toggleAmbientBtn" title="Toggle Background Music">
+          <i class="fa-solid fa-music"></i> <span class="bgm-btn-text">Music: Off</span>
+        </button>
+        <div class="tod-group">
+          <button class="tod-btn active" data-theme="day">☀️ Day</button>
+          <button class="tod-btn" data-theme="sunset">🌅 Sunset</button>
+          <button class="tod-btn" data-theme="night">🌙 Night</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Game Mode Selector Tabs -->
+    <nav class="mode-tabs-bar" aria-label="Flashcard Game Modes">
+      <button class="mode-tab-btn active" data-mode="flip">
+        <i class="fa-solid fa-clone"></i> 1. Flip Flashcards
+      </button>
+      <button class="mode-tab-btn" data-mode="quiz">
+        <i class="fa-solid fa-bolt"></i> 2. 4-Choice Quiz
+      </button>
+      <button class="mode-tab-btn" data-mode="memory">
+        <i class="fa-solid fa-grip"></i> 3. Memory Match
+      </button>
+      <button class="mode-tab-btn" data-mode="spelling">
+        <i class="fa-solid fa-spell-check"></i> 4. Listen &amp; Spell
+      </button>
+    </nav>
+
+    <!-- ====================================================================
+         MODE 1: 3D FLIP FLASHCARDS
+         ==================================================================== -->
+    <section id="mode-flip" class="game-mode-section">
+      <div class="game-toolbar">
+        <div class="stat-pills-group">
+          <span class="stat-pill"><i class="fa-solid fa-layer-group"></i> Card <span id="flipCurrentIdx">1</span> of <span id="flipTotalCount">12</span></span>
+          <span class="stat-pill success"><i class="fa-solid fa-star"></i> Mastered: <span id="flipMasteredCount">0</span>/12</span>
+          <span class="stat-pill gold"><i class="fa-solid fa-rotate"></i> Still Learning: <span id="flipLearningCount">0</span></span>
+        </div>
+        <div class="toolbar-controls">
+          <button class="mini-ctrl-btn" id="toggleArtStyleBtn" title="Switch between Textbook Clean Art and Watercolor Illustrations">
+            <i class="fa-solid fa-palette"></i> Art: <span id="artStyleLabel">Textbook</span>
+          </button>
+          <button class="mini-ctrl-btn" id="toggleFrontSideBtn" title="Choose whether Picture or Word appears on the front">
+            <i class="fa-solid fa-eye"></i> Front: <span id="frontSideLabel">Picture First</span>
+          </button>
+          <button class="mini-ctrl-btn active" id="toggleAutoAudioBtn" title="Automatically play native audio when flipping card">
+            <i class="fa-solid fa-volume-high"></i> Auto-Audio: ON
+          </button>
+          <button class="mini-ctrl-btn" id="filterMissedBtn" title="Practice only cards marked Still Learning">
+            <i class="fa-solid fa-filter"></i> <span id="filterMissedLabel">All 12 Cards</span>
+          </button>
+          <button class="mini-ctrl-btn" id="shuffleDeckBtn" title="Shuffle flashcards">
+            <i class="fa-solid fa-shuffle"></i> Shuffle
+          </button>
+        </div>
+      </div>
+
+      <div class="flashcard-stage-wrap">
+        <!-- 3D Flip Card -->
+        <div class="flashcard-scene" id="flashcardScene" tabindex="0" role="button" aria-label="Animal Flashcard - Click or press Space to flip">
+          <div class="flashcard-3d" id="flashcard3D">
+            
+            <!-- FRONT FACE -->
+            <div class="flashcard-face flashcard-front">
+              <div class="card-top-bar">
+                <span class="card-index-badge" id="frontIndexBadge">#1 / 12</span>
+                <span class="card-status-tag unseen" id="frontStatusTag">New Card</span>
+              </div>
+
+              <!-- Picture Front View -->
+              <div class="card-image-box" id="frontImageContainer">
+                <img id="frontAnimalImg" src="images/animals/clean/hamster.png" alt="Mystery Animal">
+              </div>
+
+              <!-- Word Front View (Hidden unless "Word First" is selected) -->
+              <div id="frontWordContainer" class="hidden-panel" style="text-align:center;">
+                <div class="animal-word-title" id="frontWordText" style="font-size: 3rem;">hamster</div>
+                <div class="animal-ipa" id="frontIpaText">/ˈhæm.stər/</div>
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; width:100%; gap:12px;">
+                <button class="big-audio-btn" id="frontAudioBtn" type="button" title="Listen to pronunciation">
+                  <i class="fa-solid fa-volume-high"></i> Listen
+                </button>
+                <div class="card-flip-hint">
+                  <i class="fa-solid fa-arrows-rotate"></i> Click card or press Space to flip
+                </div>
+              </div>
+            </div>
+
+            <!-- BACK FACE -->
+            <div class="flashcard-face flashcard-back">
+              <div class="card-top-bar">
+                <span class="card-index-badge" id="backIndexBadge">#1 / 12</span>
+                <span class="card-status-tag unseen" id="backStatusTag">New Card</span>
+              </div>
+
+              <div class="back-content-main">
+                <div class="back-thumb-row">
+                  <img id="backAnimalImg" class="back-mini-img" src="images/animals/clean/hamster.png" alt="Animal">
+                  <div style="text-align: left;">
+                    <div class="animal-word-title" id="backAnimalWord">hamster</div>
+                    <div class="animal-ipa" id="backAnimalIpa">/ˈhæm.stər/</div>
+                    <div class="animal-grammar-chips">
+                      <span class="grammar-chip" id="backSingularChip">Singular: a hamster</span>
+                      <span class="grammar-chip" id="backPluralChip">Plural: hamsters</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="animal-sentence-box" id="backAnimalSentence">
+                  "This is my pet <strong>hamster</strong>. He loves running on his wheel!"
+                </div>
+              </div>
+
+              <div class="card-audio-actions">
+                <button class="big-audio-btn" id="backAudioBtn" type="button">
+                  <i class="fa-solid fa-volume-high"></i> Play Audio
+                </button>
+                <button class="mini-ctrl-btn" id="recVoiceBtn" type="button" title="Record your own pronunciation">
+                  <i class="fa-solid fa-microphone"></i> <span id="recVoiceText">Record Voice</span>
+                </button>
+                <button class="mini-ctrl-btn hidden-panel" id="playMyVoiceBtn" type="button" title="Listen to your recording">
+                  <i class="fa-solid fa-play"></i> My Voice
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Navigation & Self-Rating Controls -->
+        <div class="flashcard-controls-row">
+          <button class="nav-circle-btn" id="prevCardBtn" title="Previous Card (Left Arrow)">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+
+          <button class="rate-btn learning" id="markLearningBtn" title="Mark as Still Learning (Shortcut: 1)">
+            <i class="fa-solid fa-rotate-left"></i> Still Learning
+          </button>
+
+          <button class="rate-btn mastered" id="markMasteredBtn" title="Mark as Got It! (Shortcut: 2)">
+            <i class="fa-solid fa-check-double"></i> Got It! ⭐
+          </button>
+
+          <button class="nav-circle-btn" id="nextCardBtn" title="Next Card (Right Arrow)">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="kbd-shortcut-bar">
+          Shortcuts: <span class="kbd-key">Space</span> Flip Card • <span class="kbd-key">←</span> <span class="kbd-key">→</span> Prev / Next • <span class="kbd-key">A</span> Play Audio • <span class="kbd-key">1</span> Still Learning • <span class="kbd-key">2</span> Got It!
+        </div>
+
+        <!-- All 12 Cards Quick Deck Strip -->
+        <div class="deck-overview-strip">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+            <span style="font-family:var(--font-heading); font-weight:800; font-size:0.95rem; color:var(--ghibli-text-main);">
+              <i class="fa-solid fa-paw" style="color:#2d5a27;"></i> Complete Animal Deck (Click any animal to jump)
+            </span>
+            <button class="mini-ctrl-btn" id="resetProgressBtn" style="padding:4px 10px; font-size:0.78rem;">
+              <i class="fa-solid fa-trash-can"></i> Reset Mastery
+            </button>
+          </div>
+          <div class="deck-strip-grid" id="deckStripGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MODE 2: 4-CHOICE SPEED QUIZ
+         ==================================================================== -->
+    <section id="mode-quiz" class="game-mode-section hidden-panel">
+      <div class="game-toolbar">
+        <div class="stat-pills-group">
+          <span class="stat-pill"><i class="fa-solid fa-circle-question"></i> Question <span id="quizQNum">1</span> / 12</span>
+          <span class="stat-pill success"><i class="fa-solid fa-check"></i> Score: <span id="quizScore">0</span></span>
+          <span class="stat-pill gold"><i class="fa-solid fa-fire"></i> Streak: <span id="quizStreak">0</span> 🔥</span>
+        </div>
+        <div class="toolbar-controls">
+          <button class="mini-ctrl-btn" id="restartQuizBtn">
+            <i class="fa-solid fa-rotate-right"></i> New Quiz Round
+          </button>
+        </div>
+      </div>
+
+      <div class="quiz-stage" id="quizActiveView">
+        <h3 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800;">
+          What animal is this? Listen and choose the correct word!
+        </h3>
+
+        <div class="quiz-prompt-box">
+          <img id="quizAnimalImg" src="images/animals/clean/cat.png" alt="Quiz Animal">
+        </div>
+
+        <button class="big-audio-btn" id="quizPlayAudioBtn" type="button" style="margin: 4px auto;">
+          <i class="fa-solid fa-volume-high"></i> Listen to Clue
+        </button>
+
+        <div class="quiz-options-grid" id="quizOptionsGrid"></div>
+
+        <div id="quizFeedbackMsg" style="min-height: 32px; margin-top: 16px; font-weight: 700; font-size: 1.05rem;"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MODE 3: MEMORY MATCH PAIRS GAME
+         ==================================================================== -->
+    <section id="mode-memory" class="game-mode-section hidden-panel">
+      <div class="game-toolbar">
+        <div class="stat-pills-group">
+          <span class="stat-pill success"><i class="fa-solid fa-puzzle-piece"></i> Pairs Matched: <span id="memMatched">0</span> / <span id="memTotalPairs">6</span></span>
+          <span class="stat-pill"><i class="fa-solid fa-hand-pointer"></i> Moves: <span id="memMoves">0</span></span>
+          <span class="stat-pill gold"><i class="fa-solid fa-stopwatch"></i> Time: <span id="memTimer">0:00</span></span>
+        </div>
+        <div class="toolbar-controls">
+          <button class="mini-ctrl-btn active" id="memSize6Btn" data-pairs="6">6 Pairs (12 Cards)</button>
+          <button class="mini-ctrl-btn" id="memSize12Btn" data-pairs="12">All 12 Pairs (24 Cards)</button>
+          <button class="mini-ctrl-btn" id="restartMemoryBtn">
+            <i class="fa-solid fa-shuffle"></i> Deal New Board
+          </button>
+        </div>
+      </div>
+
+      <div class="memory-grid" id="memoryGrid"></div>
+    </section>
+
+    <!-- ====================================================================
+         MODE 4: LISTEN & SPELL (SPELLING BEE)
+         ==================================================================== -->
+    <section id="mode-spelling" class="game-mode-section hidden-panel">
+      <div class="game-toolbar">
+        <div class="stat-pills-group">
+          <span class="stat-pill"><i class="fa-solid fa-list-ol"></i> Word <span id="spellIndex">1</span> / 12</span>
+          <span class="stat-pill success"><i class="fa-solid fa-star"></i> Solved: <span id="spellScore">0</span> / 12</span>
+        </div>
+        <div class="toolbar-controls">
+          <button class="mini-ctrl-btn" id="spellHintBtn">
+            <i class="fa-solid fa-lightbulb"></i> Give Me a Letter Hint
+          </button>
+          <button class="mini-ctrl-btn" id="spellClearBtn">
+            <i class="fa-solid fa-eraser"></i> Clear Letters
+          </button>
+          <button class="mini-ctrl-btn" id="spellSkipBtn">
+            <i class="fa-solid fa-forward"></i> Next Animal
+          </button>
+        </div>
+      </div>
+
+      <div class="quiz-stage">
+        <h3 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800;">
+          Tap the scrambled letters or type on your keyboard to spell the animal!
+        </h3>
+
+        <div class="quiz-prompt-box" style="height: 185px;">
+          <img id="spellAnimalImg" src="images/animals/clean/rabbit.png" alt="Spell Animal">
+        </div>
+
+        <button class="big-audio-btn" id="spellPlayAudioBtn" type="button">
+          <i class="fa-solid fa-volume-high"></i> Listen to Animal Name
+        </button>
+
+        <!-- Target Letter Slots -->
+        <div class="spelling-slots-row" id="spellingSlotsRow"></div>
+
+        <!-- Scrambled Letter Tiles -->
+        <div class="letter-tiles-pool" id="spellingTilesPool"></div>
+
+        <div id="spellFeedbackMsg" style="min-height: 30px; margin-top: 12px; font-weight: 700; font-size: 1.05rem;"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Kodama Mascot Cheerleader Widget -->
+  <div class="ghibli-mascot-container" id="ghibliMascotWidget">
+    <div class="mascot-bubble-wrap">
+      <div class="mascot-bubble" id="mascotBubble">
+        <div class="mascot-action-chip"><i class="fa-solid fa-paw"></i> Animal Flashcard Guide</div>
+        <div class="mascot-text" id="mascotTextContent">"Click any flashcard or press Space to flip it and hear the native pronunciation!"</div>
+      </div>
+    </div>
+    <div class="mascot-avatar-wrap" id="mascotAvatarWrap">
+      <img src="images/ghibli/mascot.webp" alt="Kodama Mascot" class="mascot-avatar" id="mascotAvatarImg" width="220" height="220">
+    </div>
+  </div>
+
+  <!-- Audio Engine -->
+  <script src="ghibli_audio.js"></script>
+
+  <!-- Animal Flashcard Game Engine -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ------------------------------------------------------------------
+         1. COMPLETE ANIMAL DATASET (All 12 Animals from Exercise 4.2)
+         ------------------------------------------------------------------ */
+      const ANIMALS = [
+        {
+          id: 'hamster',
+          word: 'hamster',
+          ipa: '/ˈhæm.stər/',
+          singular: 'a hamster',
+          plural: 'hamsters',
+          cleanImg: 'images/animals/clean/hamster.png',
+          artImg: 'images/animals/hamster.jpg',
+          audio: 'audio/4/4_2_eg.mp3',
+          sentence: 'This is my pet <strong>hamster</strong>. He loves running on his wheel!'
+        },
+        {
+          id: 'cat',
+          word: 'cat',
+          ipa: '/kæt/',
+          singular: 'a cat',
+          plural: 'cats',
+          cleanImg: 'images/animals/clean/cat.png',
+          artImg: 'images/animals/cat.jpg',
+          audio: 'audio/4/4_2_1.mp3',
+          sentence: 'The gray <strong>cat</strong> is sleeping in the warm sun.'
+        },
+        {
+          id: 'chicken',
+          word: 'chicken',
+          ipa: '/ˈtʃɪk.ɪn/',
+          singular: 'a chicken',
+          plural: 'chickens',
+          cleanImg: 'images/animals/clean/chicken.png',
+          artImg: 'images/animals/chicken.jpg',
+          audio: 'audio/4/4_2_2.mp3',
+          sentence: 'My grandmother keeps a brown <strong>chicken</strong> on her farm.'
+        },
+        {
+          id: 'rabbit',
+          word: 'rabbit',
+          ipa: '/ˈræb.ɪt/',
+          singular: 'a rabbit',
+          plural: 'rabbits',
+          cleanImg: 'images/animals/clean/rabbit.png',
+          artImg: 'images/animals/rabbit.jpg',
+          audio: 'audio/4/4_2_3.mp3',
+          sentence: 'The fluffy <strong>rabbit</strong> has long ears and loves carrots.'
+        },
+        {
+          id: 'tortoise',
+          word: 'tortoise',
+          ipa: '/ˈtɔːr.təs/',
+          singular: 'a tortoise',
+          plural: 'tortoises',
+          cleanImg: 'images/animals/clean/tortoise.png',
+          artImg: 'images/animals/tortoise.jpg',
+          audio: 'audio/4/4_2_4.mp3',
+          sentence: 'A <strong>tortoise</strong> walks very slowly and carries a hard shell.'
+        },
+        {
+          id: 'parrot',
+          word: 'parrot',
+          ipa: '/ˈpær.ət/',
+          singular: 'a parrot',
+          plural: 'parrots',
+          cleanImg: 'images/animals/clean/parrot.png',
+          artImg: 'images/animals/parrot.jpg',
+          audio: 'audio/4/4_2_5.mp3',
+          sentence: 'Their colorful <strong>parrot</strong> can say "Hello!" to guests.'
+        },
+        {
+          id: 'dog',
+          word: 'dog',
+          ipa: '/dɔːɡ/',
+          singular: 'a dog',
+          plural: 'dogs',
+          cleanImg: 'images/animals/clean/dog.png',
+          artImg: 'images/animals/dog.jpg',
+          audio: 'audio/4/4_2_6.mp3',
+          sentence: 'Our friendly <strong>dog</strong> loves playing fetch in the park.'
+        },
+        {
+          id: 'fish',
+          word: 'fish',
+          ipa: '/fɪʃ/',
+          singular: 'a fish',
+          plural: 'fish',
+          cleanImg: 'images/animals/clean/fish.png',
+          artImg: 'images/animals/fish.jpg',
+          audio: 'audio/4/4_2_7.mp3',
+          sentence: 'Look at the bright orange <strong>fish</strong> swimming in the bowl!'
+        },
+        {
+          id: 'snake',
+          word: 'snake',
+          ipa: '/sneɪk/',
+          singular: 'a snake',
+          plural: 'snakes',
+          cleanImg: 'images/animals/clean/snake.png',
+          artImg: 'images/animals/snake.jpg',
+          audio: 'audio/4/4_2_8.mp3',
+          sentence: 'The green <strong>snake</strong> slithers quietly through the grass.'
+        },
+        {
+          id: 'pig',
+          word: 'pig',
+          ipa: '/pɪɡ/',
+          singular: 'a pig',
+          plural: 'pigs',
+          cleanImg: 'images/animals/clean/pig.png',
+          artImg: 'images/animals/clean/pig.png',
+          audio: 'audio/4/4_2_9.mp3',
+          sentence: 'The pink <strong>pig</strong> has a curly tail and lives on the farm.'
+        },
+        {
+          id: 'horse',
+          word: 'horse',
+          ipa: '/hɔːrs/',
+          singular: 'a horse',
+          plural: 'horses',
+          cleanImg: 'images/animals/clean/horse.png',
+          artImg: 'images/animals/clean/horse.png',
+          audio: 'audio/4/4_2_10.mp3',
+          sentence: 'She rides her brown <strong>horse</strong> across the green field.'
+        },
+        {
+          id: 'guinea_pig',
+          word: 'guinea pig',
+          ipa: '/ˈɡɪn.i ˌpɪɡ/',
+          singular: 'a guinea pig',
+          plural: 'guinea pigs',
+          cleanImg: 'images/animals/clean/guinea_pig.png',
+          artImg: 'images/animals/clean/guinea_pig.png',
+          audio: 'audio/4/4_2_11.mp3',
+          sentence: 'My little <strong>guinea pig</strong> squeaks happily when it sees lettuce.'
+        }
+      ];
+
+      /* ------------------------------------------------------------------
+         2. STATE & STORAGE
+         ------------------------------------------------------------------ */
+      const STORAGE_KEY = 'ghibli_animal_flashcards_status_v1';
+      let masteryStatus = {}; // id -> 'mastered' | 'learning'
+      try {
+        masteryStatus = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch (e) {
+        masteryStatus = {};
+      }
+
+      let currentMode = 'flip';
+      let useWatercolorArt = false;
+      let frontSideMode = 'picture'; // 'picture' | 'word'
+      let autoPlayAudio = true;
+      let filterMissedOnly = false;
+
+      let activeDeck = [...ANIMALS];
+      let currentCardIndex = 0;
+      let isCardFlipped = false;
+
+      // Audio player instance
+      let currentAudioObj = null;
+
+      // Voice Recorder state
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let recordedBlobs = {}; // animalId -> objectURL
+      let isRecording = false;
+
+      function saveMastery() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(masteryStatus));
+        } catch (e) {}
+      }
+
+      function getAnimalImg(item) {
+        return useWatercolorArt ? item.artImg : item.cleanImg;
+      }
+
+      function playNativeAudio(audioPath, btnEl = null) {
+        if (currentAudioObj) {
+          currentAudioObj.pause();
+          currentAudioObj.currentTime = 0;
+        }
+        if (window.GhibliAudio && typeof window.GhibliAudio.duckBGM === 'function') {
+          window.GhibliAudio.duckBGM();
+        }
+        const audio = new Audio(audioPath);
+        currentAudioObj = audio;
+        if (btnEl) btnEl.classList.add('playing');
+
+        const cleanup = () => {
+          if (btnEl) btnEl.classList.remove('playing');
+          if (window.GhibliAudio && typeof window.GhibliAudio.unduckBGM === 'function') {
+            window.GhibliAudio.unduckBGM();
+          }
+        };
+        audio.addEventListener('ended', cleanup);
+        audio.addEventListener('error', cleanup);
+        audio.play().catch(cleanup);
+      }
+
+      function sayMascot(text) {
+        const el = document.getElementById('mascotTextContent');
+        if (el) el.innerHTML = '"' + text + '"';
+      }
+
+      function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      /* ------------------------------------------------------------------
+         3. THEME & HEADER CONTROLS
+         ------------------------------------------------------------------ */
+      function initThemeAndHeader() {
+        const savedTheme = localStorage.getItem('ghibli_theme') || 'day';
+        applyTheme(savedTheme);
+
+        document.querySelectorAll('.tod-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            applyTheme(btn.dataset.theme);
+          });
+        });
+
+        const bgmBtn = document.getElementById('toggleAmbientBtn');
+        if (bgmBtn) {
+          bgmBtn.addEventListener('click', () => {
+            if (window.GhibliAudio) window.GhibliAudio.toggleBGM(bgmBtn);
+          });
+        }
+
+        // Fireflies
+        const container = document.getElementById('firefliesContainer');
+        if (container) {
+          for (let i = 0; i < 16; i++) {
+            const f = document.createElement('div');
+            f.className = 'firefly';
+            f.style.left = Math.random() * 100 + 'vw';
+            f.style.top = Math.random() * 100 + 'vh';
+            f.style.animationDelay = (Math.random() * 5).toFixed(2) + 's';
+            f.style.animationDuration = (4 + Math.random() * 4).toFixed(2) + 's';
+            container.appendChild(f);
+          }
+        }
+      }
+
+      function applyTheme(theme) {
+        document.body.classList.remove('theme-day', 'theme-sunset', 'theme-night');
+        document.documentElement.classList.remove('theme-day', 'theme-sunset', 'theme-night');
+        document.body.classList.add('theme-' + theme);
+        if (theme !== 'day') document.documentElement.classList.add('theme-' + theme);
+        localStorage.setItem('ghibli_theme', theme);
+
+        document.querySelectorAll('.tod-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.theme === theme);
+        });
+      }
+
+      /* ------------------------------------------------------------------
+         4. MODE 1: 3D FLIP FLASHCARDS LOGIC
+         ------------------------------------------------------------------ */
+      function renderFlipCard() {
+        if (activeDeck.length === 0) {
+          filterMissedOnly = false;
+          document.getElementById('filterMissedBtn').classList.remove('active');
+          document.getElementById('filterMissedLabel').textContent = 'All 12 Cards';
+          activeDeck = [...ANIMALS];
+          currentCardIndex = 0;
+        }
+        if (currentCardIndex >= activeDeck.length) currentCardIndex = 0;
+        if (currentCardIndex < 0) currentCardIndex = activeDeck.length - 1;
+
+        const item = activeDeck[currentCardIndex];
+        const card3D = document.getElementById('flashcard3D');
+        isCardFlipped = false;
+        card3D.classList.remove('is-flipped');
+
+        // Counters
+        document.getElementById('flipCurrentIdx').textContent = currentCardIndex + 1;
+        document.getElementById('flipTotalCount').textContent = activeDeck.length;
+        const badgeText = `#${currentCardIndex + 1} / ${activeDeck.length}`;
+        document.getElementById('frontIndexBadge').textContent = badgeText;
+        document.getElementById('backIndexBadge').textContent = badgeText;
+
+        // Status Tag
+        const status = masteryStatus[item.id] || 'unseen';
+        const statusLabels = {
+          mastered: 'Mastered ⭐',
+          learning: 'Still Learning 🔄',
+          unseen: 'New Card'
+        };
+        ['frontStatusTag', 'backStatusTag'].forEach(id => {
+          const el = document.getElementById(id);
+          el.className = 'card-status-tag ' + status;
+          el.textContent = statusLabels[status];
+        });
+
+        // Front content
+        const frontImgContainer = document.getElementById('frontImageContainer');
+        const frontWordContainer = document.getElementById('frontWordContainer');
+        const imgUrl = getAnimalImg(item);
+
+        document.getElementById('frontAnimalImg').src = imgUrl;
+        document.getElementById('frontAnimalImg').alt = item.word;
+        document.getElementById('frontWordText').textContent = item.word;
+        document.getElementById('frontIpaText').textContent = item.ipa;
+
+        if (frontSideMode === 'picture') {
+          frontImgContainer.classList.remove('hidden-panel');
+          frontWordContainer.classList.add('hidden-panel');
+        } else {
+          frontImgContainer.classList.add('hidden-panel');
+          frontWordContainer.classList.remove('hidden-panel');
+        }
+
+        // Back content
+        document.getElementById('backAnimalImg').src = imgUrl;
+        document.getElementById('backAnimalWord').textContent = item.word;
+        document.getElementById('backAnimalIpa').textContent = item.ipa;
+        document.getElementById('backSingularChip').textContent = 'Singular: ' + item.singular;
+        document.getElementById('backPluralChip').textContent = 'Plural: ' + item.plural;
+        document.getElementById('backAnimalSentence').innerHTML = '"' + item.sentence + '"';
+
+        // Voice recording button visibility
+        const playMyVoiceBtn = document.getElementById('playMyVoiceBtn');
+        if (recordedBlobs[item.id]) {
+          playMyVoiceBtn.classList.remove('hidden-panel');
+        } else {
+          playMyVoiceBtn.classList.add('hidden-panel');
+        }
+
+        updateMasteryCounts();
+        renderDeckStrip();
+      }
+
+      function flipCurrentCard() {
+        const card3D = document.getElementById('flashcard3D');
+        isCardFlipped = !isCardFlipped;
+        card3D.classList.toggle('is-flipped', isCardFlipped);
+
+        if (window.playGhibliWaterdrop) window.playGhibliWaterdrop();
+
+        const item = activeDeck[currentCardIndex];
+        if (isCardFlipped && autoPlayAudio && item) {
+          setTimeout(() => {
+            playNativeAudio(item.audio, document.getElementById('backAudioBtn'));
+          }, 220);
+        }
+      }
+
+      function markCurrentCard(state) {
+        const item = activeDeck[currentCardIndex];
+        if (!item) return;
+        masteryStatus[item.id] = state;
+        saveMastery();
+
+        if (state === 'mastered') {
+          if (window.playChimeSound) window.playChimeSound([523.25, 659.25, 783.99], 0.28);
+          sayMascot(`Awesome! You mastered "${item.word}"! ⭐`);
+        } else {
+          if (window.playGhibliWaterdrop) window.playGhibliWaterdrop();
+          sayMascot(`No problem! We'll keep practicing "${item.word}"!`);
+        }
+
+        const masteredTotal = ANIMALS.filter(a => masteryStatus[a.id] === 'mastered').length;
+        if (masteredTotal === ANIMALS.length) {
+          if (window.playFanfareChime) window.playFanfareChime();
+          sayMascot('🎉 Incredible! You mastered all 12 animal flashcards! Try the Speed Quiz or Memory Match next!');
+        }
+
+        // Advance to next card
+        currentCardIndex = (currentCardIndex + 1) % activeDeck.length;
+        renderFlipCard();
+      }
+
+      function updateMasteryCounts() {
+        const mastered = ANIMALS.filter(a => masteryStatus[a.id] === 'mastered').length;
+        const learning = ANIMALS.filter(a => masteryStatus[a.id] === 'learning').length;
+        document.getElementById('flipMasteredCount').textContent = mastered;
+        document.getElementById('flipLearningCount').textContent = learning;
+      }
+
+      function renderDeckStrip() {
+        const grid = document.getElementById('deckStripGrid');
+        grid.innerHTML = '';
+        const currentItem = activeDeck[currentCardIndex];
+
+        ANIMALS.forEach((animal) => {
+          const st = masteryStatus[animal.id] || '';
+          const div = document.createElement('div');
+          div.className = 'deck-mini-card ' + st + (currentItem && currentItem.id === animal.id ? ' current' : '');
+          div.innerHTML = `
+            <img src="${getAnimalImg(animal)}" alt="${animal.word}">
+            <span class="deck-mini-label">${animal.word}</span>
+          `;
+          div.addEventListener('click', () => {
+            const idxInActive = activeDeck.findIndex(a => a.id === animal.id);
+            if (idxInActive !== -1) {
+              currentCardIndex = idxInActive;
+            } else {
+              filterMissedOnly = false;
+              document.getElementById('filterMissedBtn').classList.remove('active');
+              document.getElementById('filterMissedLabel').textContent = 'All 12 Cards';
+              activeDeck = [...ANIMALS];
+              currentCardIndex = activeDeck.findIndex(a => a.id === animal.id);
+            }
+            renderFlipCard();
+          });
+          grid.appendChild(div);
+        });
+      }
+
+      /* Voice Recorder for Flashcard Back */
+      async function toggleVoiceRecording(e) {
+        e.stopPropagation();
+        const item = activeDeck[currentCardIndex];
+        const recBtn = document.getElementById('recVoiceBtn');
+        const recText = document.getElementById('recVoiceText');
+
+        if (isRecording && mediaRecorder) {
+          mediaRecorder.stop();
+          isRecording = false;
+          recBtn.classList.remove('active');
+          recText.textContent = 'Record Voice';
+          return;
+        }
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          sayMascot('Microphone access is not available in this browser window.');
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioChunks = [];
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = evt => {
+            if (evt.data.size > 0) audioChunks.push(evt.data);
+          };
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(audioChunks, { type: 'audio/webm' });
+            recordedBlobs[item.id] = URL.createObjectURL(blob);
+            stream.getTracks().forEach(t => t.stop());
+            document.getElementById('playMyVoiceBtn').classList.remove('hidden-panel');
+            sayMascot(`Recorded your voice for "${item.word}"! Click "My Voice" to listen!`);
+          };
+          mediaRecorder.start();
+          isRecording = true;
+          recBtn.classList.add('active');
+          recText.textContent = 'Stop Rec 🔴';
+          sayMascot(`Say "${item.word}" clearly into your microphone!`);
+        } catch (err) {
+          sayMascot('Could not access microphone. Please check browser permissions.');
+        }
+      }
+
+      /* ------------------------------------------------------------------
+         5. MODE 2: 4-CHOICE SPEED QUIZ
+         ------------------------------------------------------------------ */
+      let quizDeck = [];
+      let quizIdx = 0;
+      let quizScore = 0;
+      let quizStreak = 0;
+      let quizLocked = false;
+
+      function startQuiz() {
+        quizDeck = shuffleArray(ANIMALS);
+        quizIdx = 0;
+        quizScore = 0;
+        quizStreak = 0;
+        renderQuizQuestion();
+      }
+
+      function renderQuizQuestion() {
+        quizLocked = false;
+        document.getElementById('quizScore').textContent = quizScore;
+        document.getElementById('quizStreak').textContent = quizStreak;
+
+        if (quizIdx >= quizDeck.length) {
+          if (window.playFanfareChime) window.playFanfareChime();
+          const grid = document.getElementById('quizOptionsGrid');
+          grid.innerHTML = '';
+          document.getElementById('quizFeedbackMsg').innerHTML =
+            `🎉 Quiz Complete! You scored <strong>${quizScore} / ${quizDeck.length}</strong>! Click "New Quiz Round" to play again!`;
+          sayMascot(`Hurray! You finished the Animal Quiz with ${quizScore} out of ${quizDeck.length}!`);
+          return;
+        }
+
+        const current = quizDeck[quizIdx];
+        document.getElementById('quizQNum').textContent = quizIdx + 1;
+        document.getElementById('quizAnimalImg').src = getAnimalImg(current);
+        document.getElementById('quizFeedbackMsg').textContent = '';
+
+        // Pick 3 distractors
+        const others = shuffleArray(ANIMALS.filter(a => a.id !== current.id)).slice(0, 3);
+        const options = shuffleArray([current, ...others]);
+
+        const grid = document.getElementById('quizOptionsGrid');
+        grid.innerHTML = '';
+        options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'quiz-option-btn';
+          btn.textContent = opt.word;
+          btn.addEventListener('click', () => handleQuizAnswer(btn, opt, current));
+          grid.appendChild(btn);
+        });
+
+        if (autoPlayAudio) {
+          playNativeAudio(current.audio, document.getElementById('quizPlayAudioBtn'));
+        }
+      }
+
+      function handleQuizAnswer(btn, chosen, correct) {
+        if (quizLocked) return;
+        quizLocked = true;
+
+        const allBtns = document.querySelectorAll('#quizOptionsGrid .quiz-option-btn');
+        allBtns.forEach(b => {
+          b.disabled = true;
+          if (b.textContent === correct.word) b.classList.add('correct');
+        });
+
+        if (chosen.id === correct.id) {
+          quizScore++;
+          quizStreak++;
+          if (window.playChimeSound) window.playChimeSound([523.25, 659.25, 783.99], 0.25);
+          playNativeAudio(correct.audio);
+          document.getElementById('quizFeedbackMsg').innerHTML =
+            `<span style="color:#2e7d32;">✅ Correct! That's <strong>${correct.singular}</strong>!</span>`;
+          sayMascot(`Spot on! "${correct.word}"! Streak: ${quizStreak} 🔥`);
+        } else {
+          quizStreak = 0;
+          btn.classList.add('wrong');
+          playNativeAudio(correct.audio);
+          document.getElementById('quizFeedbackMsg').innerHTML =
+            `<span style="color:#c62828;">❌ Not quite! The correct answer is <strong>${correct.word}</strong>.</span>`;
+          sayMascot(`Good try! That animal is "${correct.word}".`);
+        }
+
+        document.getElementById('quizScore').textContent = quizScore;
+        document.getElementById('quizStreak').textContent = quizStreak;
+
+        setTimeout(() => {
+          quizIdx++;
+          renderQuizQuestion();
+        }, 1350);
+      }
+
+      /* ------------------------------------------------------------------
+         6. MODE 3: MEMORY MATCH PAIRS GAME
+         ------------------------------------------------------------------ */
+      let memPairCount = 6;
+      let memCards = [];
+      let memFlipped = [];
+      let memMatchedCount = 0;
+      let memMoves = 0;
+      let memLock = false;
+      let memTimerInterval = null;
+      let memSeconds = 0;
+
+      function startMemoryGame(pairCount = memPairCount) {
+        memPairCount = pairCount;
+        document.getElementById('memSize6Btn').classList.toggle('active', pairCount === 6);
+        document.getElementById('memSize12Btn').classList.toggle('active', pairCount === 12);
+
+        const chosenAnimals = shuffleArray(ANIMALS).slice(0, pairCount);
+        const deck = [];
+        chosenAnimals.forEach(animal => {
+          deck.push({ uid: animal.id + '_img', animal, type: 'image' });
+          deck.push({ uid: animal.id + '_word', animal, type: 'word' });
+        });
+
+        memCards = shuffleArray(deck);
+        memFlipped = [];
+        memMatchedCount = 0;
+        memMoves = 0;
+        memLock = false;
+        memSeconds = 0;
+
+        document.getElementById('memMatched').textContent = '0';
+        document.getElementById('memTotalPairs').textContent = String(pairCount);
+        document.getElementById('memMoves').textContent = '0';
+        document.getElementById('memTimer').textContent = '0:00';
+
+        if (memTimerInterval) clearInterval(memTimerInterval);
+        memTimerInterval = setInterval(() => {
+          if (currentMode !== 'memory' || memMatchedCount >= memPairCount) return;
+          memSeconds++;
+          const m = Math.floor(memSeconds / 60);
+          const s = String(memSeconds % 60).padStart(2, '0');
+          document.getElementById('memTimer').textContent = `${m}:${s}`;
+        }, 1000);
+
+        const grid = document.getElementById('memoryGrid');
+        grid.innerHTML = '';
+
+        memCards.forEach((cardObj) => {
+          const cardEl = document.createElement('div');
+          cardEl.className = 'memory-card';
+          const backContent = cardObj.type === 'image'
+            ? `<img src="${getAnimalImg(cardObj.animal)}" alt="${cardObj.animal.word}">`
+            : `<div class="memory-word-text">${cardObj.animal.word}</div><span style="font-size:0.75rem; color:#5c5446; margin-top:4px;"><i class="fa-solid fa-volume-high"></i> ${cardObj.animal.ipa}</span>`;
+
+          cardEl.innerHTML = `
+            <div class="memory-card-inner">
+              <div class="memory-face memory-front"><i class="fa-solid fa-paw"></i></div>
+              <div class="memory-face memory-back">${backContent}</div>
+            </div>
+          `;
+          cardEl.addEventListener('click', () => onMemoryCardClick(cardEl, cardObj));
+          grid.appendChild(cardEl);
+        });
+      }
+
+      function onMemoryCardClick(cardEl, cardObj) {
+        if (memLock) return;
+        if (cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+
+        cardEl.classList.add('flipped');
+        if (cardObj.type === 'word') {
+          playNativeAudio(cardObj.animal.audio);
+        } else if (window.playGhibliWaterdrop) {
+          window.playGhibliWaterdrop();
+        }
+
+        memFlipped.push({ cardEl, cardObj });
+
+        if (memFlipped.length === 2) {
+          memLock = true;
+          memMoves++;
+          document.getElementById('memMoves').textContent = String(memMoves);
+
+          const [first, second] = memFlipped;
+          if (first.cardObj.animal.id === second.cardObj.animal.id) {
+            // Match!
+            first.cardEl.classList.add('matched');
+            second.cardEl.classList.add('matched');
+            memMatchedCount++;
+            document.getElementById('memMatched').textContent = String(memMatchedCount);
+            playNativeAudio(first.cardObj.animal.audio);
+
+            if (window.playChimeSound) window.playChimeSound([523.25, 659.25, 783.99], 0.25);
+            sayMascot(`Matched "${first.cardObj.animal.word}"! 🐾`);
+
+            memFlipped = [];
+            memLock = false;
+
+            if (memMatchedCount === memPairCount) {
+              if (memTimerInterval) clearInterval(memTimerInterval);
+              if (window.playFanfareChime) window.playFanfareChime();
+              sayMascot(`🎉 Amazing! You matched all ${memPairCount} pairs in ${memMoves} moves!`);
+            }
+          } else {
+            setTimeout(() => {
+              first.cardEl.classList.remove('flipped');
+              second.cardEl.classList.remove('flipped');
+              memFlipped = [];
+              memLock = false;
+            }, 850);
+          }
+        }
+      }
+
+      /* ------------------------------------------------------------------
+         7. MODE 4: LISTEN & SPELL (SPELLING BEE)
+         ------------------------------------------------------------------ */
+      let spellDeck = [];
+      let spellIdx = 0;
+      let spellScore = 0;
+      let spellCurrentGuess = []; // array of { char, tileIndex }
+      let spellScrambled = [];
+
+      function startSpellingGame() {
+        spellDeck = shuffleArray(ANIMALS);
+        spellIdx = 0;
+        spellScore = 0;
+        renderSpellingWord();
+      }
+
+      function renderSpellingWord() {
+        if (spellIdx >= spellDeck.length) spellIdx = 0;
+        const item = spellDeck[spellIdx];
+        document.getElementById('spellIndex').textContent = String(spellIdx + 1);
+        document.getElementById('spellScore').textContent = String(spellScore);
+        document.getElementById('spellAnimalImg').src = getAnimalImg(item);
+        document.getElementById('spellFeedbackMsg').textContent = '';
+
+        const lettersOnly = item.word.replace(/\s+/g, '').split('');
+        spellScrambled = shuffleArray(lettersOnly.map((ch, idx) => ({ ch, idx })));
+        spellCurrentGuess = [];
+
+        renderSpellingUI();
+
+        if (autoPlayAudio) {
+          playNativeAudio(item.audio, document.getElementById('spellPlayAudioBtn'));
+        }
+      }
+
+      function renderSpellingUI() {
+        const item = spellDeck[spellIdx];
+        const slotsRow = document.getElementById('spellingSlotsRow');
+        const tilesPool = document.getElementById('spellingTilesPool');
+        slotsRow.innerHTML = '';
+        tilesPool.innerHTML = '';
+
+        let letterCursor = 0;
+        for (let i = 0; i < item.word.length; i++) {
+          if (item.word[i] === ' ') {
+            const sp = document.createElement('div');
+            sp.className = 'letter-slot space-slot';
+            slotsRow.appendChild(sp);
+          } else {
+            const pos = letterCursor;
+            const slot = document.createElement('div');
+            const guessEntry = spellCurrentGuess[pos];
+            slot.className = 'letter-slot' + (guessEntry ? ' filled' : '');
+            slot.textContent = guessEntry ? guessEntry.ch : '';
+            if (guessEntry) {
+              slot.addEventListener('click', () => {
+                spellCurrentGuess.splice(pos, 1);
+                renderSpellingUI();
+              });
+            }
+            slotsRow.appendChild(slot);
+            letterCursor++;
+          }
+        }
+
+        const usedIndices = new Set(spellCurrentGuess.map(g => g.idx));
+        spellScrambled.forEach(tileObj => {
+          const btn = document.createElement('button');
+          btn.className = 'letter-tile-btn';
+          btn.textContent = tileObj.ch;
+          btn.disabled = usedIndices.has(tileObj.idx);
+          btn.addEventListener('click', () => {
+            const targetLen = item.word.replace(/\s+/g, '').length;
+            if (spellCurrentGuess.length < targetLen) {
+              spellCurrentGuess.push(tileObj);
+              renderSpellingUI();
+              checkSpellingCompletion();
+            }
+          });
+          tilesPool.appendChild(btn);
+        });
+      }
+
+      function checkSpellingCompletion() {
+        const item = spellDeck[spellIdx];
+        const targetClean = item.word.replace(/\s+/g, '');
+        if (spellCurrentGuess.length < targetClean.length) return;
+
+        const formed = spellCurrentGuess.map(g => g.ch).join('');
+        if (formed === targetClean) {
+          spellScore++;
+          document.getElementById('spellScore').textContent = String(spellScore);
+          document.querySelectorAll('#spellingSlotsRow .letter-slot:not(.space-slot)').forEach(el => {
+            el.classList.add('correct');
+          });
+          if (window.playChimeSound) window.playChimeSound([523.25, 659.25, 783.99], 0.3);
+          playNativeAudio(item.audio);
+          document.getElementById('spellFeedbackMsg').innerHTML =
+            `<span style="color:#2e7d32;">✨ Correct! <strong>${item.word}</strong>!</span>`;
+          sayMascot(`Great spelling! "${item.word}"!`);
+
+          setTimeout(() => {
+            spellIdx = (spellIdx + 1) % spellDeck.length;
+            renderSpellingWord();
+          }, 1300);
+        } else {
+          document.getElementById('spellFeedbackMsg').innerHTML =
+            `<span style="color:#c62828;">Almost! Tap a letter slot to fix it or click "Clear Letters".</span>`;
+        }
+      }
+
+      /* ------------------------------------------------------------------
+         8. EVENT LISTENERS & INITIALIZATION
+         ------------------------------------------------------------------ */
+      function initEvents() {
+        // Mode Tabs
+        document.querySelectorAll('.mode-tab-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentMode = btn.dataset.mode;
+            document.querySelectorAll('.mode-tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+            document.querySelectorAll('.game-mode-section').forEach(sec => {
+              sec.classList.toggle('hidden-panel', sec.id !== 'mode-' + currentMode);
+            });
+
+            if (currentMode === 'flip') renderFlipCard();
+            if (currentMode === 'quiz') startQuiz();
+            if (currentMode === 'memory') startMemoryGame(memPairCount);
+            if (currentMode === 'spelling') startSpellingGame();
+          });
+        });
+
+        // Mode 1: Flip Card Clicks
+        const scene = document.getElementById('flashcardScene');
+        scene.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          flipCurrentCard();
+        });
+
+        document.getElementById('frontAudioBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const item = activeDeck[currentCardIndex];
+          if (item) playNativeAudio(item.audio, e.currentTarget);
+        });
+
+        document.getElementById('backAudioBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const item = activeDeck[currentCardIndex];
+          if (item) playNativeAudio(item.audio, e.currentTarget);
+        });
+
+        document.getElementById('recVoiceBtn').addEventListener('click', toggleVoiceRecording);
+        document.getElementById('playMyVoiceBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const item = activeDeck[currentCardIndex];
+          if (item && recordedBlobs[item.id]) {
+            new Audio(recordedBlobs[item.id]).play();
+          }
+        });
+
+        document.getElementById('prevCardBtn').addEventListener('click', () => {
+          currentCardIndex = (currentCardIndex - 1 + activeDeck.length) % activeDeck.length;
+          renderFlipCard();
+        });
+
+        document.getElementById('nextCardBtn').addEventListener('click', () => {
+          currentCardIndex = (currentCardIndex + 1) % activeDeck.length;
+          renderFlipCard();
+        });
+
+        document.getElementById('markLearningBtn').addEventListener('click', () => markCurrentCard('learning'));
+        document.getElementById('markMasteredBtn').addEventListener('click', () => markCurrentCard('mastered'));
+
+        // Toolbar buttons
+        document.getElementById('toggleArtStyleBtn').addEventListener('click', (e) => {
+          useWatercolorArt = !useWatercolorArt;
+          e.currentTarget.classList.toggle('active', useWatercolorArt);
+          document.getElementById('artStyleLabel').textContent = useWatercolorArt ? 'Watercolor' : 'Textbook';
+          renderFlipCard();
+        });
+
+        document.getElementById('toggleFrontSideBtn').addEventListener('click', (e) => {
+          frontSideMode = frontSideMode === 'picture' ? 'word' : 'picture';
+          e.currentTarget.classList.toggle('active', frontSideMode === 'word');
+          document.getElementById('frontSideLabel').textContent = frontSideMode === 'picture' ? 'Picture First' : 'Word First';
+          renderFlipCard();
+        });
+
+        document.getElementById('toggleAutoAudioBtn').addEventListener('click', (e) => {
+          autoPlayAudio = !autoPlayAudio;
+          e.currentTarget.classList.toggle('active', autoPlayAudio);
+          e.currentTarget.innerHTML = `<i class="fa-solid fa-volume-high"></i> Auto-Audio: ${autoPlayAudio ? 'ON' : 'OFF'}`;
+        });
+
+        document.getElementById('filterMissedBtn').addEventListener('click', (e) => {
+          filterMissedOnly = !filterMissedOnly;
+          if (filterMissedOnly) {
+            const missed = ANIMALS.filter(a => masteryStatus[a.id] !== 'mastered');
+            if (missed.length === 0) {
+              filterMissedOnly = false;
+              sayMascot('All 12 cards are already marked Mastered! Showing all 12 cards.');
+              return;
+            }
+            activeDeck = missed;
+            e.currentTarget.classList.add('active');
+            document.getElementById('filterMissedLabel').textContent = `Learning (${missed.length})`;
+          } else {
+            activeDeck = [...ANIMALS];
+            e.currentTarget.classList.remove('active');
+            document.getElementById('filterMissedLabel').textContent = 'All 12 Cards';
+          }
+          currentCardIndex = 0;
+          renderFlipCard();
+        });
+
+        document.getElementById('shuffleDeckBtn').addEventListener('click', () => {
+          activeDeck = shuffleArray(activeDeck);
+          currentCardIndex = 0;
+          renderFlipCard();
+          sayMascot('Deck shuffled! Ready for a fresh round!');
+        });
+
+        document.getElementById('resetProgressBtn').addEventListener('click', () => {
+          masteryStatus = {};
+          saveMastery();
+          filterMissedOnly = false;
+          activeDeck = [...ANIMALS];
+          currentCardIndex = 0;
+          renderFlipCard();
+          sayMascot('Progress reset! Let\'s practice all 12 animals from the beginning!');
+        });
+
+        // Mode 2: Quiz buttons
+        document.getElementById('quizPlayAudioBtn').addEventListener('click', (e) => {
+          const item = quizDeck[quizIdx];
+          if (item) playNativeAudio(item.audio, e.currentTarget);
+        });
+        document.getElementById('restartQuizBtn').addEventListener('click', startQuiz);
+
+        // Mode 3: Memory buttons
+        document.getElementById('memSize6Btn').addEventListener('click', () => startMemoryGame(6));
+        document.getElementById('memSize12Btn').addEventListener('click', () => startMemoryGame(12));
+        document.getElementById('restartMemoryBtn').addEventListener('click', () => startMemoryGame(memPairCount));
+
+        // Mode 4: Spelling buttons
+        document.getElementById('spellPlayAudioBtn').addEventListener('click', (e) => {
+          const item = spellDeck[spellIdx];
+          if (item) playNativeAudio(item.audio, e.currentTarget);
+        });
+        document.getElementById('spellClearBtn').addEventListener('click', () => {
+          spellCurrentGuess = [];
+          document.getElementById('spellFeedbackMsg').textContent = '';
+          renderSpellingUI();
+        });
+        document.getElementById('spellSkipBtn').addEventListener('click', () => {
+          spellIdx = (spellIdx + 1) % spellDeck.length;
+          renderSpellingWord();
+        });
+        document.getElementById('spellHintBtn').addEventListener('click', () => {
+          const item = spellDeck[spellIdx];
+          const targetClean = item.word.replace(/\s+/g, '');
+          const nextPos = spellCurrentGuess.length;
+          if (nextPos >= targetClean.length) return;
+          const neededChar = targetClean[nextPos];
+          const used = new Set(spellCurrentGuess.map(g => g.idx));
+          const matchTile = spellScrambled.find(t => !used.has(t.idx) && t.ch === neededChar);
+          if (matchTile) {
+            spellCurrentGuess.push(matchTile);
+            renderSpellingUI();
+            checkSpellingCompletion();
+          }
+        });
+
+        // Global Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+          if (currentMode === 'flip') {
+            if (e.code === 'Space' || e.code === 'Enter') {
+              e.preventDefault();
+              flipCurrentCard();
+            } else if (e.code === 'ArrowRight') {
+              e.preventDefault();
+              currentCardIndex = (currentCardIndex + 1) % activeDeck.length;
+              renderFlipCard();
+            } else if (e.code === 'ArrowLeft') {
+              e.preventDefault();
+              currentCardIndex = (currentCardIndex - 1 + activeDeck.length) % activeDeck.length;
+              renderFlipCard();
+            } else if (e.key === '1') {
+              markCurrentCard('learning');
+            } else if (e.key === '2') {
+              markCurrentCard('mastered');
+            } else if (e.key.toLowerCase() === 'a') {
+              const item = activeDeck[currentCardIndex];
+              if (item) playNativeAudio(item.audio);
+            }
+          } else if (currentMode === 'spelling') {
+            if (e.key === 'Backspace') {
+              e.preventDefault();
+              spellCurrentGuess.pop();
+              renderSpellingUI();
+            } else if (/^[a-zA-Z]$/.test(e.key)) {
+              const ch = e.key.toLowerCase();
+              const used = new Set(spellCurrentGuess.map(g => g.idx));
+              const tile = spellScrambled.find(t => !used.has(t.idx) && t.ch === ch);
+              if (tile) {
+                spellCurrentGuess.push(tile);
+                renderSpellingUI();
+                checkSpellingCompletion();
+              }
+            }
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initThemeAndHeader();
+        initEvents();
+        renderFlipCard();
+      });
+    })();
+  </script>
+</body>
+</html>
