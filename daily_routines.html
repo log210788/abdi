@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full theme-day">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2c4a38">
+  <title>Lesson 3: Time & Daily Routines • English with Abdi</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka, Outfit, Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Studio Ghibli Theme Tokens -->
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <style>
+    :root {
+      --ghibli-bg-green: #2c4a38;
+      --ghibli-parchment: #fdfaf2;
+      --ghibli-card-bg: rgba(255, 253, 246, 0.95);
+      --ghibli-card-border: rgba(226, 215, 195, 0.85);
+      --ghibli-accent-gold: #d97724;
+      --ghibli-accent-green: #3b744d;
+      --ghibli-accent-blue: #326789;
+      --ghibli-text-main: #2b261f;
+      --ghibli-text-muted: #6e6454;
+      --ghibli-border: #e6dcce;
+      --ghibli-bg-url: url('images/ghibli/bg.webp');
+    }
+
+    .theme-sunset {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+      --ghibli-accent-green: #8d4f28;
+      --ghibli-accent-gold: #c2410c;
+    }
+
+    .theme-night {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
+      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-text-main: #f8fafc;
+      --ghibli-text-muted: #cbd5e1;
+      --ghibli-parchment: #0f172a;
+      --ghibli-accent-green: #38bdf8;
+      --ghibli-accent-gold: #fbbf24;
+    }
+
+    body {
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--ghibli-text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-image 0.5s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-ghibli { font-family: 'Playfair Display', serif; }
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+
+    .ghibli-card {
+      background: var(--ghibli-card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-bounce {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+    }
+    .btn-bounce:hover { transform: translateY(-2px); }
+    .btn-bounce:active { transform: translateY(1px); }
+
+    /* 3D Flip Card Styles */
+    .flip-container { perspective: 1200px; }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flip-card-inner.flipped { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 1.25rem;
+    }
+    .flip-card-back { transform: rotateY(180deg); }
+
+    /* Word Chips for Builder */
+    .word-chip {
+      user-select: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .word-chip:active { transform: scale(0.96); }
+    .chip-selected {
+      opacity: 0.45;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    /* Active Nav Tab */
+    .nav-tab-active {
+      background: #15803d !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/92 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 transition-colors shadow-xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-amber-700 text-amber-100 flex items-center justify-center shadow-xs">
+          <i class="fa-solid fa-clock text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 3</span>
+          </div>
+          <p class="text-xs text-stone-500 font-semibold leading-none mt-0.5">Telling Time & Daily Routines (at / in)</p>
+        </div>
+      </div>
+
+      <!-- Controls: Navigation, TOD toggle, XP counter -->
+      <div class="flex items-center gap-1.5">
+        <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 text-xs font-bold hover:bg-stone-200 flex items-center gap-1" title="Toggle Day/Sunset/Night">
+          <span id="tod-icon">☀️</span>
+        </button>
+
+        <div class="px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+
+        <a href="index.html" class="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-700 text-xs font-bold flex items-center gap-1 transition" title="Lesson 1 (Introductions & Prepositions)">
+          <i class="fa-solid fa-house text-xs"></i>
+          <span class="hidden sm:inline">L1</span>
+        </a>
+
+        <a href="jobs_flashcards.html" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Lesson 2 (Jobs Flashcards)">
+          <i class="fa-solid fa-briefcase text-xs"></i>
+          <span class="hidden sm:inline">L2 Jobs</span>
+        </a>
+
+        <a href="weekly_routines.html" class="px-2.5 py-1.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Lesson 4 (Weekly Routines & He/She)">
+          <i class="fa-solid fa-calendar-week text-xs"></i>
+          <span class="hidden sm:inline">L4 Week</span>
+        </a>
+
+        <a href="verb_practice.html" class="px-2.5 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Verb Master (I vs He/She)">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+          <span class="hidden sm:inline">Verbs</span>
+        </a>
+
+        <a href="lesson_test.html" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Lesson Test Arena">
+          <i class="fa-solid fa-gamepad text-xs"></i>
+          <span class="hidden sm:inline">Arena</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- SUB-NAVIGATION: 5 LEARNING MODES -->
+  <nav class="sticky top-[53px] z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-1.5 shadow-2xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-1">
+      <button onclick="switchView('clock')" id="tab-btn-clock" class="nav-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition nav-tab-active">
+        <i class="fa-solid fa-clock"></i>
+        <span>1. Clocks</span>
+      </button>
+      <button onclick="switchView('flashcards')" id="tab-btn-flashcards" class="nav-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>2. Routines</span>
+      </button>
+      <button onclick="switchView('preps')" id="tab-btn-preps" class="nav-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-arrows-split-up-and-left"></i>
+        <span>3. At / In</span>
+      </button>
+      <button onclick="switchView('builder')" id="tab-btn-builder" class="nav-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <span>4. Sentences</span>
+      </button>
+      <button onclick="switchView('quiz')" id="tab-btn-quiz" class="nav-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-trophy"></i>
+        <span>5. Quiz</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3.5 space-y-4">
+
+    <!-- ========================================================
+         VIEW 1: INTERACTIVE CLOCK & TELLING TIME EXPLORER
+         ======================================================== -->
+    <section id="view-clock" class="view-panel space-y-4">
+      
+      <!-- Hero Banner -->
+      <div class="ghibli-card p-4 border-l-4 border-l-amber-600 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">DK Module 11 • Page 36</span>
+            <h2 class="font-ghibli font-bold text-lg text-stone-900">What Time Is It? ⏰</h2>
+          </div>
+          <span class="text-xs text-stone-500 font-bold">Af-Soomaali: <em>Waa imisadii?</em></span>
+        </div>
+        <p class="text-xs text-stone-700 leading-relaxed">
+          Tap each clock to hear the English pronunciation, see how to write it, and learn the rule for <strong>o'clock</strong>, <strong>half past</strong>, <strong>quarter past</strong>, and <strong>quarter to</strong>!
+        </p>
+      </div>
+
+      <!-- Live Clock Display Card -->
+      <div class="ghibli-card p-5 text-center space-y-4">
+        
+        <!-- Big Clock Image & Digital Display -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 py-2">
+          <div class="relative w-40 h-40 flex items-center justify-center p-2 bg-white rounded-3xl shadow-inner border border-stone-200">
+            <img id="active-clock-img" src="images/clocks/clock_07_00.svg" alt="Analog Clock" class="w-36 h-36 object-contain drop-shadow-md transition-all duration-300">
+          </div>
+
+          <div class="flex flex-col items-center sm:items-start space-y-2">
+            <div id="active-clock-digital" class="px-5 py-2.5 rounded-2xl bg-stone-900 text-emerald-400 font-mono text-3xl font-extrabold tracking-widest shadow-inner border-2 border-stone-700">
+              07:00
+            </div>
+            <div class="text-center sm:text-left">
+              <h3 id="active-clock-phrase" class="font-display font-extrabold text-2xl text-stone-900 tracking-tight">
+                It's seven o'clock.
+              </h3>
+              <p id="active-clock-somali" class="text-sm font-semibold text-emerald-700 mt-0.5">
+                Af-Soomaali: Waa toddobadii (7:00) 🇸🇴
+              </p>
+              <p id="active-clock-alt" class="text-xs text-stone-500 mt-1">
+                Also spoken as: <em>"It's seven."</em>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Play Button -->
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <button onclick="playActiveClockAudio()" id="btn-clock-audio" class="btn-bounce px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-volume-high"></i> <span id="btn-clock-audio-text">Listen to Audio 🔊</span>
+          </button>
+          <button onclick="toggleSlowSpeech()" id="btn-slow-speech" class="px-3 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-700 font-bold text-xs">
+            🐢 Normal
+          </button>
+        </div>
+
+        <!-- Time Preset Buttons Grid -->
+        <div class="pt-3 border-t border-stone-200">
+          <div class="text-left text-xs font-bold text-stone-600 mb-2.5 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-hand-pointer text-amber-600"></i>
+              <span>Select a time to practice:</span>
+            </span>
+            <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">12 Verified Times</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="selectClockTime(0)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">07:00</span>
+              <span class="text-[11px] text-stone-600">seven o'clock</span>
+            </button>
+            <button onclick="selectClockTime(1)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">07:15</span>
+              <span class="text-[11px] text-stone-600">seven fifteen</span>
+            </button>
+            <button onclick="selectClockTime(2)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">07:30</span>
+              <span class="text-[11px] text-stone-600">half past seven</span>
+            </button>
+            <button onclick="selectClockTime(3)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">07:45</span>
+              <span class="text-[11px] text-stone-600">quarter to eight</span>
+            </button>
+            <button onclick="selectClockTime(4)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">08:00</span>
+              <span class="text-[11px] text-stone-600">eight o'clock</span>
+            </button>
+            <button onclick="selectClockTime(5)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">08:30</span>
+              <span class="text-[11px] text-stone-600">half past eight</span>
+            </button>
+            <button onclick="selectClockTime(6)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">09:00</span>
+              <span class="text-[11px] text-stone-600">nine o'clock</span>
+            </button>
+            <button onclick="selectClockTime(7)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">09:15</span>
+              <span class="text-[11px] text-stone-600">quarter past nine</span>
+            </button>
+            <button onclick="selectClockTime(8)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">04:00</span>
+              <span class="text-[11px] text-stone-600">four o'clock</span>
+            </button>
+            <button onclick="selectClockTime(9)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">06:30</span>
+              <span class="text-[11px] text-stone-600">half past six</span>
+            </button>
+            <button onclick="selectClockTime(10)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">12:00 PM</span>
+              <span class="text-[11px] text-stone-600">midday / noon</span>
+            </button>
+            <button onclick="selectClockTime(11)" class="clock-preset-btn p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 text-left transition font-semibold text-xs shadow-2xs">
+              <span class="block font-mono font-bold text-stone-900 text-sm">12:00 AM</span>
+              <span class="text-[11px] text-stone-600">midnight</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Rule Card -->
+      <div class="ghibli-card p-4 space-y-2 bg-emerald-50/70 border border-emerald-200">
+        <h4 class="font-ghibli font-bold text-sm text-emerald-950 flex items-center gap-1.5">
+          <i class="fa-solid fa-lightbulb text-amber-500"></i> Teacher Lewis's Time Rule
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-stone-700">
+          <div class="p-2.5 bg-white/90 rounded-xl border border-emerald-200">
+            <strong class="text-emerald-900 block">:00 ➔ o'clock</strong>
+            "It is 7 o'clock." Exactly on the hour.
+          </div>
+          <div class="p-2.5 bg-white/90 rounded-xl border border-emerald-200">
+            <strong class="text-emerald-900 block">:15 / :30 ➔ past</strong>
+            "quarter past 7" (15 min after)<br>"half past 7" (30 min after)
+          </div>
+          <div class="p-2.5 bg-white/90 rounded-xl border border-emerald-200">
+            <strong class="text-emerald-900 block">:45 ➔ to</strong>
+            "quarter to 8" (15 min before the next hour).
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         VIEW 2: DAILY ROUTINES 3D FLASHCARDS
+         ======================================================== -->
+    <section id="view-flashcards" class="view-panel hidden space-y-4">
+      
+      <!-- Card Tracker Header -->
+      <div class="ghibli-card p-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-stone-500 uppercase tracking-wide">Routine:</span>
+          <span id="card-counter" class="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">1 of 12</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="flex items-center gap-1.5 text-xs text-stone-600 font-semibold cursor-pointer">
+            <input type="checkbox" id="auto-speak-toggle" class="rounded text-emerald-600 focus:ring-emerald-500" checked>
+            <span>Auto-speak 🔊</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3D FLIP FLASHCARD -->
+      <div class="flip-container w-full h-[460px] sm:h-[490px]">
+        <div id="flashcard-3d" class="flip-card-inner ghibli-card" onclick="flipCurrentCard()">
+          
+          <!-- FRONT OF FLASHCARD -->
+          <div class="flip-card-front p-4 flex flex-col justify-between bg-white/95 border-2 border-stone-200 shadow-md">
+            
+            <!-- Front Top: Time Tag & Audio Button -->
+            <div class="flex items-center justify-between w-full">
+              <span id="fc-front-time-badge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wide shadow-xs bg-amber-100 text-amber-900 border border-amber-300">
+                ☀️ MORNING ROUTINE
+              </span>
+              <button onclick="event.stopPropagation(); speakCardWord();" class="btn-bounce w-9 h-9 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center border border-amber-300 shadow-xs" title="Listen to pronunciation">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+
+            <!-- Front Center: Illustration -->
+            <div class="w-full flex-1 my-2.5 rounded-2xl overflow-hidden border border-stone-200 shadow-inner relative bg-stone-50 flex items-center justify-center p-3">
+              <img id="fc-front-img" src="images/routines/wake_up.jpg" alt="Routine Artwork" class="max-w-full max-h-full object-contain filter drop-shadow-md transition-transform duration-300">
+              <div id="fc-front-clock-tag" class="absolute bottom-2 right-2 bg-stone-900/80 backdrop-blur-md text-emerald-300 font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                07:00 AM
+              </div>
+            </div>
+
+            <!-- Front Bottom: Title & Hint -->
+            <div class="text-center pt-1">
+              <h2 id="fc-front-title" class="font-display font-extrabold text-2xl sm:text-3xl text-stone-900 tracking-tight">
+                wake up
+              </h2>
+              <p class="text-xs text-stone-500 font-semibold mt-1 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-repeat text-amber-600"></i>
+                <span>Tap card to see Somali translation & sentence</span>
+              </p>
+            </div>
+
+          </div>
+
+          <!-- BACK OF FLASHCARD -->
+          <div class="flip-card-back p-5 flex flex-col justify-between bg-emerald-950 text-white border-2 border-emerald-700 shadow-xl">
+            
+            <div class="flex items-center justify-between w-full border-b border-emerald-800 pb-2">
+              <span class="text-xs font-bold text-emerald-300 uppercase tracking-widest">Meaning & Somali 🇸🇴</span>
+              <button onclick="event.stopPropagation(); speakCardSentence();" class="btn-bounce w-9 h-9 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-amber-300 flex items-center justify-center border border-emerald-600" title="Listen to full sentence">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+
+            <!-- Phonetics & Somali translation -->
+            <div class="space-y-3 my-auto text-left">
+              <div class="p-3 bg-emerald-900/70 rounded-xl border border-emerald-700">
+                <span class="text-[10px] font-bold uppercase text-emerald-400 block">Af-Soomaali 🇸🇴</span>
+                <div id="fc-back-somali" class="font-bold text-lg text-amber-200 mt-0.5">
+                  Toos (hurdada ka toos)
+                </div>
+              </div>
+
+              <div class="p-3 bg-emerald-900/70 rounded-xl border border-emerald-700">
+                <span class="text-[10px] font-bold uppercase text-emerald-400 block">Pronunciation & IPA</span>
+                <div id="fc-back-ipa" class="font-mono text-sm text-stone-200 mt-0.5">
+                  /weɪk ʌp/
+                </div>
+              </div>
+
+              <div class="p-3.5 bg-emerald-900/90 rounded-xl border border-emerald-600">
+                <span class="text-[10px] font-bold uppercase text-amber-300 block">Example Sentence</span>
+                <p id="fc-back-sentence" class="text-sm font-semibold text-white mt-1 leading-snug">
+                  "I wake up at 7:00 AM."
+                </p>
+              </div>
+            </div>
+
+            <!-- Back Bottom -->
+            <div class="text-center pt-2 border-t border-emerald-800">
+              <p class="text-[11px] text-emerald-300 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-arrow-rotate-left"></i> Tap anywhere to flip back
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Controls: Prev, Next, Flip, Audio -->
+      <div class="grid grid-cols-4 gap-2 pt-1">
+        <button onclick="prevFlashcard()" class="btn-bounce py-3 rounded-2xl bg-white border border-stone-200 text-stone-700 font-bold text-xs shadow-xs flex items-center justify-center gap-1">
+          <i class="fa-solid fa-chevron-left"></i> Prev
+        </button>
+        <button onclick="flipCurrentCard()" class="btn-bounce py-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-bold text-xs shadow-xs flex items-center justify-center gap-1">
+          <i class="fa-solid fa-repeat"></i> Flip
+        </button>
+        <button onclick="speakCardWord()" class="btn-bounce py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs flex items-center justify-center gap-1">
+          <i class="fa-solid fa-volume-high"></i> Listen
+        </button>
+        <button onclick="nextFlashcard()" class="btn-bounce py-3 rounded-2xl bg-white border border-stone-200 text-stone-700 font-bold text-xs shadow-xs flex items-center justify-center gap-1">
+          Next <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         VIEW 3: PREPOSITION ARENA (AT vs IN)
+         ======================================================== -->
+    <section id="view-preps" class="view-panel hidden space-y-4">
+      
+      <div class="ghibli-card p-4 space-y-1.5 border-l-4 border-l-emerald-600">
+        <h3 class="font-ghibli font-bold text-base text-stone-900 flex items-center gap-1.5">
+          <i class="fa-solid fa-arrows-split-up-and-left text-emerald-600"></i> Time Preposition Sorter: AT vs IN
+        </h3>
+        <p class="text-xs text-stone-600">
+          Decide whether each time phrase uses <strong>AT</strong> (exact hours/night) or <strong>IN</strong> (parts of the day). Tap the card to sort it!
+        </p>
+      </div>
+
+      <!-- Sorter Score & Current Item -->
+      <div class="ghibli-card p-6 text-center space-y-4">
+        
+        <div class="flex items-center justify-between text-xs font-bold text-stone-500">
+          <span>Question <span id="prep-q-num">1</span> of 8</span>
+          <span class="text-amber-600">Streak: <span id="prep-streak">0</span> 🔥</span>
+        </div>
+
+        <div class="py-6 px-4 bg-amber-50/80 rounded-2xl border-2 border-dashed border-amber-300">
+          <span class="text-[10px] font-extrabold uppercase text-stone-400 tracking-wider block mb-1">Time Expression:</span>
+          <h2 id="prep-current-word" class="font-display font-extrabold text-3xl sm:text-4xl text-stone-900">
+            7:00 AM
+          </h2>
+          <p id="prep-hint" class="text-xs text-stone-500 mt-2">Exact clock time</p>
+        </div>
+
+        <!-- Choice Buckets -->
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <button onclick="handlePrepChoice('at')" class="btn-bounce p-4 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-display font-extrabold text-xl shadow-md flex flex-col items-center justify-center gap-1">
+            <span>📦 AT</span>
+            <span class="text-[11px] font-normal opacity-90">Exact times & night</span>
+          </button>
+          <button onclick="handlePrepChoice('in')" class="btn-bounce p-4 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-display font-extrabold text-xl shadow-md flex flex-col items-center justify-center gap-1">
+            <span>📦 IN</span>
+            <span class="text-[11px] font-normal opacity-90">Morning, afternoon, evening</span>
+          </button>
+        </div>
+
+        <!-- Feedback Banner -->
+        <div id="prep-feedback" class="hidden p-3 rounded-xl font-bold text-xs text-center"></div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         VIEW 4: SENTENCE BUILDER & ABDI'S DAY MONOLOGUE
+         ======================================================== -->
+    <section id="view-builder" class="view-panel hidden space-y-4">
+      
+      <!-- Monologue Audio Player Card -->
+      <div class="ghibli-card p-5 space-y-3 bg-gradient-to-br from-white to-amber-50/50 border border-amber-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900">Mastery Challenge</span>
+            <h3 class="font-ghibli font-bold text-base text-stone-900">Abdi's Complete Day 🎧</h3>
+          </div>
+          <button onclick="playFullDayMonologue()" id="btn-play-day" class="btn-bounce px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs">
+            <i class="fa-solid fa-play"></i> Listen to Abdi's Story
+          </button>
+        </div>
+
+        <p class="text-xs text-stone-600">
+          This story combines <strong>Lesson 1</strong> (Introductions), <strong>Lesson 2</strong> (Student & Jobs), and <strong>Lesson 3</strong> (Daily Routines):
+        </p>
+
+        <!-- Monologue Paragraph -->
+        <div id="monologue-box" class="p-4 bg-white/95 rounded-2xl border border-stone-200 font-medium text-xs sm:text-sm text-stone-800 leading-relaxed space-y-1.5 shadow-inner">
+          <p id="mono-line-1">"Hello! My name is <strong>Abdi</strong>. I am 24 years old and I am from <strong>Ethiopia</strong>." 🇪🇹</p>
+          <p id="mono-line-2">"I am a <strong>student</strong>. My English book is on the desk."</p>
+          <p id="mono-line-3">"Every day, I <strong>wake up at 7:00 AM</strong> in the morning."</p>
+          <p id="mono-line-4">"I wash my face, <strong>brush my teeth</strong>, and have breakfast."</p>
+          <p id="mono-line-5">"<strong>At 8:30 AM</strong>, I go to school."</p>
+          <p id="mono-line-6">"<strong>In the afternoon</strong>, I eat lunch and study English."</p>
+          <p id="mono-line-7">"<strong>In the evening</strong>, I cook dinner and relax."</p>
+          <p id="mono-line-8">"<strong>At night</strong>, I go to bed at 10:30 PM."</p>
+        </div>
+      </div>
+
+      <!-- Unscramble Interactive Exercise -->
+      <div class="ghibli-card p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <h4 class="font-ghibli font-bold text-sm text-stone-900">
+            🧩 Unscramble: Put the Words in Order
+          </h4>
+          <span class="text-xs font-bold text-stone-500">Task <span id="builder-task-num">1</span> of 4</span>
+        </div>
+
+        <!-- Target Target Drop Slot -->
+        <div class="p-3.5 bg-stone-50 rounded-2xl border-2 border-stone-300 min-h-[60px] flex flex-wrap items-center gap-2" id="builder-drop-zone">
+          <span id="builder-placeholder" class="text-xs text-stone-400 font-semibold italic">Tap words below in the correct order...</span>
+        </div>
+
+        <!-- Word Bank Chips -->
+        <div class="flex flex-wrap gap-2 pt-1" id="builder-chips-zone">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Builder Action Buttons -->
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-stone-200">
+          <button onclick="resetBuilderSentence()" class="px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 font-bold text-xs">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+          </button>
+          <button onclick="checkBuilderSentence()" class="btn-bounce px-4 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs">
+            <i class="fa-solid fa-check"></i> Check Order
+          </button>
+        </div>
+
+        <div id="builder-feedback" class="hidden p-3 rounded-xl font-bold text-xs text-center"></div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         VIEW 5: QUIZ ARENA
+         ======================================================== -->
+    <section id="view-quiz" class="view-panel hidden space-y-4">
+      
+      <div class="ghibli-card p-4 space-y-1.5 border-l-4 border-l-amber-500">
+        <div class="flex items-center justify-between">
+          <h3 class="font-ghibli font-bold text-base text-stone-900 flex items-center gap-1.5">
+            <i class="fa-solid fa-trophy text-amber-500"></i> Lesson 3 Mastery Quiz
+          </h3>
+          <span id="quiz-score-badge" class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-xs">Score: 0 / 6</span>
+        </div>
+        <p class="text-xs text-stone-600">
+          Test your knowledge of clocks, routine verbs, and time prepositions (at / in).
+        </p>
+      </div>
+
+      <!-- Quiz Questions Container -->
+      <div class="space-y-3" id="quiz-list-container">
+        <!-- Questions injected via JavaScript -->
+      </div>
+
+      <!-- Check Button -->
+      <div class="text-center pt-2">
+        <button onclick="gradeAllQuiz()" class="btn-bounce w-full py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-circle-check"></i> Grade Lesson 3 Quiz & Earn XP
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FLOATING KODAMA MASCOT -->
+  <div class="fixed bottom-3 right-3 z-30 flex items-end gap-2 pointer-events-none sm:pointer-events-auto">
+    <div id="kodama-bubble" class="hidden max-w-[220px] p-2.5 rounded-2xl bg-white/95 text-stone-800 text-xs font-semibold shadow-lg border border-stone-200 leading-tight">
+      👋 Baro waqtiga iyo waxyaabaha aad maalin kasta qabato!
+    </div>
+    <button onclick="toggleKodamaBubble()" class="w-12 h-12 rounded-full bg-emerald-800 text-white shadow-xl flex items-center justify-center pointer-events-auto hover:scale-105 active:scale-95 transition">
+      <img src="images/ghibli/mascot.webp" alt="Kodama" class="w-10 h-10 object-contain rounded-full" onerror="this.parentElement.innerHTML='🌱'">
+    </button>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    /* ========================================================
+       DATA DEFINITIONS
+       ======================================================== */
+    const CLOCK_DATA = [
+      {
+        digital: "07:00",
+        phrase: "It's seven o'clock.",
+        spoken: "It's seven o'clock.",
+        somali: "Waa toddobadii (7:00)",
+        audio: null,
+        img: "images/clocks/clock_07_00.svg",
+        alt: 'Also spoken: "It\'s seven."'
+      },
+      {
+        digital: "07:15",
+        phrase: "It's seven fifteen.",
+        spoken: "It's seven fifteen.",
+        somali: "Waa toddobada iyo shan iyo toban (7:15)",
+        audio: "audio/11/11_1_eg.mp3",
+        img: "images/clocks/clock_07_15.svg",
+        alt: 'Also spoken: "It\'s a quarter past seven."'
+      },
+      {
+        digital: "07:30",
+        phrase: "It's half past seven.",
+        spoken: "It's half past seven.",
+        somali: "Waa toddobada iyo badhka (7:30)",
+        audio: null,
+        img: "images/clocks/clock_07_30.svg",
+        alt: 'Also spoken: "It\'s seven thirty."'
+      },
+      {
+        digital: "07:45",
+        phrase: "It's a quarter to eight.",
+        spoken: "It's a quarter to eight.",
+        somali: "Waa siddeeda oo rubuc ka dhiman (7:45)",
+        audio: "audio/11/11_3_10.mp3",
+        img: "images/clocks/clock_07_45.svg",
+        alt: 'Also spoken: "It\'s seven forty-five."'
+      },
+      {
+        digital: "08:00",
+        phrase: "It's eight o'clock.",
+        spoken: "It's eight o'clock.",
+        somali: "Waa siddeeddii (8:00)",
+        audio: null,
+        img: "images/clocks/clock_08_00.svg",
+        alt: 'Also spoken: "It\'s eight."'
+      },
+      {
+        digital: "08:30",
+        phrase: "It's half past eight.",
+        spoken: "It's half past eight.",
+        somali: "Waa siddeeda iyo badhka (8:30)",
+        audio: "audio/11/11_1_1.mp3",
+        img: "images/clocks/clock_08_30.svg",
+        alt: 'Also spoken: "It\'s eight thirty."'
+      },
+      {
+        digital: "09:00",
+        phrase: "It's nine o'clock.",
+        spoken: "It's nine o'clock.",
+        somali: "Waa sagaashii (9:00)",
+        audio: "audio/11/11_3_9.mp3",
+        img: "images/clocks/clock_09_00.svg",
+        alt: 'School / work start time.'
+      },
+      {
+        digital: "09:15",
+        phrase: "It's a quarter past nine.",
+        spoken: "It's a quarter past nine.",
+        somali: "Waa sagaalka iyo shan iyo toban (9:15)",
+        audio: "audio/11/11_4_eg.mp3",
+        img: "images/clocks/clock_09_15.svg",
+        alt: 'Also spoken: "It\'s nine fifteen."'
+      },
+      {
+        digital: "04:00",
+        phrase: "It's four o'clock.",
+        spoken: "It's four o'clock.",
+        somali: "Waa afartii galabnimo (4:00)",
+        audio: "audio/11/11_4_2.mp3",
+        img: "images/clocks/clock_04_00.svg",
+        alt: 'Afternoon time.'
+      },
+      {
+        digital: "06:30",
+        phrase: "It's half past six.",
+        spoken: "It's half past six.",
+        somali: "Waa lixda iyo badhka fiidkii (6:30)",
+        audio: "audio/11/11_4_7.mp3",
+        img: "images/clocks/clock_06_30.svg",
+        alt: 'Evening dinner time.'
+      },
+      {
+        digital: "12:00 PM",
+        phrase: "It's twelve o'clock (midday / noon).",
+        spoken: "It's twelve o'clock, midday.",
+        somali: "Waa duhur (12:00 PM)",
+        audio: null,
+        img: "images/clocks/clock_12_00.svg",
+        alt: 'Daytime noon.'
+      },
+      {
+        digital: "12:00 AM",
+        phrase: "It's midnight.",
+        spoken: "It's midnight.",
+        somali: "Waa habeenbadh (12:00 AM)",
+        audio: "audio/11/11_1_3.mp3",
+        img: "images/clocks/clock_12_00.svg",
+        alt: 'Saqda dhexe / middle of the night.'
+      }
+    ];
+
+    const ROUTINES_DATA = [
+      {
+        id: "wake_up",
+        title: "wake up",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:00 AM",
+        img: "images/routines/wake_up.jpg",
+        audio: "audio/12/12_1_4.mp3",
+        ipa: "/weɪk ʌp/",
+        somali: "toos (hurdada ka toos)",
+        sentence: "I wake up at 7:00 AM."
+      },
+      {
+        id: "get_up",
+        title: "get up",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:05 AM",
+        img: "images/routines/get_up.jpg",
+        audio: "audio/12/12_1_23.mp3",
+        ipa: "/ɡet ʌp/",
+        somali: "sariirta ka kac",
+        sentence: "I get up and stretch."
+      },
+      {
+        id: "wash_face",
+        title: "wash my face",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:10 AM",
+        img: "images/routines/wash_face.jpg",
+        audio: "audio/12/12_1_18.mp3",
+        ipa: "/wɒʃ maɪ feɪs/",
+        somali: "wajiga maydho",
+        sentence: "I wash my face with warm water."
+      },
+      {
+        id: "brush_teeth",
+        title: "brush my teeth",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:15 AM",
+        img: "images/routines/brush_teeth.svg",
+        audio: "audio/12/12_1_20.mp3",
+        ipa: "/brʌʃ maɪ tiːθ/",
+        somali: "ilkaha cadeyso",
+        sentence: "I brush my teeth every morning."
+      },
+      {
+        id: "take_shower",
+        title: "take a shower",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:20 AM",
+        img: "images/routines/take_shower.svg",
+        audio: "audio/12/12_1_22.mp3",
+        ipa: "/teɪk ə ˈʃaʊ.ər/",
+        somali: "qubeyso / maydho",
+        sentence: "I take a shower before dressing."
+      },
+      {
+        id: "get_dressed",
+        title: "get dressed",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:35 AM",
+        img: "images/routines/get_dressed.svg",
+        audio: "audio/12/12_1_10.mp3",
+        ipa: "/ɡet drest/",
+        somali: "dharka xidho",
+        sentence: "I get dressed in clean clothes."
+      },
+      {
+        id: "have_breakfast",
+        title: "have breakfast",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "07:45 AM",
+        img: "images/routines/have_breakfast.svg",
+        audio: "audio/12/12_1_26.mp3",
+        ipa: "/hæv ˈbrek.fəst/",
+        somali: "quraaco",
+        sentence: "I have breakfast at 7:45 AM."
+      },
+      {
+        id: "go_to_school",
+        title: "go to school / work",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "08:30 AM",
+        img: "images/routines/go_to_school.svg",
+        audio: "audio/12/12_1_9.mp3",
+        ipa: "/ɡəʊ tuː skuːl/",
+        somali: "dugsi tag / shaqo tag",
+        sentence: "I go to school at 8:30 AM."
+      },
+      {
+        id: "start_class",
+        title: "start class / work",
+        timeBadge: "☀️ MORNING ROUTINE",
+        clockTag: "09:00 AM",
+        img: "images/routines/start_class.svg",
+        audio: "audio/12/12_1_7.mp3",
+        ipa: "/stɑːt klɑːs/",
+        somali: "fasalka / shaqada bilow",
+        sentence: "Class starts at 9:00 AM."
+      },
+      {
+        id: "eat_lunch",
+        title: "eat lunch",
+        timeBadge: "🌤️ AFTERNOON ROUTINE",
+        clockTag: "01:00 PM",
+        img: "images/routines/eat_lunch.svg",
+        audio: "audio/12/12_1_3.mp3",
+        ipa: "/iːt lʌntʃ/",
+        somali: "qado",
+        sentence: "I eat lunch at 1:00 PM."
+      },
+      {
+        id: "study_english",
+        title: "study English",
+        timeBadge: "🌤️ AFTERNOON ROUTINE",
+        clockTag: "03:30 PM",
+        img: "images/routines/study_english.svg",
+        audio: null,
+        ipa: "/ˈstʌd.i ˈɪŋ.ɡlɪʃ/",
+        somali: "Ingiriisi baro",
+        sentence: "I study English in the afternoon."
+      },
+      {
+        id: "go_to_bed",
+        title: "go to bed",
+        timeBadge: "🌙 NIGHT ROUTINE",
+        clockTag: "10:30 PM",
+        img: "images/routines/go_to_bed.svg",
+        audio: "audio/12/12_1_11.mp3",
+        ipa: "/ɡəʊ tuː bed/",
+        somali: "seexo / hurdo tag",
+        sentence: "I go to bed at 10:30 PM."
+      }
+    ];
+
+    const PREP_DRILLS = [
+      { text: "7:00 AM", correct: "at", hint: "Exact clock time" },
+      { text: "the morning", correct: "in", hint: "Part of the day" },
+      { text: "half past eight", correct: "at", hint: "Exact clock time" },
+      { text: "the afternoon", correct: "in", hint: "Part of the day" },
+      { text: "night", correct: "at", hint: "Night always uses AT!" },
+      { text: "the evening", correct: "in", hint: "Part of the day" },
+      { text: "midnight", correct: "at", hint: "Exact hour of night" },
+      { text: "1:00 PM", correct: "at", hint: "Exact clock time" }
+    ];
+
+    const BUILDER_TASKS = [
+      {
+        target: ["I", "wake up", "at", "7:00 AM"],
+        full: "I wake up at 7:00 AM."
+      },
+      {
+        target: ["I", "have breakfast", "in", "the morning"],
+        full: "I have breakfast in the morning."
+      },
+      {
+        target: ["I", "go to school", "at", "8:30 AM"],
+        full: "I go to school at 8:30 AM."
+      },
+      {
+        target: ["I", "go to bed", "at", "night"],
+        full: "I go to bed at night."
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        q: "What is the correct preposition: 'I wake up _____ 7 o'clock.'?",
+        options: ["at", "in", "on", "under"],
+        answer: "at",
+        explanation: "Clock times always take AT (e.g., at 7 o'clock)."
+      },
+      {
+        q: "What is the correct preposition: 'We study English _____ the afternoon.'?",
+        options: ["in", "at", "to", "on"],
+        answer: "in",
+        explanation: "Parts of the day take IN (in the morning/afternoon/evening)."
+      },
+      {
+        q: "How do you say 07:30 in English?",
+        options: ["It's half past seven.", "It's quarter past seven.", "It's seven o'clock.", "It's quarter to eight."],
+        answer: "It's half past seven.",
+        explanation: "30 minutes past the hour is 'half past'."
+      },
+      {
+        q: "Which word completes this routine: 'Every night, I go to _____.'?",
+        options: ["bed", "cook", "brush", "shower"],
+        answer: "bed",
+        explanation: "'go to bed' means sleeping / hurdo seexasho."
+      },
+      {
+        q: "Choose the correct sentence for Abdi:",
+        options: [
+          "I am a student. I wake up at 7:00.",
+          "I is a student. I wakes up at 7:00.",
+          "I am student. I waking at 7:00.",
+          "I are student. I wake at 7:00."
+        ],
+        answer: "I am a student. I wake up at 7:00.",
+        explanation: "Subject 'I' pairs with 'am', article 'a', and base verb 'wake up'."
+      },
+      {
+        q: "What does 'at night' mean in Af-Soomaali?",
+        options: ["Habeenkii", "Subaxdii", "Galabdii", "Duhurdii"],
+        answer: "Habeenkii",
+        explanation: "'At night' = Habeenkii 🇸🇴."
+      }
+    ];
+
+    /* ========================================================
+       STATE
+       ======================================================== */
+    let activeClockIndex = 0;
+    let currentRoutineIndex = 0;
+    let prepDrillIndex = 0;
+    let prepStreak = 0;
+    let builderTaskIndex = 0;
+    let builderSelected = [];
+    let globalXP = 0;
+    let isSlowSpeech = false;
+
+    /* ========================================================
+       AUDIO & SOUND ENGINE
+       ======================================================== */
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utt = new SpeechSynthesisUtterance(text);
+      utt.lang = 'en-US';
+      utt.rate = isSlowSpeech ? 0.72 : 0.96;
+      utt.pitch = 1.0;
+      window.speechSynthesis.speak(utt);
+    }
+
+    function playAudioFile(src, fallbackText) {
+      if (src) {
+        const audio = new Audio(src);
+        audio.play().catch((err) => {
+          console.warn("Audio file playback error, using speech synthesis fallback:", err);
+          speak(fallbackText || '');
+        });
+      } else if (fallbackText) {
+        speak(fallbackText);
+      }
+    }
+
+    function toggleSlowSpeech() {
+      isSlowSpeech = !isSlowSpeech;
+      const btn = document.getElementById('btn-slow-speech');
+      if (btn) {
+        btn.textContent = isSlowSpeech ? "🐢 Slow (Active)" : "🐢 Normal";
+        btn.className = isSlowSpeech ? "px-3 py-2.5 rounded-xl bg-amber-200 text-amber-950 font-bold text-xs" : "px-3 py-2.5 rounded-xl bg-stone-100 text-stone-700 font-bold text-xs";
+      }
+    }
+
+    function playSound(isSuccess) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        if (isSuccess) {
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.18);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+        } else {
+          osc.frequency.setValueAtTime(260, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.22);
+        }
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch (e) {}
+    }
+
+    function addXP(pts) {
+      globalXP += pts;
+      document.getElementById('global-xp').textContent = `${globalXP} XP`;
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.7 } });
+      }
+    }
+
+    /* ========================================================
+       TIME OF DAY THEME SWITCHER
+       ======================================================== */
+    const THEMES = ['theme-day', 'theme-sunset', 'theme-night'];
+    let currentThemeIdx = 0;
+    function cycleTimeOfDay() {
+      document.documentElement.classList.remove(THEMES[currentThemeIdx]);
+      currentThemeIdx = (currentThemeIdx + 1) % THEMES.length;
+      document.documentElement.classList.add(THEMES[currentThemeIdx]);
+      const icons = ['☀️', '🌅', '🌙'];
+      document.getElementById('tod-icon').textContent = icons[currentThemeIdx];
+    }
+
+    /* ========================================================
+       VIEW SWITCHER
+       ======================================================== */
+    function switchView(viewName) {
+      document.querySelectorAll('.view-panel').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-tab-active'));
+
+      const targetView = document.getElementById(`view-${viewName}`);
+      const targetBtn = document.getElementById(`tab-btn-${viewName}`);
+
+      if (targetView) targetView.classList.remove('hidden');
+      if (targetBtn) targetBtn.classList.add('nav-tab-active');
+
+      if (viewName === 'flashcards') {
+        renderFlashcard();
+      } else if (viewName === 'preps') {
+        renderPrepDrill();
+      } else if (viewName === 'builder') {
+        renderBuilder();
+      } else if (viewName === 'quiz') {
+        renderQuiz();
+      }
+    }
+
+    /* ========================================================
+       VIEW 1: CLOCK LOGIC
+       ======================================================== */
+    function selectClockTime(index, autoPlay = true) {
+      activeClockIndex = index;
+      const data = CLOCK_DATA[index];
+      document.getElementById('active-clock-img').src = data.img;
+      document.getElementById('active-clock-digital').textContent = data.digital;
+      document.getElementById('active-clock-phrase').textContent = data.phrase;
+      document.getElementById('active-clock-somali').textContent = `Af-Soomaali: ${data.somali} 🇸🇴`;
+      document.getElementById('active-clock-alt').textContent = data.alt;
+
+      const audioBtnText = document.getElementById('btn-clock-audio-text');
+      if (audioBtnText) {
+        audioBtnText.textContent = data.audio ? "Listen to Native Audio 🔊" : "Listen to Pronunciation 🔊";
+      }
+
+      // Update button active highlighting
+      document.querySelectorAll('.clock-preset-btn').forEach((btn, idx) => {
+        if (idx === index) {
+          btn.classList.add('border-amber-500', 'bg-amber-100', 'ring-2', 'ring-amber-400');
+          btn.classList.remove('bg-white');
+        } else {
+          btn.classList.remove('border-amber-500', 'bg-amber-100', 'ring-2', 'ring-amber-400');
+          btn.classList.add('bg-white');
+        }
+      });
+
+      if (autoPlay) {
+        playActiveClockAudio();
+      }
+    }
+
+    function playActiveClockAudio() {
+      const data = CLOCK_DATA[activeClockIndex];
+      if (data.audio) {
+        playAudioFile(data.audio, data.spoken);
+      } else {
+        speak(data.spoken);
+      }
+      addXP(5);
+    }
+
+    /* ========================================================
+       VIEW 2: ROUTINES 3D FLASHCARDS
+       ======================================================== */
+    function renderFlashcard() {
+      const data = ROUTINES_DATA[currentRoutineIndex];
+      const cardInner = document.getElementById('flashcard-3d');
+      cardInner.classList.remove('flipped');
+
+      document.getElementById('card-counter').textContent = `${currentRoutineIndex + 1} of ${ROUTINES_DATA.length}`;
+      document.getElementById('fc-front-time-badge').textContent = data.timeBadge;
+      document.getElementById('fc-front-clock-tag').textContent = data.clockTag;
+      document.getElementById('fc-front-img').src = data.img;
+      document.getElementById('fc-front-title').textContent = data.title;
+
+      document.getElementById('fc-back-somali').textContent = data.somali;
+      document.getElementById('fc-back-ipa').textContent = data.ipa;
+      document.getElementById('fc-back-sentence').textContent = `"${data.sentence}"`;
+
+      if (document.getElementById('auto-speak-toggle').checked) {
+        speakCardWord();
+      }
+    }
+
+    function flipCurrentCard() {
+      document.getElementById('flashcard-3d').classList.toggle('flipped');
+      playSound(true);
+    }
+
+    function prevFlashcard() {
+      currentRoutineIndex = (currentRoutineIndex - 1 + ROUTINES_DATA.length) % ROUTINES_DATA.length;
+      renderFlashcard();
+    }
+
+    function nextFlashcard() {
+      currentRoutineIndex = (currentRoutineIndex + 1) % ROUTINES_DATA.length;
+      renderFlashcard();
+      addXP(10);
+    }
+
+    function speakCardWord() {
+      const data = ROUTINES_DATA[currentRoutineIndex];
+      playAudioFile(data.audio, data.title);
+    }
+
+    function speakCardSentence() {
+      const data = ROUTINES_DATA[currentRoutineIndex];
+      speak(data.sentence);
+    }
+
+    /* ========================================================
+       VIEW 3: PREPOSITION SORTER (AT vs IN)
+       ======================================================== */
+    function renderPrepDrill() {
+      const item = PREP_DRILLS[prepDrillIndex];
+      document.getElementById('prep-q-num').textContent = prepDrillIndex + 1;
+      document.getElementById('prep-current-word').textContent = item.text;
+      document.getElementById('prep-hint').textContent = item.hint;
+      const fb = document.getElementById('prep-feedback');
+      fb.classList.add('hidden');
+    }
+
+    function handlePrepChoice(choice) {
+      const item = PREP_DRILLS[prepDrillIndex];
+      const fb = document.getElementById('prep-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-red-100', 'text-red-900');
+
+      if (choice === item.correct) {
+        playSound(true);
+        prepStreak++;
+        addXP(25);
+        fb.classList.add('bg-emerald-100', 'text-emerald-900');
+        fb.innerHTML = `✅ Excellent! "<strong>${choice.toUpperCase()} ${item.text}</strong>" is correct! (+25 XP)`;
+      } else {
+        playSound(false);
+        prepStreak = 0;
+        fb.classList.add('bg-red-100', 'text-red-900');
+        fb.innerHTML = `❌ Almost! We say "<strong>${item.correct.toUpperCase()} ${item.text}</strong>".`;
+      }
+      document.getElementById('prep-streak').textContent = prepStreak;
+
+      setTimeout(() => {
+        prepDrillIndex = (prepDrillIndex + 1) % PREP_DRILLS.length;
+        renderPrepDrill();
+      }, 1300);
+    }
+
+    /* ========================================================
+       VIEW 4: SENTENCE BUILDER
+       ======================================================== */
+    function renderBuilder() {
+      const task = BUILDER_TASKS[builderTaskIndex];
+      builderSelected = [];
+      document.getElementById('builder-task-num').textContent = builderTaskIndex + 1;
+      document.getElementById('builder-feedback').classList.add('hidden');
+
+      const dropZone = document.getElementById('builder-drop-zone');
+      dropZone.innerHTML = `<span id="builder-placeholder" class="text-xs text-stone-400 font-semibold italic">Tap words below in order...</span>`;
+
+      // Shuffle chips
+      const shuffled = [...task.target].sort(() => Math.random() - 0.5);
+      const chipsZone = document.getElementById('builder-chips-zone');
+      chipsZone.innerHTML = '';
+
+      shuffled.forEach((word) => {
+        const btn = document.createElement('button');
+        btn.className = "word-chip px-3 py-1.5 rounded-xl bg-white border border-stone-300 font-bold text-xs text-stone-800 shadow-2xs hover:bg-amber-50";
+        btn.textContent = word;
+        btn.onclick = () => selectWordChip(word, btn);
+        chipsZone.appendChild(btn);
+      });
+    }
+
+    function selectWordChip(word, btnElement) {
+      builderSelected.push(word);
+      btnElement.classList.add('chip-selected');
+
+      const dropZone = document.getElementById('builder-drop-zone');
+      const placeholder = document.getElementById('builder-placeholder');
+      if (placeholder) placeholder.remove();
+
+      const token = document.createElement('span');
+      token.className = "px-2.5 py-1 rounded-lg bg-emerald-700 text-white font-bold text-xs shadow-2xs animate-fade";
+      token.textContent = word;
+      dropZone.appendChild(token);
+
+      speak(word);
+    }
+
+    function resetBuilderSentence() {
+      renderBuilder();
+    }
+
+    function checkBuilderSentence() {
+      const task = BUILDER_TASKS[builderTaskIndex];
+      const isCorrect = JSON.stringify(builderSelected) === JSON.stringify(task.target);
+      const fb = document.getElementById('builder-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-red-100', 'text-red-900');
+
+      if (isCorrect) {
+        playSound(true);
+        triggerConfetti();
+        addXP(35);
+        fb.classList.add('bg-emerald-100', 'text-emerald-900');
+        fb.innerHTML = `🎉 Correct! "${task.full}" (+35 XP)`;
+        speak(task.full);
+        setTimeout(() => {
+          builderTaskIndex = (builderTaskIndex + 1) % BUILDER_TASKS.length;
+          renderBuilder();
+        }, 1800);
+      } else {
+        playSound(false);
+        fb.classList.add('bg-red-100', 'text-red-900');
+        fb.innerHTML = `❌ Try again! Correct target: "${task.full}"`;
+      }
+    }
+
+    function playFullDayMonologue() {
+      const text = "Hello! My name is Abdi. I am 24 years old and I am from Ethiopia. I am a student. My English book is on the desk. Every day, I wake up at 7:00 AM in the morning. I wash my face, brush my teeth, and have breakfast. At 8:30 AM, I go to school. In the afternoon, I eat lunch and study English. In the evening, I cook dinner and relax. At night, I go to bed at 10:30 PM.";
+      speak(text);
+      triggerConfetti();
+      addXP(50);
+    }
+
+    /* ========================================================
+       VIEW 5: QUIZ
+       ======================================================== */
+    function renderQuiz() {
+      const container = document.getElementById('quiz-list-container');
+      if (container.children.length > 0) return; // already rendered
+
+      QUIZ_QUESTIONS.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = "ghibli-card p-4 space-y-3 bg-white/95 border border-stone-200";
+
+        let optionsHtml = '';
+        q.options.forEach((opt) => {
+          optionsHtml += `
+            <label class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:bg-stone-50 cursor-pointer text-xs font-semibold text-stone-700 transition">
+              <input type="radio" name="quiz_q_${idx}" value="${opt}" class="text-emerald-600 focus:ring-emerald-500">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex items-start gap-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center shrink-0">${idx + 1}</span>
+            <p class="font-bold text-xs text-stone-900 leading-snug">${q.q}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            ${optionsHtml}
+          </div>
+          <div id="quiz-fb-${idx}" class="hidden p-2 rounded-lg text-xs font-semibold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function gradeAllQuiz() {
+      let score = 0;
+      QUIZ_QUESTIONS.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="quiz_q_${idx}"]:checked`);
+        const fb = document.getElementById(`quiz-fb-${idx}`);
+        fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-red-50', 'text-red-800', 'border-red-300');
+        fb.classList.add('border');
+
+        if (selected && selected.value === q.answer) {
+          score++;
+          fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+          fb.innerHTML = `✅ Correct! ${q.explanation}`;
+        } else {
+          fb.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
+          fb.innerHTML = `❌ Incorrect. Correct answer: <strong>${q.answer}</strong>. (${q.explanation})`;
+        }
+      });
+
+      document.getElementById('quiz-score-badge').textContent = `Score: ${score} / ${QUIZ_QUESTIONS.length}`;
+      if (score === QUIZ_QUESTIONS.length) {
+        playSound(true);
+        triggerConfetti();
+        addXP(150);
+      } else {
+        playSound(score > 3);
+        addXP(score * 20);
+      }
+    }
+
+    /* Kodama mascot interaction */
+    function toggleKodamaBubble() {
+      const bubble = document.getElementById('kodama-bubble');
+      bubble.classList.toggle('hidden');
+      if (!bubble.classList.contains('hidden')) {
+        speak("Keep up the great work Abdi! You are doing amazing with your English.");
+      }
+    }
+
+    // Auto-init first view
+    window.addEventListener('DOMContentLoaded', () => {
+      selectClockTime(0, false);
+    });
+  </script>
+
+</body>
+</html>

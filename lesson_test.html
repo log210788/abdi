@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Abdi's Interactive Lesson Test & Countries Memory Game</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit, Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --ghibli-bg: #f8faf6;
+      --ghibli-dark-green: #2c4a38;
+      --ghibli-emerald: #15803d;
+      --ghibli-gold: #d97706;
+      --ghibli-parchment: #fdfaf2;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f1f5f0 radial-gradient(circle at 50% 0%, #e2efe3 0%, #f1f5f0 70%);
+      color: #1e293b;
+      min-height: 100vh;
+    }
+    .font-ghibli {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-display {
+      font-family: 'Outfit', sans-serif;
+    }
+    .card-glass {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(226, 232, 220, 0.9);
+      box-shadow: 0 10px 25px -5px rgba(44, 74, 56, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+      border-radius: 1.25rem;
+    }
+    .btn-bounce {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-bounce:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 74, 56, 0.15);
+    }
+    .btn-bounce:active {
+      transform: translateY(1px);
+    }
+
+    /* Flip Card 3D Setup */
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      user-select: none;
+    }
+    .memory-card.matched .card-back {
+      border-color: #16a34a !important;
+      background-color: #ecfdf5 !important;
+      animation: pulseGreen 0.6s ease;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 px-4 py-3 shadow-xs">
+    <div class="max-w-2xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="w-10 h-10 rounded-xl bg-emerald-800 text-amber-200 flex items-center justify-center text-lg shadow-xs hover:bg-emerald-900 transition" title="Back to Main Hub">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+          <h1 class="font-ghibli font-bold text-base md:text-lg text-emerald-950 leading-tight">Abdi's Lesson Game Arena</h1>
+          <p class="text-[11px] font-semibold text-stone-500">Live In-Lesson Testing & Interactive Practice</p>
+        </div>
+      </div>
+      
+      <!-- XP / Stars -->
+      <div class="flex items-center gap-2">
+        <div class="px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-star text-amber-500"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <div class="max-w-2xl mx-auto w-full px-3 pt-3">
+    <div class="flex items-center gap-1.5 p-1.5 bg-white/80 rounded-2xl border border-stone-200 shadow-xs">
+      <button onclick="switchTab('countries-memory')" id="tab-btn-countries-memory" class="nav-tab-btn flex-1 py-2 px-2 text-xs md:text-sm font-bold rounded-xl bg-emerald-700 text-white shadow-xs transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-earth-americas"></i>
+        <span>Countries Memory</span>
+      </button>
+      <button onclick="switchTab('lesson-test')" id="tab-btn-lesson-test" class="nav-tab-btn flex-1 py-2 px-2 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-award text-amber-500"></i>
+        <span>10-Q Lesson Test</span>
+      </button>
+      <button onclick="switchTab('jobs-preview')" id="tab-btn-jobs-preview" class="nav-tab-btn flex-1 py-2 px-2 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-briefcase text-blue-500"></i>
+        <span>Next: Jobs</span>
+      </button>
+      <a href="countries_game.html" class="nav-tab-btn flex-1 py-2 px-2 text-xs md:text-sm font-bold rounded-xl text-emerald-800 hover:text-emerald-950 transition flex items-center justify-center gap-1.5 bg-emerald-50 border border-emerald-300">
+        <i class="fa-solid fa-gamepad text-emerald-600"></i>
+        <span>34-Country Arena 🎮</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-2xl w-full mx-auto p-3.5 space-y-4">
+
+    <!-- =========================================================
+         SECTION 1: COUNTRIES & FLAGS MEMORY GAME
+         ========================================================= -->
+    <section id="view-countries-memory" class="space-y-4">
+      <div class="card-glass p-4 space-y-3">
+        
+        <!-- Header & Stats -->
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-blue-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">Game 1</span>
+              <h2 class="font-ghibli font-bold text-lg text-stone-900">Countries & Flags Memory Match</h2>
+            </div>
+            <p class="text-xs text-stone-600 mt-0.5">Flip the cards to match each flag with its country name!</p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-stone-500 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">
+              Moves: <strong id="mem-moves" class="text-stone-800">0</strong>
+            </span>
+            <button onclick="initCountriesMemory()" class="btn-bounce px-3 py-1 bg-amber-100 text-amber-900 text-xs font-bold rounded-lg border border-amber-300 flex items-center gap-1">
+              <i class="fa-solid fa-rotate-left"></i> Shuffle 🔄
+            </button>
+          </div>
+        </div>
+
+        <!-- Teacher's Lesson Tip Banner -->
+        <div class="p-2.5 bg-blue-50 rounded-xl border border-blue-200 text-xs text-blue-950 flex items-center gap-2">
+          <i class="fa-solid fa-lightbulb text-amber-500 text-sm"></i>
+          <div>
+            <strong>Teacher's Game Tip:</strong> Have Abdi call out the card numbers (e.g. <em>"Number 3 and Number 8!"</em>) and say aloud: <em>"This is the flag of [Country]!"</em> before flipping!
+          </div>
+        </div>
+
+        <!-- Memory Grid (4x3 on mobile/desktop: 6 pairs = 12 cards) -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 pt-2" id="countries-memory-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Success Feedback Banner -->
+        <div id="memory-win-banner" class="hidden p-4 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-center space-y-2">
+          <div class="text-3xl">🏆 🎉</div>
+          <h3 class="font-ghibli font-bold text-base text-emerald-900">Brilliant Job, Abdi! All Flags Matched!</h3>
+          <p class="text-xs text-emerald-700">You mastered Somalia 🇸🇴, UK 🇬🇧, Turkey 🇹🇷, France 🇫🇷, Egypt 🇪🇬, and South Korea 🇰🇷!</p>
+          <button onclick="initCountriesMemory()" class="btn-bounce px-4 py-2 bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs">
+            Play Again 🔄
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: 10-QUESTION COMPREHENSIVE LESSON TEST
+         ========================================================= -->
+    <section id="view-lesson-test" class="hidden space-y-4">
+      <div class="card-glass p-4 md:p-6 space-y-4">
+        
+        <!-- Test Progress Bar -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="bg-amber-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">Lesson Test</span>
+            <span class="text-xs font-bold text-stone-500" id="test-progress-num">Question 1 of 10</span>
+          </div>
+          <div class="text-xs font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200" id="test-score-badge">
+            Score: 0 / 10
+          </div>
+        </div>
+        <div class="w-full h-2.5 bg-stone-200 rounded-full overflow-hidden">
+          <div id="test-progress-bar" class="h-full bg-emerald-600 transition-all duration-300" style="width: 10%;"></div>
+        </div>
+
+        <!-- Question Body Card -->
+        <div class="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs space-y-3 text-center">
+          
+          <!-- Category & Topic Tag -->
+          <div class="inline-block px-2.5 py-0.5 bg-stone-100 rounded-full text-[11px] font-bold text-stone-600" id="q-category-tag">
+            Introductions Review
+          </div>
+
+          <!-- Question Prompt / Teacher Instruction -->
+          <div class="text-xs md:text-sm font-semibold text-stone-600" id="q-instruction">
+            Choose the correct word to complete the sentence:
+          </div>
+
+          <!-- Question Visual (Flag, Preposition Image, or Emojis) -->
+          <div id="q-visual-container" class="w-full max-w-[220px] h-32 mx-auto rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center overflow-hidden">
+            <img id="q-img" src="" alt="Visual Clue" class="w-full h-full object-contain p-2 hidden">
+            <div id="q-emoji" class="text-5xl">👋</div>
+          </div>
+
+          <!-- Question Sentence with Blank -->
+          <div class="font-display font-bold text-base md:text-lg text-stone-900 leading-snug" id="q-sentence-text">
+            "Hello! My name <span class="text-emerald-700 underline decoration-2 decoration-amber-400 font-extrabold">_____</span> Abdi."
+          </div>
+
+          <!-- Audio Read Button -->
+          <button onclick="readCurrentTestQuestion()" class="btn-bounce inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold rounded-xl transition">
+            <i class="fa-solid fa-volume-high"></i> Listen with Teacher 🔊
+          </button>
+        </div>
+
+        <!-- 4 Multiple Choice Option Buttons -->
+        <div class="grid grid-cols-2 gap-2.5" id="test-options-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Feedback Box -->
+        <div id="test-feedback-box" class="hidden p-3 rounded-xl text-center text-xs md:text-sm font-bold"></div>
+
+        <!-- Next / Action Button -->
+        <button onclick="nextTestQuestion()" id="test-next-btn" class="hidden btn-bounce w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-xs transition">
+          Next Question ➔
+        </button>
+
+        <!-- Final Report Card / Certificate (Shown at end) -->
+        <div id="test-certificate-view" class="hidden p-6 rounded-2xl bg-gradient-to-b from-amber-50 to-emerald-50 border-2 border-amber-300 text-center space-y-3">
+          <div class="text-4xl">🌟 📜 🌟</div>
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-amber-800 bg-amber-200/80 px-3 py-1 rounded-full">Certificate of Achievement</span>
+          <h3 class="font-ghibli font-bold text-2xl text-emerald-950">English Mastery Star: Abdi!</h3>
+          <p class="text-sm font-bold text-stone-700" id="cert-score-summary">You scored 10 out of 10!</p>
+          <p class="text-xs text-stone-600 max-w-sm mx-auto" id="cert-commentary">
+            Outstanding progress on Introductions, Country Flags, and Prepositions (*in, on, under, next to*)!
+          </p>
+          <div class="pt-2 flex items-center justify-center gap-3">
+            <button onclick="initLessonTest()" class="btn-bounce px-4 py-2 bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs">
+              Take Test Again 🔄
+            </button>
+            <button onclick="switchTab('jobs-preview')" class="btn-bounce px-4 py-2 bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs">
+              Go to Next Lesson (Jobs) ➔
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: NEXT MATERIAL — JOBS & "A" / "AN" PREVIEW
+         ========================================================= -->
+    <section id="view-jobs-preview" class="hidden space-y-4">
+      <div class="card-glass p-4 md:p-6 space-y-4">
+        
+        <div class="border-l-4 border-l-blue-600 pl-3 py-1 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase text-blue-800 bg-blue-100 px-2 py-0.5 rounded">Next Lesson Material</span>
+            <h2 class="font-ghibli font-bold text-lg text-stone-900 mt-1">What Do You Do? (Jobs & "A" / "AN")</h2>
+            <p class="text-xs text-stone-600 mt-0.5">
+              Connects seamlessly to introductions: <em>"My name is Abdi. I am from Somalia. I am <strong>a student</strong>."</em>
+            </p>
+          </div>
+          <a href="jobs_flashcards.html" class="btn-bounce px-3 py-2 bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Open 3D Flashcards App ➔</span>
+          </a>
+        </div>
+
+        <!-- Rule Card -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1">
+            <div class="font-bold text-emerald-900 text-sm flex items-center gap-1.5">
+              <span class="px-2 py-0.5 bg-emerald-600 text-white rounded text-xs">Rule: A</span>
+              <span>Consonant Sound</span>
+            </div>
+            <p class="text-xs text-emerald-800 font-semibold">
+              <strong>a</strong> teacher • <strong>a</strong> doctor • <strong>a</strong> nurse • <strong>a</strong> chef • <strong>a</strong> student • <strong>a</strong> driver
+            </p>
+          </div>
+          <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 space-y-1">
+            <div class="font-bold text-purple-900 text-sm flex items-center gap-1.5">
+              <span class="px-2 py-0.5 bg-purple-600 text-white rounded text-xs">Rule: AN</span>
+              <span>Vowel Sound (a, e, i, o, u)</span>
+            </div>
+            <p class="text-xs text-purple-800 font-semibold">
+              <strong>an</strong> engineer • <strong>an</strong> artist • <strong>an</strong> actor • <strong>an</strong> accountant
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Jobs Explorer -->
+        <div class="space-y-2">
+          <h3 class="font-ghibli font-bold text-sm text-stone-900">Tap Any Job to Hear Pronunciation:</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="jobs-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Interactive Mini-Challenge: Sort "A" vs "AN" -->
+        <div class="p-3.5 bg-white rounded-xl border border-stone-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-ghibli font-bold text-sm text-stone-900">Mini Practice: "A" or "AN"?</h3>
+            <span class="text-xs font-bold text-stone-500" id="jobs-mini-score">Score: 0 / 6</span>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-xl text-center space-y-1" id="jobs-quiz-card">
+            <img id="jq-img" src="images/jobs/doctor.svg" class="w-16 h-16 mx-auto object-contain">
+            <div class="font-display font-bold text-base text-stone-800" id="jq-phrase">He is ___ doctor.</div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="checkJobsArticle('a')" class="btn-bounce flex-1 py-2 bg-emerald-700 text-white font-bold text-sm rounded-xl">
+              Choose "A"
+            </button>
+            <button onclick="checkJobsArticle('an')" class="btn-bounce flex-1 py-2 bg-purple-700 text-white font-bold text-sm rounded-xl">
+              Choose "AN"
+            </button>
+          </div>
+          <div id="jobs-feedback" class="hidden text-xs font-bold text-center p-2 rounded-lg"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    let globalXP = 0;
+
+    function addXP(pts) {
+      globalXP += pts;
+      document.getElementById('global-xp').textContent = `${globalXP} XP`;
+    }
+
+    function playSound(isSuccess) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        if (isSuccess) {
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.18);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+        } else {
+          osc.frequency.setValueAtTime(260, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.14, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+        }
+        osc.start();
+        osc.stop(ctx.currentTime + 0.26);
+      } catch (e) {}
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+    }
+
+    /* -------------------------------------------------------------
+       Tab Switching Logic
+       ------------------------------------------------------------- */
+    function switchTab(tabId) {
+      document.getElementById('view-countries-memory').classList.add('hidden');
+      document.getElementById('view-lesson-test').classList.add('hidden');
+      document.getElementById('view-jobs-preview').classList.add('hidden');
+
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-700', 'text-white');
+        btn.classList.add('text-stone-600');
+      });
+
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-emerald-700', 'text-white');
+        activeBtn.classList.remove('text-stone-600');
+      }
+
+      const activeView = document.getElementById('view-' + tabId);
+      if (activeView) activeView.classList.remove('hidden');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (tabId === 'countries-memory') initCountriesMemory();
+      if (tabId === 'lesson-test') initLessonTest();
+      if (tabId === 'jobs-preview') initJobsSection();
+    }
+
+    /* =============================================================
+       GAME 1: COUNTRIES & FLAGS MEMORY GAME
+       ============================================================= */
+    const countryPairs = [
+      { name: "Somalia", flag: "images/flags/so.svg", emoji: "🇸🇴", sentence: "Abdi is from Somalia." },
+      { name: "United Kingdom", flag: "images/flags/gb.svg", emoji: "🇬🇧", sentence: "He is from the United Kingdom." },
+      { name: "Turkey", flag: "images/flags/tr.svg", emoji: "🇹🇷", sentence: "They are from Turkey." },
+      { name: "France", flag: "images/flags/fr.svg", emoji: "🇫🇷", sentence: "She is from France." },
+      { name: "Egypt", flag: "images/flags/eg.svg", emoji: "🇪🇬", sentence: "Ahmed is from Egypt." },
+      { name: "South Korea", flag: "images/flags/kr.svg", emoji: "🇰🇷", sentence: "We are from South Korea." }
+    ];
+
+    let memoryCards = [];
+    let flippedCards = [];
+    let matchedCount = 0;
+    let memoryMoves = 0;
+    let memoryLocked = false;
+
+    function initCountriesMemory() {
+      matchedCount = 0;
+      memoryMoves = 0;
+      flippedCards = [];
+      memoryLocked = false;
+      document.getElementById('mem-moves').textContent = '0';
+      document.getElementById('memory-win-banner').classList.add('hidden');
+
+      // Build 12 cards (6 Flag cards, 6 Name cards)
+      memoryCards = [];
+      countryPairs.forEach(c => {
+        // Flag Card
+        memoryCards.push({
+          country: c.name,
+          type: 'flag',
+          content: `<img src="${c.flag}" class="w-14 h-9 object-cover rounded shadow-xs border border-stone-200"><span class="text-[10px] font-bold text-stone-500 mt-1">Flag</span>`,
+          sentence: c.sentence
+        });
+        // Name Card
+        memoryCards.push({
+          country: c.name,
+          type: 'name',
+          content: `<div class="text-xl mb-0.5">${c.emoji}</div><div class="font-display font-extrabold text-xs text-emerald-950 text-center px-1 leading-tight">${c.name}</div>`,
+          sentence: c.sentence
+        });
+      });
+
+      // Shuffle
+      memoryCards.sort(() => Math.random() - 0.5);
+
+      const grid = document.getElementById('countries-memory-grid');
+      grid.innerHTML = '';
+
+      memoryCards.forEach((card, idx) => {
+        const el = document.createElement('div');
+        el.className = 'perspective-1000 memory-card aspect-square';
+        el.dataset.index = idx;
+        el.dataset.country = card.country;
+
+        el.innerHTML = `
+          <div class="card-inner relative w-full h-full transform-style-3d transition-transform duration-500 rounded-2xl shadow-xs">
+            <!-- Card Cover (Back) with Clear Number for Student Callouts -->
+            <div class="card-front absolute inset-0 backface-hidden bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-2xl border-2 border-emerald-600 flex flex-col items-center justify-center text-amber-200 shadow-inner p-1">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-400 text-emerald-950 font-black text-lg sm:text-2xl flex items-center justify-center shadow-md border-2 border-amber-100">
+                ${idx + 1}
+              </div>
+              <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-amber-300 mt-1">CARD ${idx + 1}</span>
+            </div>
+            <!-- Card Front (Revealed) -->
+            <div class="card-back absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-2xl border-2 border-stone-300 flex flex-col items-center justify-center p-2 overflow-hidden shadow-sm">
+              ${card.content}
+            </div>
+          </div>
+        `;
+
+        el.onclick = () => onCardClicked(el, card);
+        grid.appendChild(el);
+      });
+    }
+
+    function onCardClicked(cardEl, cardData) {
+      if (memoryLocked) return;
+      if (cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+
+      const inner = cardEl.querySelector('.card-inner');
+      inner.classList.add('rotate-y-180');
+      cardEl.classList.add('flipped');
+      flippedCards.push({ el: cardEl, data: cardData });
+
+      // Pronounce country name on flip
+      speak(cardData.country);
+
+      if (flippedCards.length === 2) {
+        memoryMoves++;
+        document.getElementById('mem-moves').textContent = memoryMoves;
+        memoryLocked = true;
+
+        const [c1, c2] = flippedCards;
+        if (c1.data.country === c2.data.country) {
+          // MATCH!
+          c1.el.classList.add('matched');
+          c2.el.classList.add('matched');
+          matchedCount++;
+          addXP(15);
+          playSound(true);
+          speak(c1.data.sentence);
+
+          flippedCards = [];
+          memoryLocked = false;
+
+          if (matchedCount === countryPairs.length) {
+            document.getElementById('memory-win-banner').classList.remove('hidden');
+            if (typeof confetti === 'function') confetti({ particleCount: 90, spread: 70 });
+            speak("Wonderful! All countries and flags matched!");
+          }
+        } else {
+          // NO MATCH
+          playSound(false);
+          setTimeout(() => {
+            c1.el.querySelector('.card-inner').classList.remove('rotate-y-180');
+            c2.el.querySelector('.card-inner').classList.remove('rotate-y-180');
+            c1.el.classList.remove('flipped');
+            c2.el.classList.remove('flipped');
+            flippedCards = [];
+            memoryLocked = false;
+          }, 950);
+        }
+      }
+    }
+
+    /* =============================================================
+       GAME 2: 10-QUESTION COMPREHENSIVE LESSON TEST
+       ============================================================= */
+    const testQuestions = [
+      {
+        category: "Introductions Review",
+        instruction: "Complete the sentence to introduce yourself:",
+        sentence: "Hello! My name ___ Abdi.",
+        readSentence: "Hello! My name is Abdi.",
+        emoji: "👋 👤",
+        options: ["is", "am", "are", "have"],
+        answer: "is",
+        explanation: 'We always say: "My name is [Name]".'
+      },
+      {
+        category: "Country & Origin",
+        instruction: "Look at the flag 🇸🇴. Where is Abdi from?",
+        sentence: "Abdi says: 'I am from _______.'",
+        readSentence: "I am from Somalia.",
+        image: "images/flags/so.svg",
+        options: ["Somalia", "Egypt", "France", "Turkey"],
+        answer: "Somalia",
+        explanation: 'The blue flag with the white star is Somalia 🇸🇴!'
+      },
+      {
+        category: "Prepositions (Homework Review)",
+        instruction: "Where are the pencils? (in the case)",
+        sentence: "The pencils are _______ the pencil case.",
+        readSentence: "The pencils are in the pencil case.",
+        image: "images/in.jpg",
+        options: ["in", "on", "under", "next to"],
+        answer: "in",
+        explanation: '"In" means inside a pencil case, box, or room.'
+      },
+      {
+        category: "Prepositions (Homework Review)",
+        instruction: "Where is the laptop sitting?",
+        sentence: "The laptop is resting _______ the wooden table.",
+        readSentence: "The laptop is resting on the wooden table.",
+        image: "images/on.jpg",
+        options: ["on", "in", "under", "next to"],
+        answer: "on",
+        explanation: '"On" means touching the top surface of a table or desk.'
+      },
+      {
+        category: "Prepositions (Homework Review)",
+        instruction: "Where did the ball roll?",
+        sentence: "The football rolled _______ the parked car.",
+        readSentence: "The football rolled under the parked car.",
+        image: "images/under.jpg",
+        options: ["under", "in", "on", "next to"],
+        answer: "under",
+        explanation: '"Under" means beneath or below an object.'
+      },
+      {
+        category: "Prepositions (Homework Review)",
+        instruction: "Where is the water bottle placed?",
+        sentence: "The water bottle is sitting right _______ the computer.",
+        readSentence: "The water bottle is sitting right next to the computer.",
+        image: "images/next_to.svg",
+        options: ["next to", "in", "on", "under"],
+        answer: "next to",
+        explanation: '"Next to" means beside or by the side of something.'
+      },
+      {
+        category: "Country & Flag Recognition",
+        instruction: "Look at the flag 🇬🇧. What country is this?",
+        sentence: "They live in London. They are from the _______.",
+        readSentence: "They are from the United Kingdom.",
+        image: "images/flags/gb.svg",
+        options: ["United Kingdom", "Germany", "Thailand", "South Korea"],
+        answer: "United Kingdom",
+        explanation: 'This is the Union Jack flag of the United Kingdom 🇬🇧.'
+      },
+      {
+        category: "Possessives (He ➔ His)",
+        instruction: "Talking about a boy named Ryan:",
+        sentence: "_______ name is Ryan. He is a student.",
+        readSentence: "His name is Ryan.",
+        emoji: "👦 🎒",
+        options: ["His", "Her", "My", "Their"],
+        answer: "His",
+        explanation: 'For a boy or man, we use "His" (His name is Ryan).'
+      },
+      {
+        category: "Possessives (She ➔ Her)",
+        instruction: "Talking about a girl named Sue:",
+        sentence: "_______ pet cat is sleeping on the chair.",
+        readSentence: "Her pet cat is sleeping on the chair.",
+        emoji: "👧 🐱",
+        options: ["Her", "His", "My", "Our"],
+        answer: "Her",
+        explanation: 'For a girl or woman, we use "Her" (Her pet cat).'
+      },
+      {
+        category: "Asking Questions: Age",
+        instruction: "How do we ask someone's age in English?",
+        sentence: "How _______ are you? — I am 24 years old.",
+        readSentence: "How old are you?",
+        emoji: "❓ 🎂",
+        options: ["old", "age", "years", "time"],
+        answer: "old",
+        explanation: 'We always ask: "How old are you?"'
+      }
+    ];
+
+    let currentQIndex = 0;
+    let testScore = 0;
+
+    function initLessonTest() {
+      currentQIndex = 0;
+      testScore = 0;
+      document.getElementById('test-score-badge').textContent = `Score: 0 / ${testQuestions.length}`;
+      document.getElementById('test-certificate-view').classList.add('hidden');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = testQuestions[currentQIndex];
+      const total = testQuestions.length;
+
+      document.getElementById('test-progress-num').textContent = `Question ${currentQIndex + 1} of ${total}`;
+      document.getElementById('test-progress-bar').style.width = `${((currentQIndex + 1) / total) * 100}%`;
+      document.getElementById('q-category-tag').textContent = q.category;
+      document.getElementById('q-instruction').textContent = q.instruction;
+      document.getElementById('q-sentence-text').textContent = q.sentence;
+
+      // Handle Visual: Image or Emoji
+      const imgEl = document.getElementById('q-img');
+      const emojiEl = document.getElementById('q-emoji');
+      if (q.image) {
+        imgEl.src = q.image;
+        imgEl.classList.remove('hidden');
+        emojiEl.classList.add('hidden');
+      } else {
+        imgEl.classList.add('hidden');
+        emojiEl.textContent = q.emoji;
+        emojiEl.classList.remove('hidden');
+      }
+
+      // Render 4 Options
+      const grid = document.getElementById('test-options-grid');
+      grid.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-bounce py-3 px-4 bg-white border-2 border-stone-200 hover:border-emerald-600 rounded-xl font-display font-bold text-sm text-stone-800 shadow-xs transition';
+        btn.textContent = opt;
+        btn.onclick = () => selectTestOption(opt, btn);
+        grid.appendChild(btn);
+      });
+
+      // Reset feedback and Next button
+      document.getElementById('test-feedback-box').classList.add('hidden');
+      document.getElementById('test-next-btn').classList.add('hidden');
+    }
+
+    function readCurrentTestQuestion() {
+      const q = testQuestions[currentQIndex];
+      speak(q.readSentence);
+    }
+
+    function selectTestOption(chosen, clickedBtn) {
+      const q = testQuestions[currentQIndex];
+      const feedbackBox = document.getElementById('test-feedback-box');
+      feedbackBox.classList.remove('hidden');
+
+      // Disable all buttons
+      document.querySelectorAll('#test-options-grid button').forEach(b => b.disabled = true);
+
+      if (chosen.toLowerCase() === q.answer.toLowerCase()) {
+        testScore++;
+        addXP(10);
+        document.getElementById('test-score-badge').textContent = `Score: ${testScore} / ${testQuestions.length}`;
+        clickedBtn.classList.remove('bg-white', 'border-stone-200');
+        clickedBtn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-700');
+        
+        feedbackBox.className = 'p-3 rounded-xl text-center text-xs md:text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-300';
+        feedbackBox.innerHTML = `🎉 <strong>Excellent, Abdi!</strong> "${q.answer}" is correct. (+10 XP)<br><span class="text-xs font-normal text-emerald-700">${q.explanation}</span>`;
+        playSound(true);
+        speak(q.readSentence);
+      } else {
+        clickedBtn.classList.remove('bg-white', 'border-stone-200');
+        clickedBtn.classList.add('bg-red-500', 'text-white', 'border-red-600');
+
+        // Highlight correct button
+        document.querySelectorAll('#test-options-grid button').forEach(b => {
+          if (b.textContent.toLowerCase() === q.answer.toLowerCase()) {
+            b.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+          }
+        });
+
+        feedbackBox.className = 'p-3 rounded-xl text-center text-xs md:text-sm font-bold bg-red-50 text-red-800 border border-red-300';
+        feedbackBox.innerHTML = `❌ <strong>Good try!</strong> The correct answer is "<strong>${q.answer}</strong>".<br><span class="text-xs font-normal text-stone-600">${q.explanation}</span>`;
+        playSound(false);
+      }
+
+      document.getElementById('test-next-btn').classList.remove('hidden');
+    }
+
+    function nextTestQuestion() {
+      currentQIndex++;
+      if (currentQIndex < testQuestions.length) {
+        renderQuestion();
+      } else {
+        // Show Final Certificate
+        document.getElementById('test-options-grid').innerHTML = '';
+        document.getElementById('test-feedback-box').classList.add('hidden');
+        document.getElementById('test-next-btn').classList.add('hidden');
+        document.getElementById('test-certificate-view').classList.remove('hidden');
+
+        document.getElementById('cert-score-summary').textContent = `You scored ${testScore} out of ${testQuestions.length} points!`;
+        
+        let comment = "";
+        if (testScore === 10) {
+          comment = "🌟 Incredible! 100% Perfect Score! Abdi is an English superstar!";
+        } else if (testScore >= 8) {
+          comment = "🎉 Great job, Abdi! You have a solid grasp of Prepositions, Countries, and Introductions!";
+        } else {
+          comment = "👍 Good practice today! Review prepositions and country flags together with your teacher!";
+        }
+        document.getElementById('cert-commentary').textContent = comment;
+
+        if (typeof confetti === 'function') confetti({ particleCount: 110, spread: 80 });
+        speak(`Test completed! You scored ${testScore} out of ${testQuestions.length}. Well done Abdi!`);
+      }
+    }
+
+    /* =============================================================
+       SECTION 3: JOBS & "A" / "AN" PREVIEW LOGIC
+       ============================================================= */
+    const jobsList = [
+      { title: "Teacher", article: "a", icon: "images/jobs/teacher.jpg", workplace: "in a school" },
+      { title: "Doctor", article: "a", icon: "images/jobs/doctor.jpg", workplace: "in a hospital" },
+      { title: "Engineer", article: "an", icon: "images/jobs/engineer.jpg", workplace: "in an office" },
+      { title: "Nurse", article: "a", icon: "images/jobs/nurse.jpg", workplace: "in a clinic" },
+      { title: "Chef", article: "a", icon: "images/jobs/chef.jpg", workplace: "in a restaurant" },
+      { title: "Student", article: "a", icon: "images/jobs/student.jpg", workplace: "at school" },
+      { title: "Driver", article: "a", icon: "images/jobs/driver.jpg", workplace: "in a taxi" },
+      { title: "Artist", article: "an", icon: "images/jobs/artist.jpg", workplace: "in a studio" }
+    ];
+
+    let currentJobsQuizIndex = 0;
+    let jobsScore = 0;
+
+    function initJobsSection() {
+      // Render Jobs Grid
+      const grid = document.getElementById('jobs-grid');
+      grid.innerHTML = '';
+      jobsList.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'btn-bounce p-2.5 bg-white rounded-xl border border-stone-200 text-center cursor-pointer shadow-xs';
+        card.innerHTML = `
+          <div class="w-14 h-14 mx-auto rounded-xl overflow-hidden mb-1.5 shadow-xs border border-stone-200">
+            <img src="${job.icon}" alt="${job.title}" class="w-full h-full object-cover">
+          </div>
+          <div class="font-display font-extrabold text-xs text-stone-900">${job.title}</div>
+          <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">${job.article.toUpperCase()} ${job.title}</span>
+        `;
+        card.onclick = () => {
+          speak(`${job.article} ${job.title}. Works ${job.workplace}.`);
+        };
+        grid.appendChild(card);
+      });
+
+      // Init mini quiz
+      currentJobsQuizIndex = 0;
+      jobsScore = 0;
+      renderJobsQuizItem();
+    }
+
+    const jobsQuizItems = [
+      { job: "doctor", article: "a", icon: "images/jobs/doctor.jpg", phrase: "He is ___ doctor." },
+      { job: "engineer", article: "an", icon: "images/jobs/engineer.jpg", phrase: "She is ___ engineer." },
+      { job: "teacher", article: "a", icon: "images/jobs/teacher.jpg", phrase: "My father is ___ teacher." },
+      { job: "artist", article: "an", icon: "images/jobs/artist.jpg", phrase: "Mona is ___ artist." },
+      { job: "chef", article: "a", icon: "images/jobs/chef.jpg", phrase: "Liban is ___ chef." },
+      { job: "student", article: "a", icon: "images/jobs/student.jpg", phrase: "Abdi is ___ student." }
+    ];
+
+    function renderJobsQuizItem() {
+      const item = jobsQuizItems[currentJobsQuizIndex];
+      document.getElementById('jobs-mini-score').textContent = `Score: ${jobsScore} / ${jobsQuizItems.length}`;
+      document.getElementById('jq-img').src = item.icon;
+      document.getElementById('jq-phrase').textContent = item.phrase;
+      document.getElementById('jobs-feedback').classList.add('hidden');
+    }
+
+    function checkJobsArticle(choice) {
+      const item = jobsQuizItems[currentJobsQuizIndex];
+      const fb = document.getElementById('jobs-feedback');
+      fb.classList.remove('hidden');
+
+      if (choice === item.article) {
+        jobsScore++;
+        addXP(5);
+        fb.className = 'p-2 rounded-xl text-center text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300';
+        fb.textContent = `✅ Perfect! "${item.article.toUpperCase()}" is correct! (${item.article} ${item.job})`;
+        playSound(true);
+        speak(`${item.phrase.replace('___', item.article)}`);
+      } else {
+        fb.className = 'p-2 rounded-xl text-center text-xs font-bold bg-red-50 text-red-800 border border-red-300';
+        fb.textContent = `❌ Remember: use "${item.article.toUpperCase()}" because "${item.job}" starts with a ${item.article === 'an' ? 'vowel' : 'consonant'} sound.`;
+        playSound(false);
+      }
+
+      setTimeout(() => {
+        currentJobsQuizIndex = (currentJobsQuizIndex + 1) % jobsQuizItems.length;
+        renderJobsQuizItem();
+      }, 1400);
+    }
+
+    // Auto-init on load
+    document.addEventListener('DOMContentLoaded', () => {
+      initCountriesMemory();
+    });
+  </script>
+</body>
+</html>

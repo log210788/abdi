@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full theme-day">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#2c4a38">
+  <title>Lesson 4: He/She Routines, Days & Schedules • English with Abdi (Ethiopia 🇪🇹)</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka, Outfit, Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Studio Ghibli Theme Tokens -->
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <style>
+    :root {
+      --ghibli-bg-green: #2c4a38;
+      --ghibli-parchment: #fdfaf2;
+      --ghibli-card-bg: rgba(255, 253, 246, 0.95);
+      --ghibli-card-border: rgba(226, 215, 195, 0.85);
+      --ghibli-accent-gold: #d97724;
+      --ghibli-accent-green: #3b744d;
+      --ghibli-accent-blue: #326789;
+      --ghibli-text-main: #2b261f;
+      --ghibli-text-muted: #6e6454;
+      --ghibli-border: #e6dcce;
+      --ghibli-bg-url: url('images/ghibli/bg.webp');
+    }
+
+    .theme-sunset {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+      --ghibli-accent-green: #8d4f28;
+      --ghibli-accent-gold: #c2410c;
+    }
+
+    .theme-night {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
+      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-text-main: #f8fafc;
+      --ghibli-text-muted: #cbd5e1;
+      --ghibli-parchment: #0f172a;
+      --ghibli-accent-green: #38bdf8;
+      --ghibli-accent-gold: #fbbf24;
+    }
+
+    body {
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--ghibli-text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-image 0.5s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-ghibli { font-family: 'Playfair Display', serif; }
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+
+    .ghibli-card {
+      background: var(--ghibli-card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-bounce {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+    }
+    .btn-bounce:hover { transform: translateY(-2px); }
+    .btn-bounce:active { transform: translateY(1px); }
+
+    .nav-tab-active {
+      background: #15803d !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/92 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 transition-colors shadow-xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-700 text-indigo-100 flex items-center justify-center shadow-xs">
+          <i class="fa-solid fa-calendar-week text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">Lesson 4</span>
+          </div>
+          <p class="text-xs text-stone-500 font-semibold leading-none mt-0.5">He/She Routines, Days of the Week & AT / IN / ON</p>
+        </div>
+      </div>
+
+      <!-- Controls: Navigation, TOD toggle, XP counter, Preply -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="openPreplyModalL4()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 text-white text-xs font-black shadow-sm flex items-center gap-1.5 border border-red-500" title="Send Lesson 4 to Teacher on Preply">
+          <i class="fa-solid fa-paper-plane text-[11px]"></i>
+          <span class="hidden sm:inline">Preply</span>
+        </button>
+
+        <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 text-xs font-bold hover:bg-stone-200 flex items-center gap-1" title="Toggle Day/Sunset/Night">
+          <span id="tod-icon">☀️</span>
+        </button>
+
+        <div class="px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+
+        <a href="index.html" class="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-700 text-xs font-bold flex items-center gap-1 transition" title="Lesson 1">
+          <span class="hidden sm:inline">L1</span>
+        </a>
+
+        <a href="jobs_flashcards.html" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Lesson 2 (Jobs)">
+          <span class="hidden sm:inline">L2 Jobs</span>
+        </a>
+
+        <a href="daily_routines.html" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Lesson 3 (Time & Routines)">
+          <span class="hidden sm:inline">L3 Time</span>
+        </a>
+
+        <a href="verb_practice.html" class="px-2.5 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Verb Master (I vs He/She)">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+          <span class="hidden sm:inline">Verbs</span>
+        </a>
+
+        <a href="lesson_test.html" class="px-2.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs flex items-center gap-1 transition" title="Arena">
+          <i class="fa-solid fa-gamepad text-xs"></i>
+          <span class="hidden sm:inline">Arena</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- SUB-NAVIGATION: 5 LEARNING MODES -->
+  <nav class="sticky top-[53px] z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-1.5 shadow-2xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-1 overflow-x-auto py-0.5">
+      <button onclick="switchView('days')" id="tab-btn-days" class="nav-btn flex-1 min-w-[70px] py-1.5 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition nav-tab-active">
+        <i class="fa-solid fa-calendar-day"></i>
+        <span>1. Days</span>
+      </button>
+      <button onclick="switchView('verbs')" id="tab-btn-verbs" class="nav-btn flex-1 min-w-[85px] py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>2. He/She Verbs</span>
+      </button>
+      <button onclick="switchView('marion')" id="tab-btn-marion" class="nav-btn flex-1 min-w-[85px] py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <span>3. Marion's Day</span>
+      </button>
+      <button onclick="switchView('preps')" id="tab-btn-preps" class="nav-btn flex-1 min-w-[95px] py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>4. At / In / On</span>
+      </button>
+      <button onclick="switchView('quiz')" id="tab-btn-quiz" class="nav-btn flex-1 min-w-[65px] py-1.5 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>5. Quiz</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3 sm:p-4 space-y-4">
+
+    <!-- ========================================================
+         VIEW 1: DAYS OF THE WEEK
+         ======================================================== -->
+    <section id="view-days" class="view-panel space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 text-center space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-900 text-xs font-bold">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Af-Soomaali: Maalmaha Todobaadka</span>
+        </div>
+        <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">Days of the Week & Weekly Habits</h2>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto">
+          Tap each day to hear clear native English pronunciation and learn how to use <strong>ON</strong>!
+        </p>
+
+        <!-- Days Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 pt-2 text-left" id="days-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2 text-left mt-3">
+          <i class="fa-solid fa-lightbulb text-amber-600 text-sm mt-0.5 shrink-0"></i>
+          <div>
+            <strong>Golden Rule:</strong> Days of the week in English always start with a capital letter: 
+            <span class="font-bold underline">M</span>onday, <span class="font-bold underline">F</span>riday, <span class="font-bold underline">S</span>unday. We use preposition <strong>ON</strong>: <em>"I study English <strong>on</strong> Monday."</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 2: HE / SHE VERB ENDINGS (THE 3 RULES)
+         ======================================================== -->
+    <section id="view-verbs" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Third-Person Rule</span>
+            <h2 class="font-ghibli font-bold text-lg sm:text-xl text-stone-900 mt-1">Transform "I" into "He / She"</h2>
+          </div>
+          <button onclick="speakRuleSummary()" class="btn-bounce px-3 py-1.5 rounded-xl bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>Listen</span>
+          </button>
+        </div>
+
+        <!-- Interactive Verb Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="verbs-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Rule Explanation Accordion / Banner -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+          <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-bold text-blue-900 flex items-center gap-1"><i class="fa-solid fa-plus text-blue-600"></i> Add -S</p>
+            <p class="text-[11px] text-blue-800 mt-1">Most verbs: <em>eats, works, wakes up, sleeps, cooks</em></p>
+          </div>
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-bold text-emerald-900 flex items-center gap-1"><i class="fa-solid fa-sparkles text-emerald-600"></i> Add -ES</p>
+            <p class="text-[11px] text-emerald-800 mt-1">End in -sh, -ch, -ss, -o: <em>washes, brushes, watches, goes</em></p>
+          </div>
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+            <p class="font-bold text-amber-900 flex items-center gap-1"><i class="fa-solid fa-star text-amber-600"></i> Irregular!</p>
+            <p class="text-[11px] text-amber-800 mt-1"><em>have ➔ <strong>has</strong></em> | <em>study ➔ <strong>studies</strong></em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 3: MARION'S DAY (INTERACTIVE TIMELINE & STORY)
+         ======================================================== -->
+    <section id="view-marion" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">DK Module 13</span>
+            <h2 class="font-ghibli font-bold text-xl text-stone-900 mt-1">Marion's Daily Routine</h2>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="prevMarionStep()" class="btn-bounce w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button onclick="nextMarionStep()" class="btn-bounce w-8 h-8 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Featured Step Card -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 shadow-sm flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+          <div class="w-48 h-36 rounded-xl overflow-hidden bg-stone-100 flex items-center justify-center border border-stone-200 shrink-0">
+            <img id="marion-img" src="images/routines/marion_shower_645.png" alt="Marion routine" class="w-full h-full object-contain p-2">
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold">
+              <i class="fa-solid fa-clock"></i>
+              <span id="marion-time">06:45 (Quarter to seven)</span>
+            </div>
+            <h3 id="marion-sentence" class="font-display font-extrabold text-xl sm:text-2xl text-stone-900">Marion takes a shower.</h3>
+            <p id="marion-somali" class="text-xs sm:text-sm text-stone-500 font-semibold italic">Marion waxay maydhataa 6:45 subaxnimo.</p>
+            <div class="pt-2 flex items-center gap-2 justify-center md:justify-start">
+              <button onclick="speakMarionStep()" class="btn-bounce px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>Hear Sentence</span>
+              </button>
+              <span id="marion-step-badge" class="text-xs text-stone-500 font-bold">Step 1 of 7</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story Stepper Dots -->
+        <div class="flex items-center justify-center gap-1.5 pt-1" id="marion-dots">
+          <!-- Dots populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 4: PREPOSITIONS SORTER (AT vs IN vs ON)
+         ======================================================== -->
+    <section id="view-preps" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 text-center space-y-4">
+        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Time Sorter</span>
+        <h2 class="font-ghibli font-bold text-xl text-stone-900">Which Preposition Fits? (AT, IN, ON)</h2>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
+          Sort the time expression into the right bucket!
+        </p>
+
+        <!-- Current Target Phrase -->
+        <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-2">
+          <p class="text-xs text-stone-400 uppercase font-bold tracking-wider">Choose the right preposition for:</p>
+          <h3 id="prep-target-word" class="font-display font-black text-2xl sm:text-3xl text-stone-900">Monday</h3>
+          <p id="prep-target-clue" class="text-xs text-stone-500 font-medium italic">Isniin (Day of the week)</p>
+        </div>
+
+        <!-- 3 Sorter Buttons -->
+        <div class="grid grid-cols-3 gap-2.5">
+          <button onclick="submitPrepAnswer('AT')" class="btn-bounce p-3 sm:p-4 rounded-xl bg-amber-50 hover:bg-amber-100 border-2 border-amber-300 text-amber-900 font-display font-black text-lg flex flex-col items-center">
+            <span>AT ⏰</span>
+            <span class="text-[10px] font-normal text-amber-700">Clock & Night</span>
+          </button>
+          <button onclick="submitPrepAnswer('IN')" class="btn-bounce p-3 sm:p-4 rounded-xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 text-blue-900 font-display font-black text-lg flex flex-col items-center">
+            <span>IN ☀️</span>
+            <span class="text-[10px] font-normal text-blue-700">Parts of the Day</span>
+          </button>
+          <button onclick="submitPrepAnswer('ON')" class="btn-bounce p-3 sm:p-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 text-emerald-900 font-display font-black text-lg flex flex-col items-center">
+            <span>ON 📅</span>
+            <span class="text-[10px] font-normal text-emerald-700">Days & Dates</span>
+          </button>
+        </div>
+
+        <div id="prep-feedback" class="hidden p-3 rounded-xl text-xs font-bold"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 5: PRACTICE QUIZ
+         ======================================================== -->
+    <section id="view-quiz" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300">Check Your Knowledge</span>
+            <h2 class="font-ghibli font-bold text-xl text-stone-900 mt-1">Lesson 4 Mastery Quiz</h2>
+          </div>
+          <span id="quiz-score-badge" class="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-xs font-bold text-stone-700">Score: 0 / 6</span>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="space-y-3">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button onclick="gradeQuiz()" class="btn-bounce px-4 py-2 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Submit All Answers</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- KODAMA MASCOT FLOATER -->
+  <div class="fixed bottom-4 right-4 z-40 flex items-end gap-2">
+    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[220px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl animate-fade-in">
+      🇪🇹 በርታ አብዲ! (Berta Abdi!) You are mastering English routines, third-person verbs, and the days of the week! 🌟
+    </div>
+    <button onclick="toggleKodamaBubble()" class="w-12 h-12 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition" title="Mascot Helper">
+      🌱
+    </button>
+  </div>
+
+  <!-- PREPLY SHARE MODAL (LESSON 4) -->
+  <div id="preply-modal-l4" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border border-stone-200 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-stone-900 leading-tight">Send Lesson 4 to Teacher on Preply</h3>
+            <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹)</p>
+          </div>
+        </div>
+        <button onclick="closePreplyModalL4()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-1.5">
+        <label class="block text-[11px] font-bold text-stone-700">Preview of your Preply message:</label>
+        <textarea id="preply-message-text-l4" rows="8" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-200 rounded-xl text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-500" readonly></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+        <button onclick="shareViaMobileL4()" class="btn-bounce w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-share-nodes text-sm"></i>
+          <span>Share via Phone Apps</span>
+        </button>
+        <button onclick="copyPreplyTextL4()" id="btn-copy-preply-l4" class="btn-bounce w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-copy text-sm"></i>
+          <span>Copy for Preply Chat</span>
+        </button>
+      </div>
+
+      <a href="https://preply.com/messages" target="_blank" rel="noopener noreferrer" class="btn-bounce w-full py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-800 font-bold text-xs flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        <span>Open Preply Chat (preply.com/messages)</span>
+      </a>
+
+      <div id="preply-copy-toast-l4" class="hidden p-2.5 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold text-center">
+        ✅ Copied to clipboard! You can now open Preply and paste it directly into your chat.
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ================= Global State & Audio Synthesis ================= */
+    let currentXP = parseInt(localStorage.getItem('abdi_xp') || '0', 10);
+    document.getElementById('global-xp').textContent = currentXP + ' XP';
+
+    function addXP(amount) {
+      currentXP += amount;
+      document.getElementById('global-xp').textContent = currentXP + ' XP';
+      localStorage.setItem('abdi_xp', currentXP);
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 0.85;
+        utter.pitch = 1.0;
+        utter.lang = 'en-US';
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+      }
+    }
+
+    /* Time of Day theme cycle */
+    let todIndex = 0;
+    const todThemes = ['theme-day', 'theme-sunset', 'theme-night'];
+    const todIcons = ['☀️', '🌅', '🌙'];
+    function cycleTimeOfDay() {
+      todIndex = (todIndex + 1) % todThemes.length;
+      document.documentElement.className = 'min-h-full ' + todThemes[todIndex];
+      document.getElementById('tod-icon').textContent = todIcons[todIndex];
+    }
+
+    /* Sub-nav switching */
+    function switchView(viewName) {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('nav-tab-active');
+        btn.classList.add('text-stone-600');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${viewName}`);
+      if (activeBtn) {
+        activeBtn.classList.add('nav-tab-active');
+        activeBtn.classList.remove('text-stone-600');
+      }
+    }
+
+    /* ================= 1. Days of the Week Data & Rendering ================= */
+    const DAYS_DATA = [
+      { name: 'Monday', amharic: 'ሰኞ (Segno)', somali: 'Isniin', type: 'Weekday', icon: '💼', example: 'I study English on Monday.' },
+      { name: 'Tuesday', amharic: 'ማክሰኞ (Maksenyo)', somali: 'Talaado', type: 'Weekday', icon: '📚', example: 'He works on Tuesday.' },
+      { name: 'Wednesday', amharic: 'ረቡዕ (Rebu)', somali: 'Arbaco', type: 'Weekday', icon: '📝', example: 'She has class on Wednesday.' },
+      { name: 'Thursday', amharic: 'ሐሙስ (Hamus)', somali: 'Khamiis', type: 'Weekday', icon: '☕', example: 'We meet on Thursday.' },
+      { name: 'Friday', amharic: 'ዓርብ (Arb)', somali: 'Jimce', type: 'Weekday', icon: '🕌', example: 'I pray and meet friends on Friday.' },
+      { name: 'Saturday', amharic: 'ቅዳሜ (Qidame)', somali: 'Sabti', type: 'Weekend', icon: '⚽', example: 'He plays soccer on Saturday.' },
+      { name: 'Sunday', amharic: 'እሑድ (Ihud)', somali: 'Axad', type: 'Weekend', icon: '🏖️', example: 'We relax at home on Sunday.' }
+    ];
+
+    function renderDays() {
+      const container = document.getElementById('days-container');
+      container.innerHTML = '';
+      DAYS_DATA.forEach(d => {
+        const card = document.createElement('div');
+        const isWeekend = d.type.includes('Weekend');
+        card.className = `p-3 rounded-xl border transition-all cursor-pointer hover:shadow-md btn-bounce ${
+          isWeekend ? 'bg-amber-50/80 border-amber-200' : 'bg-white border-stone-200'
+        }`;
+        card.onclick = () => {
+          speak(`${d.name}. ${d.example}`);
+          addXP(5);
+        };
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-base font-bold text-stone-900">${d.icon} ${d.name}</span>
+            <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
+              isWeekend ? 'bg-amber-200 text-amber-900' : 'bg-stone-100 text-stone-600'
+            }">${d.type}</span>
+          </div>
+          <p class="text-xs font-bold text-emerald-950 mt-1">🇪🇹 አማርኛ: ${d.amharic}</p>
+          <p class="text-[11px] font-semibold text-stone-500">🇸🇴 Af-Soomaali: ${d.somali}</p>
+          <p class="text-[11px] text-stone-500 mt-1 italic">"${d.example}"</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* ================= 2. Verbs Endings Data ================= */
+    const VERBS_DATA = [
+      { base: 'I wake up', third: 'He wakes up', rule: '+S', amharic: 'ይነቃል (yineqal)', somali: 'Wuu toosaa' },
+      { base: 'I brush my teeth', third: 'He brushes his teeth', rule: '+ES (ending -sh)', amharic: 'ይቦርሻል (yiboreshal)', somali: 'Wuxuu cadeystaa ilkaha' },
+      { base: 'I have breakfast', third: 'She has breakfast', rule: 'Irregular (have ➔ has)', amharic: 'ቁርስ ትበላለች (qurs tibelalech)', somali: 'Waxay cuntaa quraacda' },
+      { base: 'I go to work', third: 'He goes to work', rule: '+ES (ending -o)', amharic: 'ይሄዳል (yihedal)', somali: 'Wuxuu tagaa shaqada' },
+      { base: 'I wash my face', third: 'She washes her face', rule: '+ES (ending -sh)', amharic: 'ትታጠባለች (titatebalech)', somali: 'Waxay maydhataa wajiga' },
+      { base: 'I watch TV', third: 'Marion watches TV', rule: '+ES (ending -ch)', amharic: 'ትመለከታለች (timeleketalech)', somali: 'Marion waxay daawataa TV-ga' },
+      { base: 'I study English', third: 'He studies English', rule: 'Drop -y ➔ -ies', amharic: 'ያጠናል (yat’enal)', somali: 'Wuxuu bartaa Ingiriisiga' },
+      { base: 'I eat lunch', third: 'She eats lunch', rule: '+S', amharic: 'ትበላለች (tibelalech)', somali: 'Waxay cuntaa qadada' }
+    ];
+
+    function renderVerbs() {
+      const container = document.getElementById('verbs-container');
+      container.innerHTML = '';
+      VERBS_DATA.forEach(v => {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-xl bg-white border border-stone-200 hover:border-emerald-300 shadow-2xs flex items-center justify-between gap-2';
+        item.innerHTML = `
+          <div>
+            <div class="flex items-center gap-1.5 text-xs text-stone-500">
+              <span>👤 ${v.base}</span>
+              <i class="fa-solid fa-arrow-right text-[10px] text-stone-400"></i>
+            </div>
+            <p class="text-sm font-extrabold text-emerald-950 mt-0.5">✨ ${v.third}</p>
+            <p class="text-[11px] text-stone-500">🇪🇹 ${v.amharic} • 🇸🇴 <em>${v.somali}</em></p>
+          </div>
+          <div class="flex flex-col items-end gap-1">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">${v.rule}</span>
+            <button onclick="speak('${v.third}')" class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-emerald-100 text-stone-700 hover:text-emerald-800 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function speakRuleSummary() {
+      speak("When talking about he, she, or a name, always add s or e-s to the verb. For example, he wakes up, she brushes her teeth, and she has breakfast.");
+    }
+
+    /* ================= 3. Marion's Routine Data ================= */
+    const MARION_STEPS = [
+      {
+        img: 'images/routines/marion_shower_645.png',
+        time: '06:45 (A quarter to seven)',
+        sentence: 'At 6:45, Marion takes a shower.',
+        somali: '6:45 subaxnimo, Marion waxay maydhataa qubeys.'
+      },
+      {
+        img: 'images/routines/marion_breakfast_700.png',
+        time: '07:00 (Seven o\'clock)',
+        sentence: 'At 7:00, Marion has breakfast in the kitchen.',
+        somali: '7:00, Marion waxay cuntaa quraac.'
+      },
+      {
+        img: 'images/routines/marion_teeth_720.png',
+        time: '07:20 (Twenty past seven)',
+        sentence: 'At 7:20, she brushes her teeth.',
+        somali: '7:20, waxay cadaysataa ilkaha.'
+      },
+      {
+        img: 'images/routines/marion_leave_730.png',
+        time: '07:30 (Half past seven)',
+        sentence: 'At 7:30, Marion leaves her house.',
+        somali: '7:30, Marion waxay ka baxdaa guriga.'
+      },
+      {
+        img: 'images/routines/marion_bus_745.png',
+        time: '07:45 (A quarter to eight)',
+        sentence: 'At 7:45, she catches the bus to work.',
+        somali: '7:45, waxay raacdaa baska shaqada.'
+      },
+      {
+        img: 'images/routines/marion_arrive_830.png',
+        time: '08:30 (Half past eight)',
+        sentence: 'At 8:30, Marion arrives at the office.',
+        somali: '8:30, waxay tagtaa xafiiska shaqada.'
+      },
+      {
+        img: 'images/routines/marion_leave_500.png',
+        time: '17:00 (Five o\'clock in the afternoon)',
+        sentence: 'At 5:00 PM, Marion leaves work and goes home.',
+        somali: '5:00 galabnimo, Marion waxay ka soo rawaxdaa shaqada.'
+      }
+    ];
+
+    let currentMarionIndex = 0;
+
+    function renderMarionStep() {
+      const step = MARION_STEPS[currentMarionIndex];
+      document.getElementById('marion-img').src = step.img;
+      document.getElementById('marion-time').textContent = step.time;
+      document.getElementById('marion-sentence').textContent = step.sentence;
+      document.getElementById('marion-somali').textContent = step.somali;
+      document.getElementById('marion-step-badge').textContent = `Step ${currentMarionIndex + 1} of ${MARION_STEPS.length}`;
+
+      const dotsContainer = document.getElementById('marion-dots');
+      dotsContainer.innerHTML = '';
+      MARION_STEPS.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all ${
+          i === currentMarionIndex ? 'bg-emerald-700 w-6' : 'bg-stone-300'
+        }`;
+        dot.onclick = () => {
+          currentMarionIndex = i;
+          renderMarionStep();
+        };
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function nextMarionStep() {
+      currentMarionIndex = (currentMarionIndex + 1) % MARION_STEPS.length;
+      renderMarionStep();
+      speakMarionStep();
+    }
+
+    function prevMarionStep() {
+      currentMarionIndex = (currentMarionIndex - 1 + MARION_STEPS.length) % MARION_STEPS.length;
+      renderMarionStep();
+      speakMarionStep();
+    }
+
+    function speakMarionStep() {
+      speak(MARION_STEPS[currentMarionIndex].sentence);
+    }
+
+    /* ================= 4. Preposition Sorter Data ================= */
+    const PREP_CHALLENGES = [
+      { text: 'Monday', answer: 'ON', clue: 'Isniin (Day of the week)' },
+      { text: '7:30 AM', answer: 'AT', clue: 'Waqti sax ah (Exact clock time)' },
+      { text: 'the morning', answer: 'IN', clue: 'Subaxnimo (Part of the day)' },
+      { text: 'Friday afternoon', answer: 'ON', clue: 'Galabta Jimcaha (Specific day part)' },
+      { text: 'night', answer: 'AT', clue: 'Habeenkii (Exception: clock & night)' },
+      { text: 'the afternoon', answer: 'IN', clue: 'Galabnimo (Part of the day)' },
+      { text: 'the weekend', answer: 'ON', clue: 'Sabti & Axad (Calendar days)' },
+      { text: 'noon', answer: 'AT', clue: 'Duhur / 12:00 PM (Exact point)' }
+    ];
+
+    let prepIndex = 0;
+
+    function renderPrepChallenge() {
+      const item = PREP_CHALLENGES[prepIndex];
+      document.getElementById('prep-target-word').textContent = item.text;
+      document.getElementById('prep-target-clue').textContent = item.clue;
+      const fb = document.getElementById('prep-feedback');
+      fb.className = 'hidden';
+    }
+
+    function submitPrepAnswer(choice) {
+      const item = PREP_CHALLENGES[prepIndex];
+      const fb = document.getElementById('prep-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-red-50', 'text-red-800', 'border-red-300');
+      fb.classList.add('border');
+
+      if (choice === item.answer) {
+        fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+        fb.innerHTML = `✅ Excellent Abdi! We say <strong>${item.answer} ${item.text}</strong>.`;
+        speak(`Correct! ${item.answer} ${item.text}`);
+        addXP(20);
+        triggerConfetti();
+
+        setTimeout(() => {
+          prepIndex = (prepIndex + 1) % PREP_CHALLENGES.length;
+          renderPrepChallenge();
+        }, 1200);
+      } else {
+        fb.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
+        fb.innerHTML = `❌ Almost! The correct preposition is <strong>${item.answer}</strong> (we say: <em>${item.answer} ${item.text}</em>).`;
+        speak(`Not quite. We say ${item.answer} ${item.text}`);
+      }
+    }
+
+    /* ================= 5. Mastery Quiz Data ================= */
+    const QUIZ_ITEMS = [
+      {
+        q: "Which sentence is correct for Marion's morning routine?",
+        options: [
+          "Marion wake up at 7 o'clock.",
+          "Marion wakes up at 7 o'clock.",
+          "Marion waking up at 7 o'clock.",
+          "Marion wake at 7 o'clock."
+        ],
+        answer: "Marion wakes up at 7 o'clock.",
+        explanation: "Third person singular adds -s to 'wake'."
+      },
+      {
+        q: "Choose the correct preposition: 'I attend English class _____ Tuesday.'",
+        options: ["in", "at", "on", "to"],
+        answer: "on",
+        explanation: "We always use ON with days of the week."
+      },
+      {
+        q: "What is the correct third-person form of the verb 'HAVE'?",
+        options: ["haves", "has", "having", "is have"],
+        answer: "has",
+        explanation: "'Have' is irregular: He has / She has."
+      },
+      {
+        q: "Fill in the blank: 'Ahmed _____ his teeth every morning.'",
+        options: ["brush", "brushes", "brushing", "brushs"],
+        answer: "brushes",
+        explanation: "Verbs ending in -sh add -es."
+      },
+      {
+        q: "Which time expression takes the preposition 'AT'?",
+        options: ["Monday", "the evening", "8:15 AM", "the afternoon"],
+        answer: "8:15 AM",
+        explanation: "Exact clock times always take AT."
+      },
+      {
+        q: "What does Marion do at 7:45 in the morning?",
+        options: [
+          "She cooks dinner.",
+          "She catches the bus to work.",
+          "She goes to sleep.",
+          "She leaves work."
+        ],
+        answer: "She catches the bus to work.",
+        explanation: "Marion takes the bus at 7:45."
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-xl bg-white border border-stone-200 space-y-2';
+
+        let optsHtml = '';
+        q.options.forEach(opt => {
+          optsHtml += `
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-stone-50 hover:bg-stone-100 border border-stone-200 cursor-pointer text-xs font-semibold">
+              <input type="radio" name="quiz_q_${idx}" value="${opt}" class="text-purple-600 focus:ring-purple-500">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex items-start gap-2">
+            <span class="w-5 h-5 rounded-full bg-purple-700 text-white font-bold text-xs flex items-center justify-center shrink-0">${idx + 1}</span>
+            <p class="font-bold text-xs text-stone-900">${q.q}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            ${optsHtml}
+          </div>
+          <div id="quiz-fb-${idx}" class="hidden p-2 rounded-lg text-xs font-semibold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function gradeQuiz() {
+      let score = 0;
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="quiz_q_${idx}"]:checked`);
+        const fb = document.getElementById(`quiz-fb-${idx}`);
+        fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-red-50', 'text-red-800', 'border-red-300');
+        fb.classList.add('border');
+
+        if (selected && selected.value === q.answer) {
+          score++;
+          fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+          fb.innerHTML = `✅ Correct! ${q.explanation}`;
+        } else {
+          fb.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
+          fb.innerHTML = `❌ Incorrect. Correct answer: <strong>${q.answer}</strong>. (${q.explanation})`;
+        }
+      });
+
+      document.getElementById('quiz-score-badge').textContent = `Score: ${score} / ${QUIZ_ITEMS.length}`;
+      if (score === QUIZ_ITEMS.length) {
+        speak("Fantastic score Abdi! Full marks across all questions!");
+        triggerConfetti();
+        addXP(150);
+      } else {
+        addXP(score * 20);
+      }
+
+      // Auto-prompt to send to Preply if passed
+      if (score >= 4) {
+        setTimeout(() => {
+          if (confirm("Great job on Lesson 4! Would you like to send your score to your teacher on Preply?")) {
+            openPreplyModalL4(score);
+          }
+        }, 1500);
+      }
+    }
+
+    /* Preply Export for Lesson 4 */
+    function generatePreplyTextL4(score) {
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const currentScoreText = document.getElementById('quiz-score-badge')?.textContent || `Score: ${score || 6} / 6`;
+      return `👋 Hello Teacher! Here is Abdi's Lesson 4 Progress (Ethiopia 🇪🇹)
+📅 Date: ${today}
+📚 Topic: Lesson 4 - Days of the Week & He/She Routines
+🏆 ${currentScoreText} | XP: ${currentXP}
+
+🌟 Key Achievements:
+• Mastered 7 Days of the Week (ሰኞ to እሑድ) & Preposition ON
+• Mastered Third-Person Singular (He/She -s, -es, irregular has)
+• Completed Marion's Daily Routine Timeline Story
+• Practiced Prepositions: AT (clock), IN (parts of day), ON (days)
+
+✍️ Abdi's Monologue:
+"My name is Abdi. I am from Ethiopia 🇪🇹. On weekdays, I wake up at 7:00 AM. I have breakfast and study English. My friend Dawit is a chef. He gets up at 8:00 AM and cooks delicious food."
+
+✨ Completed on English with Abdi App`;
+    }
+
+    function openPreplyModalL4(score) {
+      const text = generatePreplyTextL4(score);
+      document.getElementById('preply-message-text-l4').value = text;
+      document.getElementById('preply-modal-l4').classList.remove('hidden');
+      document.getElementById('preply-copy-toast-l4').classList.add('hidden');
+    }
+
+    function closePreplyModalL4() {
+      document.getElementById('preply-modal-l4').classList.add('hidden');
+    }
+
+    function copyPreplyTextL4() {
+      const textarea = document.getElementById('preply-message-text-l4');
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        document.getElementById('preply-copy-toast-l4').classList.remove('hidden');
+        document.getElementById('btn-copy-preply-l4').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => {
+          document.getElementById('btn-copy-preply-l4').innerHTML = '<i class="fa-solid fa-copy text-sm"></i> Copy for Preply Chat';
+        }, 2500);
+      }).catch(err => alert("Please copy the text manually."));
+    }
+
+    function shareViaMobileL4() {
+      const text = document.getElementById('preply-message-text-l4').value;
+      if (navigator.share) {
+        navigator.share({
+          title: "Abdi's Lesson 4 Progress (Ethiopia 🇪🇹)",
+          text: text
+        }).catch(err => console.log(err));
+      } else {
+        copyPreplyTextL4();
+      }
+    }
+
+    function toggleKodamaBubble() {
+      const bubble = document.getElementById('kodama-bubble');
+      bubble.classList.toggle('hidden');
+      if (!bubble.classList.contains('hidden')) {
+        speak("MaashaAllah Abdi! You are doing amazing with your English.");
+      }
+    }
+
+    // Initialize all views on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDays();
+      renderVerbs();
+      renderMarionStep();
+      renderPrepChallenge();
+      renderQuiz();
+    });
+  </script>
+
+</body>
+</html>

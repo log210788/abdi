@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full theme-day">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#2c4a38">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Verb Master: I vs He vs She • English with Abdi (Ethiopia 🇪🇹)</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka, Outfit, Playfair Display & Plus Jakarta Sans, Noto Sans Ethiopic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Studio Ghibli Theme Tokens -->
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <style>
+    :root {
+      --ghibli-bg-green: #2c4a38;
+      --ghibli-parchment: #fdfaf2;
+      --ghibli-card-bg: rgba(255, 253, 246, 0.96);
+      --ghibli-card-border: rgba(226, 215, 195, 0.85);
+      --ghibli-accent-gold: #d97724;
+      --ghibli-accent-green: #3b744d;
+      --ghibli-accent-blue: #326789;
+      --ghibli-text-main: #2b261f;
+      --ghibli-text-muted: #6e6454;
+      --ghibli-border: #e6dcce;
+      --ghibli-bg-url: url('images/ghibli/bg.webp');
+    }
+
+    .theme-sunset {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+      --ghibli-accent-green: #8d4f28;
+      --ghibli-accent-gold: #c2410c;
+    }
+
+    .theme-night {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
+      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-text-main: #f8fafc;
+      --ghibli-text-muted: #cbd5e1;
+      --ghibli-parchment: #0f172a;
+      --ghibli-accent-green: #38bdf8;
+      --ghibli-accent-gold: #fbbf24;
+    }
+
+    body {
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--ghibli-text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: background-image 0.5s ease;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: calc( env(safe-area-inset-bottom) + 72px );
+    }
+
+    .font-ghibli { font-family: 'Playfair Display', serif; }
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+    .font-ethiopic { font-family: 'Noto Sans Ethiopic', 'Plus Jakarta Sans', sans-serif; }
+
+    .ghibli-card {
+      background: var(--ghibli-card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-bounce {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+      touch-action: manipulation;
+    }
+    .btn-bounce:active { transform: scale(0.97); }
+
+    .filter-btn-active {
+      background: #15803d !important;
+      color: #ffffff !important;
+      border-color: #15803d !important;
+      box-shadow: 0 2px 8px rgba(21, 128, 61, 0.3);
+    }
+
+    .tab-btn-active {
+      background: #0f766e !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.35);
+    }
+
+    /* Custom Mobile Scrollbar */
+    ::-webkit-scrollbar { height: 4px; width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- TOP HEADER (Touch Friendly & Responsive) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2 transition-colors shadow-xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
+      
+      <!-- Brand & Student Profile -->
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-teal-700 text-teal-100 flex items-center justify-center shadow-xs shrink-0">
+          <i class="fa-solid fa-wand-magic-sparkles text-sm sm:text-base"></i>
+        </div>
+        <div class="leading-tight">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <h1 class="font-ghibli font-bold text-sm sm:text-base tracking-tight text-emerald-950">English with Abdi</h1>
+            <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-900 border border-emerald-300">🇪🇹 Ethiopia</span>
+          </div>
+          <p class="text-[11px] text-stone-500 font-semibold truncate max-w-[200px] sm:max-w-none">I watch ➔ He watches ➔ She watches</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions Header (Preply button, Theme, XP) -->
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button onclick="openPreplyModal()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 text-white text-xs font-black shadow-sm flex items-center gap-1.5 border border-red-500 hover:brightness-110" title="Send to Teacher on Preply">
+          <i class="fa-solid fa-paper-plane text-[11px]"></i>
+          <span class="hidden sm:inline">Preply</span>
+        </button>
+
+        <div class="px-2.5 py-1 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1 shadow-2xs">
+          <i class="fa-solid fa-star text-amber-500 text-[10px]"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+
+        <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="w-8 h-8 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 text-xs font-bold hover:bg-stone-200 flex items-center justify-center" title="Toggle Theme">
+          <span id="tod-icon">☀️</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION: 3 MAIN MODES -->
+  <nav class="sticky top-[49px] z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-1.5 shadow-2xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-1">
+      <button onclick="switchTab('explorer')" id="tab-btn-explorer" class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition tab-btn-active">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>1. 40 Verbs</span>
+      </button>
+      <button onclick="switchTab('duel')" id="tab-btn-duel" class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-bolt"></i>
+        <span>2. Speed Duel</span>
+      </button>
+      <button onclick="switchTab('worksheet')" id="tab-btn-worksheet" class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>3. Practice Sheet</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3 sm:p-4 space-y-4">
+
+    <!-- ========================================================
+         TAB 1: 40 VERBS & AUDIO EXPLORER
+         ======================================================== -->
+    <div id="tab-explorer" class="tab-panel space-y-4">
+      
+      <!-- HERO BANNER -->
+      <div class="ghibli-card p-4 sm:p-5 text-center space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-900 text-xs font-bold">
+          <i class="fa-solid fa-globe text-emerald-600"></i>
+          <span>🇪🇹 አማርኛ (Amharic) • Somali • English</span>
+        </div>
+        <h2 class="font-ghibli font-bold text-lg sm:text-2xl text-stone-900">40 Verbs Interactive Sheet</h2>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
+          Tap any verb card or button below to <strong>hear native English pronunciation</strong>! Notice how <strong>watches</strong> and <strong>washes</strong> add an extra syllable (/ɪz/).
+        </p>
+
+        <!-- Search Bar -->
+        <div class="relative w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-stone-400 text-xs"></i>
+          <input type="text" id="verb-search" oninput="filterVerbs()" placeholder="Search (watch, wash, መብላት, bunna, clean)..." class="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white shadow-2xs">
+        </div>
+
+        <!-- Touch-Friendly Filter Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
+          <button onclick="setRuleFilter('all')" id="filter-all" class="filter-btn filter-btn-active px-3 py-1.5 rounded-xl font-bold border border-stone-300 bg-white text-stone-700 shrink-0">All (40)</button>
+          <button onclick="setRuleFilter('es')" id="filter-es" class="filter-btn px-3 py-1.5 rounded-xl font-bold border border-stone-300 bg-white text-stone-700 shrink-0">+ES (-ch,-sh,-ss,-o)</button>
+          <button onclick="setRuleFilter('s')" id="filter-s" class="filter-btn px-3 py-1.5 rounded-xl font-bold border border-stone-300 bg-white text-stone-700 shrink-0">+S Regular</button>
+          <button onclick="setRuleFilter('ies')" id="filter-ies" class="filter-btn px-3 py-1.5 rounded-xl font-bold border border-stone-300 bg-white text-stone-700 shrink-0">+IES (study)</button>
+          <button onclick="setRuleFilter('irr')" id="filter-irr" class="filter-btn px-3 py-1.5 rounded-xl font-bold border border-stone-300 bg-white text-stone-700 shrink-0">have ➔ has</button>
+        </div>
+      </div>
+
+      <!-- LIVE CONJUGATION BAR -->
+      <div class="ghibli-card p-4 sm:p-5 border-2 border-emerald-600/30 bg-emerald-50/50 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span class="text-xs font-bold text-emerald-950 uppercase tracking-wider">Pronunciation & Transformation</span>
+          </div>
+          <span id="active-rule-pill" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300">Rule: +ES</span>
+        </div>
+
+        <!-- 3 Big Phone Buttons: I / He / She -->
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <button onclick="speakHero('I')" class="btn-bounce p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-2xs flex flex-col items-center justify-center min-h-[76px]">
+            <span class="text-[9px] font-extrabold text-stone-400 uppercase tracking-wide">እኔ • I</span>
+            <h3 id="hero-i" class="font-display font-extrabold text-base sm:text-xl text-stone-900 mt-0.5 leading-tight">I watch</h3>
+            <i class="fa-solid fa-volume-high text-[10px] text-stone-400 mt-1"></i>
+          </button>
+
+          <button onclick="speakHero('He')" class="btn-bounce p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-2xs flex flex-col items-center justify-center min-h-[76px]">
+            <span class="text-[9px] font-extrabold text-blue-600 uppercase tracking-wide">እሱ • He</span>
+            <h3 id="hero-he" class="font-display font-extrabold text-base sm:text-xl text-blue-950 mt-0.5 leading-tight">He watches</h3>
+            <i class="fa-solid fa-volume-high text-[10px] text-blue-500 mt-1"></i>
+          </button>
+
+          <button onclick="speakHero('She')" class="btn-bounce p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-2xs flex flex-col items-center justify-center min-h-[76px]">
+            <span class="text-[9px] font-extrabold text-purple-600 uppercase tracking-wide">እሷ • She</span>
+            <h3 id="hero-she" class="font-display font-extrabold text-base sm:text-xl text-purple-950 mt-0.5 leading-tight">She watches</h3>
+            <i class="fa-solid fa-volume-high text-[10px] text-purple-500 mt-1"></i>
+          </button>
+        </div>
+
+        <!-- Translation & Pronunciation Details -->
+        <div class="p-3 bg-white/90 rounded-xl border border-stone-200 flex flex-col sm:flex-row items-center justify-between text-xs gap-2">
+          <div class="text-center sm:text-left">
+            <p class="font-bold text-emerald-950 font-ethiopic text-sm">
+              🇪🇹 አማርኛ: <span id="hero-amharic">ይመለከታል</span> <span class="font-sans font-normal text-stone-500 text-xs" id="hero-translit">(yimeleketal)</span>
+            </p>
+            <p class="text-[11px] text-stone-500 font-semibold">
+              🇸🇴 Af-Soomaali: <span id="hero-somali">daawadaa</span> • IPA: <span id="hero-ipa" class="font-mono">/ˈwɒtʃ.ɪz/</span>
+            </p>
+          </div>
+          <button onclick="speakAllHero()" class="btn-bounce w-full sm:w-auto px-4 py-2 rounded-xl bg-emerald-700 text-white font-bold flex items-center justify-center gap-1.5 shadow-2xs shrink-0">
+            <i class="fa-solid fa-circle-play"></i>
+            <span>Play Example</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 40 VERBS CARDS GRID -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="verbs-grid">
+        <!-- Populated dynamically by JS -->
+      </div>
+
+    </div>
+
+    <!-- ========================================================
+         TAB 2: SPEED CONJUGATION DUEL
+         ======================================================== -->
+    <div id="tab-duel" class="tab-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4 text-center">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">Rapid Test</span>
+          <span id="game-score" class="px-3 py-1 rounded-xl bg-stone-100 border border-stone-200 text-xs font-bold text-stone-700">Streak: 0 🔥</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-stone-200 space-y-1 shadow-sm">
+          <p class="text-[11px] text-stone-400 uppercase font-bold tracking-wider">Choose the correct 3rd-person form for:</p>
+          <h3 id="game-prompt" class="font-display font-black text-2xl sm:text-3xl text-stone-900">I wash</h3>
+          <p id="game-clue" class="text-xs text-stone-500 italic">🇪🇹 ይታጠባል (yitatebal) • 🇸🇴 maydhaa</p>
+        </div>
+
+        <!-- 3 Big Touch Options -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="game-options">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="game-feedback" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+        <!-- Preply Export Helper -->
+        <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-900 flex items-center justify-between">
+          <span>Finished practicing? Send your streak to your teacher!</span>
+          <button onclick="openPreplyModal()" class="btn-bounce px-3 py-1.5 rounded-lg bg-indigo-700 text-white font-bold text-xs shrink-0">
+            Share on Preply ➔
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 3: INTERACTIVE WORKSHEET & SENTENCE BUILDER
+         ======================================================== -->
+    <div id="tab-worksheet" class="tab-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300">Student Worksheet</span>
+            <h2 class="font-ghibli font-bold text-lg sm:text-xl text-stone-900 mt-1">Written Verb Transformation</h2>
+          </div>
+          <button onclick="checkWorksheet()" class="btn-bounce px-3 py-1.5 rounded-xl bg-purple-700 text-white text-xs font-bold shadow-2xs">
+            <i class="fa-solid fa-check"></i> Check
+          </button>
+        </div>
+
+        <p class="text-xs text-stone-600">
+          Type the correct <strong>He / She</strong> form for each verb. When you finish, tap <strong>Send to Preply</strong> to send your answers to your teacher!
+        </p>
+
+        <!-- 8 Interactive Fill-in Rows -->
+        <div class="space-y-2.5" id="worksheet-rows">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="ws-feedback" class="hidden p-3 rounded-xl text-xs font-bold"></div>
+
+        <!-- Custom Sentence Builder for Preply -->
+        <div class="pt-3 border-t border-stone-200 space-y-2">
+          <label class="block text-xs font-bold text-stone-800">
+            ✍️ Abdi's Sentences (Write 2 or 3 sentences about your day or friends in Ethiopia):
+          </label>
+          <textarea id="student-custom-sentences" rows="3" class="w-full p-2.5 text-xs rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 font-sans" placeholder="Example:
+1. He watches TV in the evening.
+2. She drinks Ethiopian coffee (bunna) in the morning.
+3. My friend Dawit works in a clinic."></textarea>
+        </div>
+
+        <!-- Send to Preply Big Button -->
+        <div class="pt-2 flex justify-end">
+          <button onclick="openPreplyModal()" class="btn-bounce w-full py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send Completed Homework to Teacher on Preply</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       PREPLY EXPORT & SHARE MODAL (Optimized for Phone)
+       ======================================================== -->
+  <div id="preply-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in">
+    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border border-stone-200 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-stone-900 leading-tight">Send to Teacher on Preply</h3>
+            <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹)</p>
+          </div>
+        </div>
+        <button onclick="closePreplyModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">
+          ✕
+        </button>
+      </div>
+
+      <!-- Preview Textarea -->
+      <div class="space-y-1.5">
+        <label class="block text-[11px] font-bold text-stone-700">Preview of your Preply message:</label>
+        <textarea id="preply-message-text" rows="8" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-200 rounded-xl text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-500" readonly></textarea>
+      </div>
+
+      <!-- Action Buttons Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+        
+        <!-- 1. Native Mobile Share (Preply / WhatsApp / SMS) -->
+        <button onclick="shareViaMobile()" class="btn-bounce w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-share-nodes text-sm"></i>
+          <span>Share via Phone Apps</span>
+        </button>
+
+        <!-- 2. Copy to Clipboard -->
+        <button onclick="copyPreplyText()" id="btn-copy-preply" class="btn-bounce w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-copy text-sm"></i>
+          <span>Copy for Preply Chat</span>
+        </button>
+
+      </div>
+
+      <!-- 3. Direct Link to Preply Chat -->
+      <a href="https://preply.com/messages" target="_blank" rel="noopener noreferrer" class="btn-bounce w-full py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-800 font-bold text-xs flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        <span>Open Preply Chat (preply.com/messages)</span>
+      </a>
+
+      <!-- Toast Feedback -->
+      <div id="preply-copy-toast" class="hidden p-2.5 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold text-center">
+        ✅ Copied to clipboard! You can now open Preply and paste it directly into your chat.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM MOBILE ACTION BAR -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-2 sm:hidden shadow-lg flex items-center justify-around gap-1">
+    <button onclick="switchTab('explorer')" class="flex flex-col items-center py-1 text-stone-600 hover:text-emerald-800 flex-1">
+      <i class="fa-solid fa-layer-group text-sm"></i>
+      <span class="text-[10px] font-bold mt-0.5">Verbs</span>
+    </button>
+    <button onclick="switchTab('duel')" class="flex flex-col items-center py-1 text-stone-600 hover:text-emerald-800 flex-1">
+      <i class="fa-solid fa-bolt text-sm"></i>
+      <span class="text-[10px] font-bold mt-0.5">Quiz</span>
+    </button>
+    <button onclick="switchTab('worksheet')" class="flex flex-col items-center py-1 text-stone-600 hover:text-emerald-800 flex-1">
+      <i class="fa-solid fa-pen-to-square text-sm"></i>
+      <span class="text-[10px] font-bold mt-0.5">Sheet</span>
+    </button>
+    <button onclick="openPreplyModal()" class="flex flex-col items-center py-1 text-rose-600 flex-1 font-bold">
+      <i class="fa-solid fa-paper-plane text-sm"></i>
+      <span class="text-[10px] mt-0.5">Preply</span>
+    </button>
+  </div>
+
+  <!-- KODAMA MASCOT FLOATER -->
+  <div class="fixed bottom-16 right-4 sm:bottom-4 z-30 flex items-end gap-2">
+    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[240px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl animate-fade-in">
+      🇪🇹 በርታ አብዲ! (Berta Abdi! Keep it up!) Remember: <strong>I watch</strong> ➔ <strong>He watches</strong>! 🌟
+    </div>
+    <button onclick="toggleKodamaBubble()" class="w-11 h-11 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-lg hover:scale-105 active:scale-95 transition" title="Mascot Helper">
+      🌱
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ================= 40 Master Verbs Dataset ================= */
+    const VERBS_LIST = [
+      // Group A: -es ending (-ch, -sh, -ss, -x, -o)
+      { id: 1, base: 'watch', he: 'watches', she: 'watches', rule: 'es', ruleName: '+ES (-ch)', ipa: '/ˈwɒtʃ.ɪz/', amharic: 'ይመለከታል', translit: 'yimeleketal', somali: 'daawadaa (TV)', example: 'She watches TV every evening.' },
+      { id: 2, base: 'wash', he: 'washes', she: 'washes', rule: 'es', ruleName: '+ES (-sh)', ipa: '/ˈwɒʃ.ɪz/', amharic: 'ይታጠባል', translit: 'yitatebal', somali: 'maydhaa (wajiga)', example: 'He washes his face with warm water.' },
+      { id: 3, base: 'brush', he: 'brushes', she: 'brushes', rule: 'es', ruleName: '+ES (-sh)', ipa: '/ˈbrʌʃ.ɪz/', amharic: 'ይቦርሻል', translit: 'yiboreshal', somali: 'cadaystaa (ilkaha)', example: 'She brushes her teeth at 7:20.' },
+      { id: 4, base: 'catch', he: 'catches', she: 'catches', rule: 'es', ruleName: '+ES (-ch)', ipa: '/ˈkætʃ.ɪz/', amharic: 'አውቶቡስ ይይዛል', translit: 'yiyizal', somali: 'raacaa baska', example: 'Marion catches the bus at 7:45.' },
+      { id: 5, base: 'teach', he: 'teaches', she: 'teaches', rule: 'es', ruleName: '+ES (-ch)', ipa: '/ˈtiːtʃ.ɪz/', amharic: 'ያስተምራል', translit: 'yastemiral', somali: 'wax baraa', example: 'Sarah teaches English in school.' },
+      { id: 6, base: 'finish', he: 'finishes', she: 'finishes', rule: 'es', ruleName: '+ES (-sh)', ipa: '/ˈfɪn.ɪʃ.ɪz/', amharic: 'ይጨርሳል', translit: 'yich’erisal', somali: 'dhammeeyaa (shaqada)', example: 'He finishes work at 5:00 PM.' },
+      { id: 7, base: 'fix', he: 'fixes', she: 'fixes', rule: 'es', ruleName: '+ES (-x)', ipa: '/ˈfɪks.ɪz/', amharic: 'ይጠግናል', translit: 'yit’eginal', somali: 'hagaajiyaa (baabuurka)', example: 'He fixes computers in the office.' },
+      { id: 8, base: 'pass', he: 'passes', she: 'passes', rule: 'es', ruleName: '+ES (-ss)', ipa: '/ˈpɑːs.ɪz/', amharic: 'ያልፋል', translit: 'yalfal', somali: 'gudbaa (imtixaanka)', example: 'She passes the English exam.' },
+      { id: 9, base: 'go', he: 'goes', she: 'goes', rule: 'es', ruleName: '+ES (-o)', ipa: '/ɡəʊz/', amharic: 'ይሄዳል', translit: 'yihedal', somali: 'tagaa (shaqada)', example: 'He goes to school every day.' },
+      { id: 10, base: 'do', he: 'does', she: 'does', rule: 'es', ruleName: '+ES (-o)', ipa: '/dʌz/', amharic: 'ያደርጋል', translit: 'yadergal', somali: 'sameeyaa (shaqada)', example: 'She does her homework at night.' },
+
+      // Group B: Irregular
+      { id: 11, base: 'have', he: 'has', she: 'has', rule: 'irr', ruleName: 'Irregular (has)', ipa: '/hæz/', amharic: 'አለው / አላት', translit: 'alew / alat', somali: 'leeyahay / cunaa (quraac)', example: 'He has breakfast at 7:00 AM.' },
+
+      // Group C: Consonant + -y (+ies)
+      { id: 12, base: 'study', he: 'studies', she: 'studies', rule: 'ies', ruleName: '+IES (consonant + y)', ipa: '/ˈstʌd.iz/', amharic: 'ያጠናል', translit: 'yat’enal', somali: 'wax bartaa', example: 'Abdi studies English in the afternoon.' },
+      { id: 13, base: 'tidy', he: 'tidies', she: 'tidies', rule: 'ies', ruleName: '+IES (consonant + y)', ipa: '/ˈtaɪ.diz/', amharic: 'ያዘጋጃል / ያጸዳል', translit: 'yats’edal', somali: 'nidaamiyaa (qolka)', example: 'She tidies her room on Saturday.' },
+      { id: 14, base: 'carry', he: 'carries', she: 'carries', rule: 'ies', ruleName: '+IES (consonant + y)', ipa: '/ˈkær.iz/', amharic: 'ይሸከማል', translit: 'yishekemal', somali: 'xambaaraa / sidaa', example: 'He carries a backpack.' },
+      { id: 15, base: 'try', he: 'tries', she: 'tries', rule: 'ies', ruleName: '+IES (consonant + y)', ipa: '/traɪz/', amharic: 'ይሞክራል', translit: 'yimokral', somali: 'isku dayaa', example: 'She tries hard in every lesson.' },
+      { id: 16, base: 'fly', he: 'flies', she: 'flies', rule: 'ies', ruleName: '+IES (consonant + y)', ipa: '/flaɪz/', amharic: 'ይበርራል', translit: 'yiberal', somali: 'duulaa (diyaarad)', example: 'Ethiopian Airlines flies to Dubai. ✈️' },
+
+      // Group D: Standard +S
+      { id: 17, base: 'eat', he: 'eats', she: 'eats', rule: 's', ruleName: '+S', ipa: '/iːts/', amharic: 'ይበላል', translit: 'yibelal', somali: 'cunaa (injera)', example: 'He eats injera and wot for dinner. 🇪🇹' },
+      { id: 18, base: 'drink', he: 'drinks', she: 'drinks', rule: 's', ruleName: '+S', ipa: '/drɪŋks/', amharic: 'ይጠጣል', translit: 'yit’et’al', somali: 'cabbaa (bunna)', example: 'She drinks Ethiopian coffee (bunna). ☕' },
+      { id: 19, base: 'sleep', he: 'sleeps', she: 'sleeps', rule: 's', ruleName: '+S', ipa: '/sliːps/', amharic: 'ይተኛል', translit: 'yitenyal', somali: 'seexdaa', example: 'He sleeps at 10:30 PM.' },
+      { id: 20, base: 'wake up', he: 'wakes up', she: 'wakes up', rule: 's', ruleName: '+S', ipa: '/weɪks ʌp/', amharic: 'ይነቃል', translit: 'yineqal', somali: 'toosaa', example: 'She wakes up at 7 o\'clock.' },
+      { id: 21, base: 'get up', he: 'gets up', she: 'gets up', rule: 's', ruleName: '+S', ipa: '/ɡets ʌp/', amharic: 'ይነሳል', translit: 'yinesal', somali: 'sariirta ka kacaa', example: 'He gets up and stretches.' },
+      { id: 22, base: 'work', he: 'works', she: 'works', rule: 's', ruleName: '+S', ipa: '/wɜːks/', amharic: 'ይሰራል', translit: 'yiseral', somali: 'shaqeeyaa', example: 'Dawit works in a clinic in Addis Ababa.' },
+      { id: 23, base: 'cook', he: 'cooks', she: 'cooks', rule: 's', ruleName: '+S', ipa: '/kʊks/', amharic: 'ያበስላል', translit: 'yabeslal', somali: 'kariyaa (cuntada)', example: 'She cooks delicious Ethiopian food.' },
+      { id: 24, base: 'speak', he: 'speaks', she: 'speaks', rule: 's', ruleName: '+S', ipa: '/spiːks/', amharic: 'ይናገራል', translit: 'yinageral', somali: 'hadlaa (luqad)', example: 'Abdi speaks Amharic and English.' },
+      { id: 25, base: 'read', he: 'reads', she: 'reads', rule: 's', ruleName: '+S', ipa: '/riːdz/', amharic: 'ያነባል', translit: 'yanebal', somali: 'akhriyaa', example: 'He reads books in the library.' },
+      { id: 26, base: 'write', he: 'writes', she: 'writes', rule: 's', ruleName: '+S', ipa: '/raɪts/', amharic: 'ይጽፋል', translit: 'yits’ifal', somali: 'qoraa', example: 'She writes new words in her book.' },
+      { id: 27, base: 'listen', he: 'listens', she: 'listens', rule: 's', ruleName: '+S', ipa: '/ˈlɪs.ənz/', amharic: 'ያዳምጣል', translit: 'yadamt’al', somali: 'dhegaystaa', example: 'He listens to English conversations.' },
+      { id: 28, base: 'play', he: 'plays', she: 'plays', rule: 's', ruleName: '+S (vowel + y)', ipa: '/pleɪz/', amharic: 'ይጫወታል', translit: 'yich’awetal', somali: 'ciyaaraa (kubadda)', example: 'He plays football on Friday.' },
+      { id: 29, base: 'clean', he: 'cleans', she: 'cleans', rule: 's', ruleName: '+S', ipa: '/kliːnz/', amharic: 'ያጸዳል', translit: 'yats’edal', somali: 'nadiifiyaa', example: 'She cleans the room on Saturday.' },
+      { id: 30, base: 'drive', he: 'drives', she: 'drives', rule: 's', ruleName: '+S', ipa: '/draɪvz/', amharic: 'ይነዳል', translit: 'yinedal', somali: 'kaxeeyaa (baabuur)', example: 'He drives a car in the city.' },
+      { id: 31, base: 'walk', he: 'walks', she: 'walks', rule: 's', ruleName: '+S', ipa: '/wɔːks/', amharic: 'በእግሩ ይሄዳል', translit: 'be’igru yihedal', somali: 'socdaa', example: 'She walks to class.' },
+      { id: 32, base: 'run', he: 'runs', she: 'runs', rule: 's', ruleName: '+S', ipa: '/rʌnz/', amharic: 'ይሮጣል', translit: 'yirot’al', somali: 'orodaa', example: 'He runs like an Ethiopian runner! 🏃' },
+      { id: 33, base: 'leave', he: 'leaves', she: 'leaves', rule: 's', ruleName: '+S', ipa: '/liːvz/', amharic: 'ይወጣል', translit: 'yiwet’al', somali: 'ka baxaa (guriga)', example: 'Marion leaves home at 7:30.' },
+      { id: 34, base: 'arrive', he: 'arrives', she: 'arrives', rule: 's', ruleName: '+S', ipa: '/əˈraɪvz/', amharic: 'ይደርሳል', translit: 'yidersal', somali: 'yimaadaa (shaqada)', example: 'She arrives at work at 8:30.' },
+      { id: 35, base: 'live', he: 'lives', she: 'lives', rule: 's', ruleName: '+S', ipa: '/lɪvz/', amharic: 'ይኖራል', translit: 'yinoral', somali: 'degan yahay', example: 'Abdi is from Ethiopia. 🇪🇹' },
+      { id: 36, base: 'buy', he: 'buys', she: 'buys', rule: 's', ruleName: '+S (vowel + y)', ipa: '/baɪz/', amharic: 'ይገዛል', translit: 'yigezal', somali: 'iibsadaa', example: 'She buys groceries at the market.' },
+      { id: 37, base: 'open', he: 'opens', she: 'opens', rule: 's', ruleName: '+S', ipa: '/ˈəʊ.pənz/', amharic: 'ይከፍታል', translit: 'yikeftal', somali: 'furaa (albaabka)', example: 'He opens the classroom door.' },
+      { id: 38, base: 'close', he: 'closes', she: 'closes', rule: 's', ruleName: '+S', ipa: '/ˈkləʊ.zɪz/', amharic: 'ይዘጋል', translit: 'yizegal', somali: 'xidhaa (daaqadda)', example: 'She closes her book.' },
+      { id: 39, base: 'start', he: 'starts', she: 'starts', rule: 's', ruleName: '+S', ipa: '/stɑːts/', amharic: 'ይጀምራል', translit: 'yijemiral', somali: 'bilaabaa', example: 'Work starts at 9:00 AM.' },
+      { id: 40, base: 'help', he: 'helps', she: 'helps', rule: 's', ruleName: '+S', ipa: '/helps/', amharic: 'ይረዳል', translit: 'yiredal', somali: 'caawiyaa', example: 'The nurse helps patients.' }
+    ];
+
+    /* Global State */
+    let currentRuleFilter = 'all';
+    let currentHeroVerb = VERBS_LIST[0]; // 'watch'
+    let currentStreak = 0;
+    let currentGameVerb = null;
+    let currentXP = parseInt(localStorage.getItem('abdi_xp') || '0', 10);
+    document.getElementById('global-xp').textContent = currentXP + ' XP';
+
+    function addXP(amount) {
+      currentXP += amount;
+      document.getElementById('global-xp').textContent = currentXP + ' XP';
+      localStorage.setItem('abdi_xp', currentXP);
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 0.85;
+        utter.lang = 'en-US';
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+      }
+    }
+
+    /* Tab Switching */
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('tab-btn-active');
+        btn.classList.add('text-stone-600');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      if (activeBtn) {
+        activeBtn.classList.add('tab-btn-active');
+        activeBtn.classList.remove('text-stone-600');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Theme cycle */
+    let todIndex = 0;
+    const todThemes = ['theme-day', 'theme-sunset', 'theme-night'];
+    const todIcons = ['☀️', '🌅', '🌙'];
+    function cycleTimeOfDay() {
+      todIndex = (todIndex + 1) % todThemes.length;
+      document.documentElement.className = 'min-h-full ' + todThemes[todIndex];
+      document.getElementById('tod-icon').textContent = todIcons[todIndex];
+    }
+
+    /* Live Hero Card */
+    function selectHeroVerb(verb) {
+      currentHeroVerb = verb;
+      document.getElementById('hero-i').textContent = `I ${verb.base}`;
+      document.getElementById('hero-he').textContent = `He ${verb.he}`;
+      document.getElementById('hero-she').textContent = `She ${verb.she}`;
+      document.getElementById('active-rule-pill').textContent = `Rule: ${verb.ruleName}`;
+      document.getElementById('hero-amharic').textContent = verb.amharic;
+      document.getElementById('hero-translit').textContent = `(${verb.translit})`;
+      document.getElementById('hero-somali').textContent = verb.somali;
+      document.getElementById('hero-ipa').textContent = verb.ipa;
+      speak(`I ${verb.base}. He ${verb.he}. She ${verb.she}.`);
+    }
+
+    function speakHero(pronoun) {
+      if (pronoun === 'I') speak(`I ${currentHeroVerb.base}`);
+      if (pronoun === 'He') speak(`He ${currentHeroVerb.he}`);
+      if (pronoun === 'She') speak(`She ${currentHeroVerb.she}`);
+    }
+
+    function speakAllHero() {
+      speak(`I ${currentHeroVerb.base}. He ${currentHeroVerb.he}. She ${currentHeroVerb.she}. Example: ${currentHeroVerb.example}`);
+      addXP(5);
+    }
+
+    /* Render Verbs Cards Grid */
+    function renderVerbsGrid() {
+      const container = document.getElementById('verbs-grid');
+      const searchVal = document.getElementById('verb-search').value.toLowerCase().trim();
+      container.innerHTML = '';
+
+      const filtered = VERBS_LIST.filter(v => {
+        const matchesRule = (currentRuleFilter === 'all') || (v.rule === currentRuleFilter);
+        const matchesSearch = v.base.toLowerCase().includes(searchVal) ||
+                              v.he.toLowerCase().includes(searchVal) ||
+                              v.amharic.includes(searchVal) ||
+                              v.translit.toLowerCase().includes(searchVal) ||
+                              v.somali.toLowerCase().includes(searchVal);
+        return matchesRule && matchesSearch;
+      });
+
+      filtered.forEach(v => {
+        const card = document.createElement('div');
+        const isSpecial = (v.base === 'watch' || v.base === 'wash' || v.base === 'brush' || v.base === 'have');
+        card.className = `p-3 rounded-2xl border transition-all hover:shadow-md bg-white cursor-pointer btn-bounce ${
+          isSpecial ? 'border-teal-400 bg-teal-50/20' : 'border-stone-200'
+        }`;
+        card.onclick = () => selectHeroVerb(v);
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-1">
+            <div class="min-w-0">
+              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-stone-100 text-stone-600 border border-stone-200">${v.ruleName}</span>
+              <h4 class="font-display font-extrabold text-sm sm:text-base text-stone-900 mt-1 truncate">
+                I <span class="underline decoration-emerald-500">${v.base}</span> ➔ He <span class="text-emerald-700 font-black">${v.he}</span>
+              </h4>
+            </div>
+            <button onclick="event.stopPropagation(); speak('I ${v.base}. He ${v.he}. She ${v.she}.');" class="w-8 h-8 rounded-xl bg-stone-100 hover:bg-emerald-100 text-stone-600 hover:text-emerald-800 flex items-center justify-center text-xs shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+          <div class="mt-2 pt-2 border-t border-stone-100 flex flex-col gap-0.5 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-950 font-ethiopic text-xs">🇪🇹 ${v.amharic} <span class="font-normal text-stone-500 font-sans text-[11px]">(${v.translit})</span></span>
+              <span class="font-mono text-[10px] text-stone-400">${v.ipa}</span>
+            </div>
+            <span class="text-[11px] text-stone-500 italic">🇸🇴 ${v.somali}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterVerbs() {
+      renderVerbsGrid();
+    }
+
+    function setRuleFilter(rule) {
+      currentRuleFilter = rule;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn-active'));
+      const activeBtn = document.getElementById(`filter-${rule}`);
+      if (activeBtn) activeBtn.classList.add('filter-btn-active');
+      renderVerbsGrid();
+    }
+
+    /* ================= TAB 2: Speed Duel ================= */
+    function nextQuizRound() {
+      const randomIndex = Math.floor(Math.random() * VERBS_LIST.length);
+      currentGameVerb = VERBS_LIST[randomIndex];
+
+      document.getElementById('game-prompt').textContent = `I ${currentGameVerb.base}`;
+      document.getElementById('game-clue').innerHTML = `🇪🇹 <strong>${currentGameVerb.amharic}</strong> (${currentGameVerb.translit}) • 🇸🇴 ${currentGameVerb.somali}`;
+
+      const correct = currentGameVerb.he;
+      let wrong1, wrong2;
+
+      if (currentGameVerb.rule === 'es') {
+        wrong1 = currentGameVerb.base + 's';
+        wrong2 = currentGameVerb.base + 'ing';
+      } else if (currentGameVerb.rule === 'ies') {
+        wrong1 = currentGameVerb.base + 's';
+        wrong2 = currentGameVerb.base + 'es';
+      } else if (currentGameVerb.rule === 'irr') {
+        wrong1 = 'haves';
+        wrong2 = 'have';
+      } else {
+        wrong1 = currentGameVerb.base + 'es';
+        wrong2 = currentGameVerb.base;
+      }
+
+      const options = [correct, wrong1, wrong2].sort(() => Math.random() - 0.5);
+      const container = document.getElementById('game-options');
+      container.innerHTML = '';
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-bounce p-3.5 rounded-xl bg-stone-50 hover:bg-stone-100 border-2 border-stone-200 text-stone-900 font-display font-extrabold text-sm sm:text-base min-h-[48px]';
+        btn.textContent = opt;
+        btn.onclick = () => submitGameAnswer(opt, btn);
+        container.appendChild(btn);
+      });
+
+      const fb = document.getElementById('game-feedback');
+      fb.className = 'hidden';
+    }
+
+    function submitGameAnswer(selected, btnEl) {
+      const fb = document.getElementById('game-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-red-50', 'text-red-800', 'border-red-300');
+      fb.classList.add('border');
+
+      if (selected === currentGameVerb.he) {
+        currentStreak++;
+        document.getElementById('game-score').textContent = `Streak: ${currentStreak} 🔥`;
+        fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+        fb.innerHTML = `✅ ጐበዝ አብዲ! (Gobez Abdi!) <strong>He/She ${currentGameVerb.he}</strong> (${currentGameVerb.ruleName}).`;
+        speak(`Correct! He ${currentGameVerb.he}`);
+        addXP(15);
+        triggerConfetti();
+        setTimeout(nextQuizRound, 1200);
+      } else {
+        currentStreak = 0;
+        document.getElementById('game-score').textContent = `Streak: 0 🔥`;
+        fb.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
+        fb.innerHTML = `❌ Not quite! The correct form is <strong>He/She ${currentGameVerb.he}</strong>.`;
+        speak(`Almost! The correct form is He ${currentGameVerb.he}`);
+      }
+    }
+
+    /* ================= TAB 3: Worksheet Drill Setup ================= */
+    const WORKSHEET_ITEMS = [
+      { id: 'ws_1', base: 'watch', expected: 'watches', clue: 'ቴሌቪዥን ይመለከታል' },
+      { id: 'ws_2', base: 'wash', expected: 'washes', clue: 'ፊቱን ይታጠባል' },
+      { id: 'ws_3', base: 'brush', expected: 'brushes', clue: 'ጥርሱን ይቦርሻል' },
+      { id: 'ws_4', base: 'have', expected: 'has', clue: 'ቁርስ አለው / ይበላል' },
+      { id: 'ws_5', base: 'study', expected: 'studies', clue: 'ያጠናል' },
+      { id: 'ws_6', base: 'go', expected: 'goes', clue: 'ወደ ስራ ይሄዳል' },
+      { id: 'ws_7', base: 'drink', expected: 'drinks', clue: 'ቡና ይጠጣል ☕' },
+      { id: 'ws_8', base: 'cook', expected: 'cooks', clue: 'ምግብ ያበስላል' }
+    ];
+
+    function renderWorksheet() {
+      const container = document.getElementById('worksheet-rows');
+      container.innerHTML = '';
+
+      WORKSHEET_ITEMS.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-xl bg-white border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs';
+        row.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-900 font-bold text-xs flex items-center justify-center shrink-0">${idx + 1}</span>
+            <div>
+              <span class="text-xs font-bold text-stone-900">👤 I ${item.base} ➔</span>
+              <span class="text-[11px] text-stone-500 font-ethiopic">(${item.clue})</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold text-stone-600">He / She</span>
+            <input type="text" id="${item.id}" autocapitalize="none" autocomplete="off" spellcheck="false"
+                   placeholder="type verb..." 
+                   class="w-32 px-2.5 py-1.5 text-xs font-bold rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center bg-stone-50">
+            <span id="${item.id}-status" class="w-6 text-center text-xs"></span>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function checkWorksheet() {
+      let correctCount = 0;
+      WORKSHEET_ITEMS.forEach(item => {
+        const input = document.getElementById(item.id);
+        const status = document.getElementById(`${item.id}-status`);
+        const val = input.value.trim().toLowerCase();
+
+        if (val === item.expected) {
+          correctCount++;
+          input.classList.remove('border-red-400', 'bg-red-50');
+          input.classList.add('border-emerald-500', 'bg-emerald-50');
+          status.innerHTML = '✅';
+        } else {
+          input.classList.remove('border-emerald-500', 'bg-emerald-50');
+          input.classList.add('border-red-400', 'bg-red-50');
+          status.innerHTML = '❌';
+        }
+      });
+
+      const fb = document.getElementById('ws-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-amber-100', 'text-amber-900');
+      if (correctCount === WORKSHEET_ITEMS.length) {
+        fb.classList.add('bg-emerald-100', 'text-emerald-900');
+        fb.innerHTML = `🎉 Perfect score Abdi! ${correctCount} / ${WORKSHEET_ITEMS.length} verbs correct! Ready to send to Preply.`;
+        triggerConfetti();
+        addXP(100);
+      } else {
+        fb.classList.add('bg-amber-100', 'text-amber-900');
+        fb.innerHTML = `Great effort! You scored ${correctCount} / ${WORKSHEET_ITEMS.length}. Review the red boxes and tap check again!`;
+      }
+    }
+
+    /* ================= PREPLY EXPORT SYSTEM ================= */
+    function generatePreplyText() {
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const customSentences = document.getElementById('student-custom-sentences').value.trim();
+
+      // Collect completed worksheet items
+      let wsSummary = '';
+      WORKSHEET_ITEMS.forEach((item, idx) => {
+        const val = document.getElementById(item.id)?.value.trim() || item.expected;
+        wsSummary += `${idx + 1}. I ${item.base} ➔ He/She ${val}\n`;
+      });
+
+      let text = `👋 Hello Teacher! Here is Abdi's English Homework 🇪🇹
+📅 Date: ${today}
+📚 Topic: Present Simple (I vs He/She) & Daily Verbs
+⭐ Quiz Streak: ${currentStreak} 🔥 | XP: ${currentXP}
+
+📝 Verb Transformations Practice:
+${wsSummary}`;
+
+      if (customSentences) {
+        text += `\n✍️ Abdi's Sentences:\n${customSentences}\n`;
+      } else {
+        text += `\n✍️ Example Sentences:
+• He watches TV in the evening.
+• She drinks Ethiopian coffee (bunna) in the morning.
+• Dawit works in a clinic in Addis Ababa.\n`;
+      }
+
+      text += `\n✨ Completed on English with Abdi App (Ethiopia 🇪🇹)`;
+      return text;
+    }
+
+    function openPreplyModal() {
+      const text = generatePreplyText();
+      document.getElementById('preply-message-text').value = text;
+      document.getElementById('preply-modal').classList.remove('hidden');
+      document.getElementById('preply-copy-toast').classList.add('hidden');
+    }
+
+    function closePreplyModal() {
+      document.getElementById('preply-modal').classList.add('hidden');
+    }
+
+    function copyPreplyText() {
+      const textarea = document.getElementById('preply-message-text');
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // Mobile support
+
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        const toast = document.getElementById('preply-copy-toast');
+        toast.classList.remove('hidden');
+        document.getElementById('btn-copy-preply').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => {
+          document.getElementById('btn-copy-preply').innerHTML = '<i class="fa-solid fa-copy text-sm"></i> Copy for Preply Chat';
+        }, 2500);
+      }).catch(err => {
+        alert("Please manually copy the text in the box above.");
+      });
+    }
+
+    function shareViaMobile() {
+      const text = generatePreplyText();
+      if (navigator.share) {
+        navigator.share({
+          title: "Abdi's English Homework (Ethiopia 🇪🇹)",
+          text: text
+        }).then(() => {
+          console.log("Shared successfully");
+        }).catch(err => {
+          console.log("Share canceled", err);
+        });
+      } else {
+        copyPreplyText();
+        alert("Direct phone sharing not supported on this browser. Message copied to clipboard! Paste it into Preply chat.");
+      }
+    }
+
+    function toggleKodamaBubble() {
+      const bubble = document.getElementById('kodama-bubble');
+      bubble.classList.toggle('hidden');
+      if (!bubble.classList.contains('hidden')) {
+        speak("Berta Abdi! Keep up the great work! You are doing amazing with your English verbs.");
+      }
+    }
+
+    // Auto-init on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderVerbsGrid();
+      nextQuizRound();
+      renderWorksheet();
+    });
+  </script>
+
+</body>
+</html>

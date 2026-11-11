@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="nightBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="bedWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="50%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+    <linearGradient id="quiltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <filter id="bedShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#nightBg)"/>
+
+  <!-- Bedroom Window with Moon and Stars -->
+  <g transform="translate(60, 60)">
+    <!-- Window Frame -->
+    <rect x="0" y="0" width="140" height="170" rx="14" fill="#020617" stroke="#334155" stroke-width="6"/>
+    <!-- Window Glass Panes -->
+    <rect x="8" y="8" width="58" height="74" fill="#0f172a"/>
+    <rect x="74" y="8" width="58" height="74" fill="#0f172a"/>
+    <rect x="8" y="88" width="58" height="74" fill="#0f172a"/>
+    <rect x="74" y="88" width="58" height="74" fill="#0f172a"/>
+
+    <!-- Crescent Golden Moon -->
+    <path d="M40 30 A 20 20 0 1 0 52 56 A 16 16 0 1 1 40 30 Z" fill="#fef08a"/>
+    
+    <!-- Stars -->
+    <circle cx="100" cy="35" r="2.5" fill="#ffffff"/>
+    <circle cx="115" cy="50" r="1.5" fill="#fde047"/>
+    <circle cx="95" cy="120" r="2" fill="#ffffff"/>
+    <circle cx="35" cy="115" r="1.5" fill="#ffffff"/>
+  </g>
+
+  <!-- Cozy Bed Group -->
+  <g filter="url(#bedShadow)" transform="translate(140, 180)">
+    <!-- Wooden Headboard -->
+    <rect x="40" y="0" width="240" height="140" rx="16" fill="url(#bedWood)"/>
+    <rect x="55" y="16" width="30" height="110" rx="6" fill="#78350f"/>
+    <rect x="100" y="16" width="30" height="110" rx="6" fill="#78350f"/>
+    <rect x="145" y="16" width="30" height="110" rx="6" fill="#78350f"/>
+    <rect x="190" y="16" width="30" height="110" rx="6" fill="#78350f"/>
+    <rect x="235" y="16" width="30" height="110" rx="6" fill="#78350f"/>
+
+    <!-- Mattress Base -->
+    <rect x="20" y="90" width="280" height="120" rx="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="3"/>
+
+    <!-- Soft Pillows -->
+    <rect x="40" y="70" width="95" height="48" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="145" y="70" width="95" height="48" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+    <!-- Cozy Warm Quilt / Blanket -->
+    <path d="M15 105 C 15 105, 140 90, 265 105 L 295 190 C 295 200, 15 200, 15 190 Z" fill="url(#quiltGrad)"/>
+    <!-- Folded Sheet Rim -->
+    <path d="M15 105 C 15 105, 140 90, 265 105 L 265 125 C 140 110, 15 125, 15 125 Z" fill="#ffffff"/>
+    <!-- Quilt Pattern Stitch Lines -->
+    <path d="M40 135 L 245 135" stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 6" opacity="0.6"/>
+    <path d="M40 160 L 255 160" stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 6" opacity="0.6"/>
+  </g>
+
+  <!-- Bedside Wooden Nightstand & Clock (10:30 PM) -->
+  <g transform="translate(60, 290)">
+    <!-- Stand Body -->
+    <rect x="0" y="20" width="90" height="85" rx="10" fill="#78350f" stroke="#451a03" stroke-width="3"/>
+    <!-- Drawer Handle -->
+    <circle cx="45" cy="50" r="5" fill="#facc15"/>
+    <!-- Legs -->
+    <rect x="10" y="105" width="10" height="20" fill="#451a03"/>
+    <rect x="70" y="105" width="10" height="20" fill="#451a03"/>
+
+    <!-- Glowing Alarm Clock on Nightstand -->
+    <rect x="18" y="-5" width="54" height="25" rx="6" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+    <text x="45" y="12" font-family="'Plus Jakarta Sans', monospace, sans-serif" font-size="11" font-weight="800" text-anchor="middle" fill="#4ade80">10:30</text>
+  </g>
+
+  <!-- Sleeping "Zzz" Sleep Bubbles -->
+  <g fill="#93c5fd" opacity="0.8">
+    <text x="320" y="120" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="800">z</text>
+    <text x="340" y="100" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800">Z</text>
+    <text x="365" y="75" font-family="'Plus Jakarta Sans', sans-serif" font-size="32" font-weight="800">Z</text>
+  </g>
+
+  <!-- Label -->
+  <text x="250" y="465" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" text-anchor="middle" fill="#67e8f9" letter-spacing="1">GO TO BED 🛌</text>
+</svg>

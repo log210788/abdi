@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="studGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#studGrad)"/>
+  <circle cx="60" cy="60" r="48" fill="#ffffff" opacity="0.12"/>
+  <!-- Graduation Mortarboard Cap -->
+  <polygon points="60,28 92,42 60,54 28,42" fill="#ffffff"/>
+  <polygon points="44,48 44,58 C44,66, 76,66, 76,58 L76,48 Z" fill="#dcfce7"/>
+  <!-- Tassel -->
+  <path d="M84 46 L84 62 C84 66, 88 66, 88 62" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="88" cy="64" r="3" fill="#facc15"/>
+  <!-- Open Book -->
+  <path d="M34 94 C46 88, 58 90, 60 94 C62 90, 74 88, 86 94 L86 78 C74 72, 62 74, 60 78 C58 74, 46 72, 34 78 Z" fill="#ffffff"/>
+  <line x1="60" y1="78" x2="60" y2="94" stroke="#16a34a" stroke-width="2"/>
+</svg>

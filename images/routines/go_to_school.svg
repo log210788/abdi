@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="schoolBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfeff"/>
+      <stop offset="50%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="packGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="50%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <linearGradient id="leatherStrap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <filter id="packShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0c4a6e" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#schoolBg)"/>
+  <circle cx="250" cy="240" r="185" fill="#ffffff" opacity="0.65"/>
+
+  <!-- Morning Sunbeam & Birds -->
+  <circle cx="90" cy="100" r="30" fill="#fef08a" opacity="0.8"/>
+  <circle cx="90" cy="100" r="45" fill="#fef08a" opacity="0.3"/>
+  <path d="M370 90 Q 380 80, 390 90 Q 400 80, 410 90" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M410 115 Q 418 107, 426 115 Q 434 107, 442 115" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Cobblestone Path Ground -->
+  <path d="M60 410 C180 390, 320 390, 440 410 L440 460 L60 460 Z" fill="#e2e8f0" opacity="0.6"/>
+  <ellipse cx="140" cy="405" rx="25" ry="8" fill="#cbd5e1" opacity="0.6"/>
+  <ellipse cx="210" cy="408" rx="35" ry="10" fill="#cbd5e1" opacity="0.6"/>
+  <ellipse cx="300" cy="404" rx="30" ry="9" fill="#cbd5e1" opacity="0.6"/>
+  <ellipse cx="370" cy="407" rx="28" ry="8" fill="#cbd5e1" opacity="0.6"/>
+
+  <!-- School Backpack Group -->
+  <g filter="url(#packShadow)" transform="translate(145, 140)">
+    <!-- Backpack Main Body -->
+    <rect x="20" y="40" width="170" height="210" rx="45" fill="url(#packGrad)"/>
+    <!-- Top Flap -->
+    <path d="M20 90 C20 40, 190 40, 190 90 L190 130 C190 145, 20 145, 20 130 Z" fill="#0284c7"/>
+    <!-- Top Handle Loop -->
+    <path d="M85 40 C85 10, 125 10, 125 40" fill="none" stroke="#075985" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Front Zipper Pocket -->
+    <rect x="40" y="150" width="130" height="90" rx="22" fill="#0369a1"/>
+    <path d="M45 170 L165 170" stroke="#fef08a" stroke-width="3" stroke-dasharray="8 4"/>
+    <circle cx="160" cy="170" r="5" fill="#facc15"/>
+
+    <!-- Leather Buckle Straps -->
+    <rect x="55" y="80" width="16" height="70" rx="6" fill="url(#leatherStrap)"/>
+    <rect x="52" y="125" width="22" height="14" rx="3" fill="none" stroke="#facc15" stroke-width="3"/>
+    <rect x="139" y="80" width="16" height="70" rx="6" fill="url(#leatherStrap)"/>
+    <rect x="136" y="125" width="22" height="14" rx="3" fill="none" stroke="#facc15" stroke-width="3"/>
+
+    <!-- Side Water Bottle Pocket with flask -->
+    <rect x="0" y="140" width="25" height="70" rx="10" fill="#075985"/>
+    <rect x="5" y="115" width="16" height="50" rx="6" fill="#38bdf8"/>
+    <rect x="7" y="105" width="12" height="14" rx="3" fill="#ffffff"/>
+
+    <!-- Shiny Red Apple on the side -->
+    <g transform="translate(170, 185)">
+      <circle cx="20" cy="20" r="22" fill="#ef4444"/>
+      <ellipse cx="14" cy="14" rx="6" ry="10" fill="#fca5a5" opacity="0.6"/>
+      <!-- Apple Stem & Leaf -->
+      <path d="M20 0 Q 23 -12, 17 -16" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+      <path d="M20 -8 Q 32 -14, 30 -6 Z" fill="#22c55e"/>
+    </g>
+  </g>
+
+  <!-- Time Badge (08:30 AM) -->
+  <g transform="translate(300, 95)">
+    <rect x="0" y="0" width="130" height="38" rx="19" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="65" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-size="15" font-weight="800" text-anchor="middle" fill="#0369a1">⏰ 08:30 AM</text>
+  </g>
+
+  <!-- Label -->
+  <text x="250" y="465" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" text-anchor="middle" fill="#0369a1" letter-spacing="1">GO TO SCHOOL 🎒</text>
+</svg>

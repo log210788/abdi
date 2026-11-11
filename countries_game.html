@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full theme-day">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2c4a38">
+  <title>World Explorer • Abdi's Countries & Flags Test Arena</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Outfit, Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Studio Ghibli Theme Tokens -->
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <style>
+    :root {
+      --ghibli-bg-green: #2c4a38;
+      --ghibli-parchment: #fdfaf2;
+      --ghibli-card-bg: rgba(255, 253, 246, 0.96);
+      --ghibli-card-border: rgba(226, 215, 195, 0.85);
+      --ghibli-accent-gold: #d97724;
+      --ghibli-accent-green: #3b744d;
+      --ghibli-accent-blue: #326789;
+      --ghibli-text-main: #2b261f;
+      --ghibli-text-muted: #6e6454;
+      --ghibli-border: #e6dcce;
+      --ghibli-bg-url: url('images/ghibli/bg.webp');
+    }
+
+    .theme-sunset {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+      --ghibli-accent-green: #8d4f28;
+      --ghibli-accent-gold: #c2410c;
+    }
+
+    .theme-night {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
+      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-text-main: #f8fafc;
+      --ghibli-text-muted: #cbd5e1;
+      --ghibli-parchment: #0f172a;
+      --ghibli-accent-green: #38bdf8;
+      --ghibli-accent-gold: #fbbf24;
+    }
+
+    body {
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--ghibli-text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-image 0.5s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-ghibli { font-family: 'Playfair Display', serif; }
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+
+    .ghibli-card {
+      background: var(--ghibli-card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-ghibli {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 3px 0 rgba(44, 74, 56, 0.2);
+    }
+    .btn-ghibli:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 rgba(44, 74, 56, 0.25);
+    }
+    .btn-ghibli:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(44, 74, 56, 0.2) !important;
+    }
+
+    /* Flip Card 3D Setup */
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      user-select: none;
+    }
+    .memory-card.matched .card-back {
+      border-color: #16a34a !important;
+      background-color: #ecfdf5 !important;
+      animation: pulseMatched 0.5s ease;
+    }
+    @keyframes pulseMatched {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .flag-shadow {
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
+    }
+
+    /* Floating XP Notification */
+    .xp-float {
+      animation: floatUp 0.8s ease-out forwards;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-30px) scale(1.2); }
+    }
+
+    /* Custom Pulse animation */
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .pulse-gentle {
+      animation: gentlePulse 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- ========================================================
+       TOP NAVIGATION BAR
+       ======================================================== -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 transition-colors">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      
+      <!-- Logo & Main Title -->
+      <div class="flex items-center gap-2.5">
+        <a href="index.html" class="w-9 h-9 rounded-xl bg-emerald-800 text-amber-200 flex items-center justify-center text-sm shadow-xs hover:bg-emerald-900 transition" title="Back to Main Hub">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-ghibli font-bold text-sm md:text-base text-emerald-950 leading-tight">World Explorer Arena</h1>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-200">DK Unit 2</span>
+          </div>
+          <p class="text-[11px] text-stone-500 font-semibold leading-none">Countries & Flags Test Suite for Abdi</p>
+        </div>
+      </div>
+
+      <!-- Controls: Audio, Theme & Score -->
+      <div class="flex items-center gap-1.5 md:gap-2">
+        <!-- Sound FX toggle -->
+        <button id="sfx-toggle-btn" onclick="toggleSfx()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center justify-center transition border border-stone-200" title="Toggle Sound FX">
+          <i class="fa-solid fa-volume-high" id="sfx-icon"></i>
+        </button>
+
+        <!-- Time of Day / Theme Toggle -->
+        <button id="tod-toggle-btn" onclick="cycleTheme()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center justify-center transition border border-stone-200" title="Switch Theme">
+          <span id="tod-icon">☀️</span>
+        </button>
+
+        <!-- Streak Counter -->
+        <div class="px-2 py-1 rounded-lg bg-orange-50 border border-orange-200 text-orange-800 text-xs font-extrabold flex items-center gap-1">
+          <i class="fa-solid fa-fire text-orange-500"></i>
+          <span id="streak-counter">0</span>
+        </div>
+
+        <!-- Global XP Badge -->
+        <div class="px-2.5 py-1 rounded-lg bg-amber-100/90 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-1 shadow-2xs">
+          <i class="fa-solid fa-star text-amber-500 text-[11px]"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MAIN APP CONTAINER
+       ======================================================== -->
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3.5 md:p-5 space-y-4 pb-20">
+
+    <!-- SET SELECTOR BAR (CHOOSE TEST PACK) -->
+    <div class="ghibli-card p-3 md:p-4 space-y-2.5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+            <i class="fa-solid fa-sliders mr-1"></i>Select Country Pack:
+          </span>
+          <h2 class="font-ghibli font-bold text-sm md:text-base text-stone-900 mt-1" id="active-pack-title">
+            Exercise 2.1 (p.15) — 15 Countries
+          </h2>
+        </div>
+
+        <!-- Mode stats pill -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-stone-600 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">
+            Total: <strong class="text-emerald-800" id="pack-count-badge">15 Countries</strong>
+          </span>
+          <button onclick="shuffleAndRestart()" class="btn-ghibli px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300 flex items-center gap-1">
+            <i class="fa-solid fa-rotate-left"></i> Restart
+          </button>
+        </div>
+      </div>
+
+      <!-- Pack Option Buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+        <!-- Option 1: Exercise 2.1 (15 countries) -->
+        <button onclick="selectPack('ex2_1')" id="pack-btn-ex2_1" class="pack-btn p-2.5 rounded-xl border-2 border-emerald-600 bg-emerald-50/80 text-emerald-950 text-left transition flex items-center gap-2.5 shadow-xs">
+          <div class="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+            15
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs font-bold truncate">Exercise 2.1 (p.15)</div>
+            <div class="text-[11px] text-stone-600 truncate">Argentina, Russia, Australia...</div>
+          </div>
+        </button>
+
+        <!-- Option 2: Unit 2 Vocabulary (19 countries) -->
+        <button onclick="selectPack('vocab19')" id="pack-btn-vocab19" class="pack-btn p-2.5 rounded-xl border border-stone-200 bg-white/70 text-stone-800 hover:bg-stone-50 text-left transition flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-blue-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+            19
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs font-bold truncate">Unit 2.1 Vocabulary</div>
+            <div class="text-[11px] text-stone-600 truncate">S. Korea, Thailand, Greece...</div>
+          </div>
+        </button>
+
+        <!-- Option 3: All 34 Countries -->
+        <button onclick="selectPack('all34')" id="pack-btn-all34" class="pack-btn p-2.5 rounded-xl border border-stone-200 bg-white/70 text-stone-800 hover:bg-stone-50 text-left transition flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-purple-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+            34
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs font-bold truncate">All Countries Mega</div>
+            <div class="text-[11px] text-stone-600 truncate">All 34 DK countries combined!</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- GAME MODE TABS -->
+    <div class="flex items-center gap-1.5 p-1.5 bg-white/80 rounded-2xl border border-stone-200 shadow-xs overflow-x-auto">
+      <button onclick="switchGameMode('quiz')" id="tab-btn-quiz" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl bg-emerald-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>Flag Quiz</span>
+      </button>
+
+      <button onclick="switchGameMode('audio')" id="tab-btn-audio" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-headphones text-blue-600"></i>
+        <span>Audio Test</span>
+      </button>
+
+      <button onclick="switchGameMode('spelling')" id="tab-btn-spelling" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-spell-check text-amber-600"></i>
+        <span>Spelling Bee</span>
+      </button>
+
+      <button onclick="switchGameMode('memory')" id="tab-btn-memory" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-clone text-purple-600"></i>
+        <span>Memory Match</span>
+      </button>
+
+      <button onclick="switchGameMode('dialogue')" id="tab-btn-dialogue" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-comments text-rose-600"></i>
+        <span>Dialogue</span>
+      </button>
+
+      <button onclick="switchGameMode('study')" id="tab-btn-study" class="mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-book-open text-indigo-600"></i>
+        <span>Study Hall</span>
+      </button>
+    </div>
+
+    <!-- ========================================================
+         MODE 1: FLAG QUIZ (MULTIPLE CHOICE)
+         ======================================================== -->
+    <section id="view-mode-quiz" class="space-y-4">
+      <div class="ghibli-card p-4 md:p-6 space-y-4">
+        
+        <!-- Progress Bar & Score Tracker -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-bold">
+            <span class="text-stone-600" id="quiz-progress-text">Question 1 of 15</span>
+            <span class="text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md" id="quiz-score-badge">Score: 0</span>
+          </div>
+          <div class="w-full h-2.5 bg-stone-200/80 rounded-full overflow-hidden">
+            <div id="quiz-progress-bar" class="h-full bg-emerald-600 transition-all duration-300" style="width: 7%;"></div>
+          </div>
+        </div>
+
+        <!-- Question Card Box -->
+        <div class="p-4 md:p-6 bg-white/90 rounded-2xl border border-stone-200 shadow-xs text-center space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-xs font-bold">
+            <span>Look at the flag:</span>
+            <span class="text-emerald-700">Which country is this?</span>
+          </div>
+
+          <!-- Flag Image Display -->
+          <div class="flex flex-col items-center justify-center">
+            <div class="relative group">
+              <img id="quiz-flag-img" src="images/flags/ar.svg" alt="Flag" class="w-36 h-24 md:w-48 md:h-32 object-cover rounded-xl shadow-md border-2 border-stone-300 transition-transform duration-200 group-hover:scale-105">
+            </div>
+          </div>
+
+          <!-- Pronunciation Listen Button -->
+          <div>
+            <button onclick="playCurrentQuestionAudio()" class="btn-ghibli inline-flex items-center gap-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 text-xs md:text-sm font-bold rounded-xl transition">
+              <i class="fa-solid fa-volume-high text-blue-700"></i>
+              <span>Listen to Country Pronunciation 🔊</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Option Choices -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="quiz-options-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Feedback & Info Card (Reveals after answer) -->
+        <div id="quiz-feedback-box" class="hidden p-4 rounded-xl space-y-2 border-2 transition-all">
+          <div class="flex items-center gap-2 font-bold text-sm" id="quiz-feedback-title"></div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs pt-1">
+            <div class="bg-white/80 p-2 rounded-lg border border-stone-200">
+              <span class="text-stone-500 block text-[10px] font-bold uppercase">Country</span>
+              <strong class="text-stone-900" id="quiz-fb-country">-</strong>
+            </div>
+            <div class="bg-white/80 p-2 rounded-lg border border-stone-200">
+              <span class="text-stone-500 block text-[10px] font-bold uppercase">Capital City</span>
+              <strong class="text-stone-900" id="quiz-fb-capital">-</strong>
+            </div>
+            <div class="bg-white/80 p-2 rounded-lg border border-stone-200">
+              <span class="text-stone-500 block text-[10px] font-bold uppercase">Nationality</span>
+              <strong class="text-stone-900" id="quiz-fb-nationality">-</strong>
+            </div>
+          </div>
+          <div class="p-2.5 bg-amber-50/90 rounded-lg border border-amber-200 text-xs text-stone-800 flex items-center justify-between gap-2 mt-1">
+            <span id="quiz-fb-sentence">"He is from Argentina. He is Argentine."</span>
+            <button onclick="speakCurrentSentence()" class="btn-ghibli px-2.5 py-1 bg-amber-200 text-amber-900 rounded-md font-bold text-[11px] flex items-center gap-1">
+              <i class="fa-solid fa-volume-high"></i> Say Sentence
+            </button>
+          </div>
+        </div>
+
+        <!-- Next Question Action Button -->
+        <button onclick="nextQuizQuestion()" id="quiz-next-btn" class="hidden btn-ghibli w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+          <span>Next Country</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         MODE 2: AUDIO LISTENING TEST (EAR TRAINING)
+         ======================================================== -->
+    <section id="view-mode-audio" class="hidden space-y-4">
+      <div class="ghibli-card p-4 md:p-6 space-y-4">
+        
+        <div class="flex items-center justify-between text-xs font-bold">
+          <span class="text-stone-600" id="audio-progress-text">Audio Question 1 of 15</span>
+          <span class="text-blue-800 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md" id="audio-score-badge">Score: 0</span>
+        </div>
+
+        <div class="p-6 bg-white/90 rounded-2xl border border-stone-200 shadow-xs text-center space-y-4">
+          <span class="text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-block">
+            🎧 Listening Ear Challenge
+          </span>
+          <h3 class="font-ghibli font-bold text-lg text-stone-900">
+            Listen to the native speaker: Which flag matches?
+          </h3>
+
+          <div class="py-4">
+            <button onclick="playCurrentAudioTestTrack()" class="btn-ghibli px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-base shadow-md inline-flex items-center gap-3 pulse-gentle">
+              <i class="fa-solid fa-circle-play text-2xl text-amber-300"></i>
+              <span>Play Country Sound 🔊</span>
+            </button>
+          </div>
+
+          <p class="text-xs text-stone-500 font-semibold">
+            Listen carefully to the pronunciation, then click the correct flag below!
+          </p>
+        </div>
+
+        <!-- 4 Flag Cards Choice Grid -->
+        <div class="grid grid-cols-2 gap-3" id="audio-options-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="audio-feedback-box" class="hidden p-4 rounded-xl space-y-2 border-2"></div>
+
+        <button onclick="nextAudioQuestion()" id="audio-next-btn" class="hidden btn-ghibli w-full py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+          <span>Next Audio Question</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         MODE 3: SPELLING BEE & LETTER UNSCRAMBLE
+         ======================================================== -->
+    <section id="view-mode-spelling" class="hidden space-y-4">
+      <div class="ghibli-card p-4 md:p-6 space-y-4">
+        
+        <div class="flex items-center justify-between text-xs font-bold">
+          <span class="text-stone-600" id="spelling-progress-text">Spelling 1 of 15</span>
+          <span class="text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md" id="spelling-score-badge">Score: 0</span>
+        </div>
+
+        <div class="p-4 md:p-6 bg-white/90 rounded-2xl border border-stone-200 shadow-xs text-center space-y-4">
+          <div class="flex items-center justify-center gap-3">
+            <img id="spelling-flag-img" src="images/flags/ar.svg" alt="Flag" class="w-24 h-16 object-cover rounded-lg shadow-sm border border-stone-300">
+            <button onclick="playCurrentSpellingAudio()" class="btn-ghibli px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-xl font-bold text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-volume-high text-amber-700"></i> Listen
+            </button>
+          </div>
+
+          <h3 class="text-xs md:text-sm font-semibold text-stone-600">
+            Spell the country name correctly by tapping letters or typing:
+          </h3>
+
+          <!-- Word Answer Display Slots -->
+          <div id="spelling-slots-container" class="flex flex-wrap items-center justify-center gap-1.5 min-h-[50px] p-2 bg-stone-50 rounded-xl border border-stone-200">
+            <!-- Letter chips placed -->
+          </div>
+
+          <!-- Controls: Backspace, Hint, Clear -->
+          <div class="flex items-center justify-center gap-2 pt-1">
+            <button onclick="spellingBackspace()" class="btn-ghibli px-3 py-1.5 bg-stone-100 text-stone-700 hover:bg-stone-200 text-xs font-bold rounded-lg border border-stone-300 flex items-center gap-1">
+              <i class="fa-solid fa-delete-left"></i> Delete
+            </button>
+            <button onclick="spellingGiveHint()" class="btn-ghibli px-3 py-1.5 bg-amber-100 text-amber-800 hover:bg-amber-200 text-xs font-bold rounded-lg border border-amber-300 flex items-center gap-1">
+              <i class="fa-solid fa-lightbulb"></i> Hint (-2 XP)
+            </button>
+            <button onclick="spellingClearAll()" class="btn-ghibli px-3 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold rounded-lg border border-rose-200 flex items-center gap-1">
+              <i class="fa-solid fa-rotate-left"></i> Clear
+            </button>
+          </div>
+
+          <!-- Scrambled Letter Bank -->
+          <div id="spelling-bank-container" class="flex flex-wrap items-center justify-center gap-2 pt-2">
+            <!-- Interactive letter tiles -->
+          </div>
+        </div>
+
+        <div id="spelling-feedback-box" class="hidden p-3 rounded-xl text-center text-xs md:text-sm font-bold"></div>
+
+        <button onclick="nextSpellingQuestion()" id="spelling-next-btn" class="hidden btn-ghibli w-full py-3 bg-amber-700 hover:bg-amber-800 text-white font-bold text-sm rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+          <span>Next Word</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         MODE 4: 3D MEMORY CARD MATCH
+         ======================================================== -->
+    <section id="view-mode-memory" class="hidden space-y-4">
+      <div class="ghibli-card p-4 space-y-3">
+        
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-purple-700 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">Memory Match</span>
+              <h2 class="font-ghibli font-bold text-base md:text-lg text-stone-900">Pair the Flags with Country Names</h2>
+            </div>
+            <p class="text-xs text-stone-600 mt-0.5">Flip the cards to match each flag with its correct name!</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-stone-600 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">
+              Moves: <strong id="mem-moves-count" class="text-stone-900">0</strong>
+            </span>
+            <button onclick="initMemoryGame()" class="btn-ghibli px-3 py-1 bg-purple-100 text-purple-900 text-xs font-bold rounded-lg border border-purple-300 flex items-center gap-1">
+              <i class="fa-solid fa-rotate-left"></i> Shuffle Cards
+            </button>
+          </div>
+        </div>
+
+        <!-- 3x4 / 4x4 Memory Grid (6 pairs = 12 cards per round) -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 pt-2" id="memory-cards-grid">
+          <!-- Dynamically generated memory cards -->
+        </div>
+
+        <!-- Memory Victory Banner -->
+        <div id="memory-victory-card" class="hidden p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-center space-y-3">
+          <div class="text-4xl">🎉 🏆 🌟</div>
+          <h3 class="font-ghibli font-bold text-lg text-emerald-950">Awesome Memory Skills, Abdi!</h3>
+          <p class="text-xs text-emerald-800" id="memory-victory-desc">You matched all pairs perfectly!</p>
+          <button onclick="initMemoryGame()" class="btn-ghibli px-5 py-2.5 bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs">
+            Play Another Round 🔄
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         MODE 5: "WHERE ARE YOU FROM?" DIALOGUE & GRAMMAR
+         ======================================================== -->
+    <section id="view-mode-dialogue" class="hidden space-y-4">
+      <div class="ghibli-card p-4 md:p-6 space-y-4">
+        
+        <div class="flex items-center justify-between text-xs font-bold">
+          <span class="text-stone-600" id="dialogue-progress-text">Sentence 1 of 15</span>
+          <span class="text-rose-800 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-md" id="dialogue-score-badge">Score: 0</span>
+        </div>
+
+        <div class="p-4 md:p-6 bg-white/90 rounded-2xl border border-stone-200 shadow-xs text-center space-y-4">
+          
+          <div class="flex items-center justify-center gap-3">
+            <img id="dialogue-flag-img" src="images/flags/ar.svg" alt="Flag" class="w-20 h-14 object-cover rounded-md shadow-xs border border-stone-300">
+            <div class="text-left">
+              <span class="text-[10px] font-extrabold uppercase text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">Conversational Frame</span>
+              <h4 class="font-bold text-stone-900 text-sm md:text-base mt-0.5" id="dialogue-character-prompt">
+                "Where is Lionel from?"
+              </h4>
+            </div>
+          </div>
+
+          <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs md:text-sm font-semibold text-stone-700">
+            Form the correct answer sentence:
+          </div>
+
+          <!-- Sentence construction drop area -->
+          <div id="dialogue-sentence-zone" class="min-h-[56px] p-2 bg-emerald-50/50 rounded-xl border-2 border-dashed border-emerald-300 flex flex-wrap items-center justify-center gap-2">
+            <!-- Clicked words go here -->
+          </div>
+
+          <!-- Word bank -->
+          <div id="dialogue-word-bank" class="flex flex-wrap items-center justify-center gap-2 pt-2">
+            <!-- Available chips to click -->
+          </div>
+
+          <div class="flex items-center justify-center gap-2 pt-1">
+            <button onclick="dialogueResetWords()" class="btn-ghibli px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold rounded-lg border border-stone-300">
+              <i class="fa-solid fa-rotate-left"></i> Reset Words
+            </button>
+            <button onclick="dialogueCheckAnswer()" class="btn-ghibli px-5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-xs">
+              <i class="fa-solid fa-circle-check"></i> Check Sentence
+            </button>
+          </div>
+
+        </div>
+
+        <div id="dialogue-feedback-box" class="hidden p-3 rounded-xl text-center text-xs md:text-sm font-bold"></div>
+
+        <button onclick="nextDialogueQuestion()" id="dialogue-next-btn" class="hidden btn-ghibli w-full py-3 bg-rose-700 hover:bg-rose-800 text-white font-bold text-sm rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+          <span>Next Sentence</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         MODE 6: STUDY HALL & AUDIO FLASHCARD EXPLORER
+         ======================================================== -->
+    <section id="view-mode-study" class="hidden space-y-4">
+      <div class="ghibli-card p-4 space-y-4">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="font-ghibli font-bold text-base text-stone-900">Countries Study Hall</h3>
+            <p class="text-xs text-stone-600">Browse and listen to all country pronunciations, capitals, and nationalities.</p>
+          </div>
+          <div class="relative">
+            <input type="text" id="study-search-input" oninput="filterStudyCards()" placeholder="Search country, capital..." class="pl-8 pr-3 py-1.5 rounded-xl border border-stone-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full sm:w-48 bg-white/90">
+            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-stone-400 text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="study-hall-grid">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         FINAL CERTIFICATE & RESULTS MODAL
+         ======================================================== -->
+    <div id="results-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div class="ghibli-card max-w-md w-full p-6 text-center space-y-4 shadow-2xl border-2 border-amber-300 animate-in fade-in zoom-in duration-200">
+        <div class="text-5xl">🏆 🌟 🎓</div>
+        <span class="text-[11px] font-extrabold uppercase tracking-widest text-amber-900 bg-amber-200 px-3 py-1 rounded-full">
+          Certificate of Completion
+        </span>
+        <h3 class="font-ghibli font-bold text-2xl text-emerald-950">
+          World Geography Master!
+        </h3>
+        <p class="text-xs text-stone-600">Great job practicing with English for Everyone!</p>
+
+        <div class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-300 space-y-2">
+          <div class="text-2xl font-black text-emerald-900" id="results-score-display">15 / 15 (100%)</div>
+          <div class="text-xs font-bold text-emerald-700" id="results-stars-display">⭐⭐⭐⭐⭐</div>
+          <div class="text-xs text-stone-600" id="results-xp-earned">+150 XP Earned!</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center gap-2 pt-2">
+          <button onclick="restartActiveMode()" class="btn-ghibli flex-1 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow-xs">
+            Play Again 🔄
+          </button>
+          <button onclick="closeResultsModal()" class="btn-ghibli px-4 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold rounded-xl">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       JAVASCRIPT GAME ENGINE
+       ======================================================== -->
+  <script>
+    // ========================================================
+    // 1. COMPLETE COUNTRIES DATASET (34 DK Countries + Bonuses)
+    // ========================================================
+    const COUNTRIES_DATA = [
+      // --- PACK 1: Unit 2.1 Vocabulary (19 Countries) ---
+      {
+        id: 1,
+        pack: 'vocab19',
+        name: "South Korea",
+        altNames: ["korea", "s. korea", "republic of korea"],
+        code: "kr",
+        flag: "images/flags/kr.svg",
+        audio: "audio/2/2_1_1.mp3",
+        capital: "Seoul",
+        nationality: "South Korean",
+        sentence: "She is from South Korea. She is South Korean.",
+        character: "Min-jun",
+        hint: "East Asian nation known for Seoul, technology, and K-pop."
+      },
+      {
+        id: 2,
+        pack: 'vocab19',
+        name: "Thailand",
+        altNames: ["siam"],
+        code: "th",
+        flag: "images/flags/th.svg",
+        audio: "audio/2/2_1_2.mp3",
+        capital: "Bangkok",
+        nationality: "Thai",
+        sentence: "He is from Thailand. He is Thai.",
+        character: "Somchai",
+        hint: "Southeast Asian kingdom famous for Bangkok, temples, and beaches."
+      },
+      {
+        id: 3,
+        pack: 'vocab19',
+        name: "Greece",
+        altNames: ["hellas"],
+        code: "gr",
+        flag: "images/flags/gr.svg",
+        audio: "audio/2/2_1_3.mp3",
+        capital: "Athens",
+        nationality: "Greek",
+        sentence: "She is from Greece. She is Greek.",
+        character: "Eleni",
+        hint: "Mediterranean country famous for ancient Athens and islands."
+      },
+      {
+        id: 4,
+        pack: 'vocab19',
+        name: "Poland",
+        altNames: ["polska"],
+        code: "pl",
+        flag: "images/flags/pl.svg",
+        audio: "audio/2/2_1_4.mp3",
+        capital: "Warsaw",
+        nationality: "Polish",
+        sentence: "They are from Poland. They are Polish.",
+        character: "Marek",
+        hint: "Central European country with white-and-red flag and capital Warsaw."
+      },
+      {
+        id: 5,
+        pack: 'vocab19',
+        name: "Pakistan",
+        altNames: [],
+        code: "pk",
+        flag: "images/flags/pk.svg",
+        audio: "audio/2/2_1_5.mp3",
+        capital: "Islamabad",
+        nationality: "Pakistani",
+        sentence: "He is from Pakistan. He is Pakistani.",
+        character: "Tariq",
+        hint: "South Asian country with green flag, white crescent moon and star."
+      },
+      {
+        id: 6,
+        pack: 'vocab19',
+        name: "Slovakia",
+        altNames: ["slovak republic"],
+        code: "sk",
+        flag: "images/flags/sk.svg",
+        audio: "audio/2/2_1_6.mp3",
+        capital: "Bratislava",
+        nationality: "Slovak",
+        sentence: "She is from Slovakia. She is Slovak.",
+        character: "Zuzana",
+        hint: "Central European country with capital Bratislava."
+      },
+      {
+        id: 7,
+        pack: 'vocab19',
+        name: "Ireland",
+        altNames: ["eire"],
+        code: "ie",
+        flag: "images/flags/ie.svg",
+        audio: "audio/2/2_1_7.mp3",
+        capital: "Dublin",
+        nationality: "Irish",
+        sentence: "We are from Ireland. We are Irish.",
+        character: "Liam",
+        hint: "The Emerald Isle with green, white, and orange tricolour flag."
+      },
+      {
+        id: 8,
+        pack: 'vocab19',
+        name: "China",
+        altNames: ["prc"],
+        code: "cn",
+        flag: "images/flags/cn.svg",
+        audio: "audio/2/2_1_8.mp3",
+        capital: "Beijing",
+        nationality: "Chinese",
+        sentence: "He is from China. He is Chinese.",
+        character: "Wei",
+        hint: "Large East Asian nation with red flag and 5 yellow stars."
+      },
+      {
+        id: 9,
+        pack: 'vocab19',
+        name: "Portugal",
+        altNames: [],
+        code: "pt",
+        flag: "images/flags/pt.svg",
+        audio: "audio/2/2_1_9.mp3",
+        capital: "Lisbon",
+        nationality: "Portuguese",
+        sentence: "She is from Portugal. She is Portuguese.",
+        character: "Beatriz",
+        hint: "Western European nation on Iberian peninsula with capital Lisbon."
+      },
+      {
+        id: 10,
+        pack: 'vocab19',
+        name: "Singapore",
+        altNames: [],
+        code: "sg",
+        flag: "images/flags/sg.svg",
+        audio: "audio/2/2_1_10.mp3",
+        capital: "Singapore",
+        nationality: "Singaporean",
+        sentence: "He is from Singapore. He is Singaporean.",
+        character: "Ken",
+        hint: "Modern Southeast Asian island nation with red and white flag."
+      },
+      {
+        id: 11,
+        pack: 'vocab19',
+        name: "Egypt",
+        altNames: [],
+        code: "eg",
+        flag: "images/flags/eg.svg",
+        audio: "audio/2/2_1_11.mp3",
+        capital: "Cairo",
+        nationality: "Egyptian",
+        sentence: "Ahmed is from Egypt. He is Egyptian.",
+        character: "Ahmed",
+        hint: "North African country famous for the Pyramids and the Nile River."
+      },
+      {
+        id: 12,
+        pack: 'vocab19',
+        name: "Mongolia",
+        altNames: [],
+        code: "mn",
+        flag: "images/flags/mn.svg",
+        audio: "audio/2/2_1_12.mp3",
+        capital: "Ulaanbaatar",
+        nationality: "Mongolian",
+        sentence: "They are from Mongolia. They are Mongolian.",
+        character: "Batbayar",
+        hint: "East Asian landlocked country with capital Ulaanbaatar."
+      },
+      {
+        id: 13,
+        pack: 'vocab19',
+        name: "United Kingdom",
+        altNames: ["uk", "britain", "great britain"],
+        code: "gb",
+        flag: "images/flags/gb.svg",
+        audio: "audio/2/2_1_13.mp3",
+        capital: "London",
+        nationality: "British",
+        sentence: "She is from the United Kingdom. She is British.",
+        character: "Emma",
+        hint: "Island country in Europe with the Union Jack flag and capital London."
+      },
+      {
+        id: 14,
+        pack: 'vocab19',
+        name: "France",
+        altNames: [],
+        code: "fr",
+        flag: "images/flags/fr.svg",
+        audio: "audio/2/2_1_14.mp3",
+        capital: "Paris",
+        nationality: "French",
+        sentence: "Pierre is from France. He is French.",
+        character: "Pierre",
+        hint: "European nation with blue, white, and red flag and capital Paris."
+      },
+      {
+        id: 15,
+        pack: 'vocab19',
+        name: "United Arab Emirates",
+        altNames: ["uae", "emirates"],
+        code: "ae",
+        flag: "images/flags/ae.svg",
+        audio: "audio/2/2_1_15.mp3",
+        capital: "Abu Dhabi",
+        nationality: "Emirati",
+        sentence: "He is from the United Arab Emirates. He is Emirati.",
+        character: "Rashid",
+        hint: "Gulf nation composed of 7 emirates including Dubai and Abu Dhabi."
+      },
+      {
+        id: 16,
+        pack: 'vocab19',
+        name: "New Zealand",
+        altNames: ["aotearoa"],
+        code: "nz",
+        flag: "images/flags/nz.svg",
+        audio: "audio/2/2_1_16.mp3",
+        capital: "Wellington",
+        nationality: "New Zealander",
+        sentence: "She is from New Zealand. She is a New Zealander.",
+        character: "Aroha",
+        hint: "Pacific island country with Southern Cross red stars on blue field."
+      },
+      {
+        id: 17,
+        pack: 'vocab19',
+        name: "Germany",
+        altNames: ["deutschland"],
+        code: "de",
+        flag: "images/flags/de.svg",
+        audio: "audio/2/2_1_17.mp3",
+        capital: "Berlin",
+        nationality: "German",
+        sentence: "Lukas is from Germany. He is German.",
+        character: "Lukas",
+        hint: "Central European country with black, red, and gold flag and capital Berlin."
+      },
+      {
+        id: 18,
+        pack: 'vocab19',
+        name: "Austria",
+        altNames: ["österreich"],
+        code: "at",
+        flag: "images/flags/at.svg",
+        audio: "audio/2/2_1_18.mp3",
+        capital: "Vienna",
+        nationality: "Austrian",
+        sentence: "She is from Austria. She is Austrian.",
+        character: "Anna",
+        hint: "European country famous for the Alps, classical music, and Vienna."
+      },
+      {
+        id: 19,
+        pack: 'vocab19',
+        name: "Switzerland",
+        altNames: ["helvetia"],
+        code: "ch",
+        flag: "images/flags/ch.svg",
+        audio: "audio/2/2_1_19.mp3",
+        capital: "Bern",
+        nationality: "Swiss",
+        sentence: "He is from Switzerland. He is Swiss.",
+        character: "Noah",
+        hint: "Alpine nation with white cross on square red flag."
+      },
+
+      // --- PACK 2: Exercise 2.1 (p.15) (15 Countries) ---
+      {
+        id: 20,
+        pack: 'ex2_1',
+        name: "Argentina",
+        altNames: [],
+        code: "ar",
+        flag: "images/flags/ar.svg",
+        audio: "audio/2/2_1_20.mp3",
+        capital: "Buenos Aires",
+        nationality: "Argentine",
+        sentence: "Lionel is from Argentina. He is Argentine.",
+        character: "Lionel",
+        hint: "South American nation with light blue and white flag with sun symbol."
+      },
+      {
+        id: 21,
+        pack: 'ex2_1',
+        name: "Russia",
+        altNames: ["russian federation"],
+        code: "ru",
+        flag: "images/flags/ru.svg",
+        audio: "audio/2/2_1_21.mp3",
+        capital: "Moscow",
+        nationality: "Russian",
+        sentence: "She is from Russia. She is Russian.",
+        character: "Olga",
+        hint: "Spanning Europe and Asia with white, blue, and red horizontal stripes."
+      },
+      {
+        id: 22,
+        pack: 'ex2_1',
+        name: "Australia",
+        altNames: ["oz"],
+        code: "au",
+        flag: "images/flags/au.svg",
+        audio: "audio/2/2_1_22.mp3",
+        capital: "Canberra",
+        nationality: "Australian",
+        sentence: "They are from Australia. They are Australian.",
+        character: "Jack",
+        hint: "Island continent in Southern Hemisphere with capital Canberra."
+      },
+      {
+        id: 23,
+        pack: 'ex2_1',
+        name: "Canada",
+        altNames: [],
+        code: "ca",
+        flag: "images/flags/ca.svg",
+        audio: "audio/2/2_1_23.mp3",
+        capital: "Ottawa",
+        nationality: "Canadian",
+        sentence: "He is from Canada. He is Canadian.",
+        character: "Oliver",
+        hint: "North American nation with red and white flag with maple leaf."
+      },
+      {
+        id: 24,
+        pack: 'ex2_1',
+        name: "Philippines",
+        altNames: ["the philippines"],
+        code: "ph",
+        flag: "images/flags/ph.svg",
+        audio: "audio/2/2_1_24.mp3",
+        capital: "Manila",
+        nationality: "Filipino",
+        sentence: "Maria is from the Philippines. She is Filipino.",
+        character: "Maria",
+        hint: "Southeast Asian island country with blue, red, and yellow sun."
+      },
+      {
+        id: 25,
+        pack: 'ex2_1',
+        name: "South Africa",
+        altNames: ["rsa"],
+        code: "za",
+        flag: "images/flags/za.svg",
+        audio: "audio/2/2_1_25.mp3",
+        capital: "Pretoria",
+        nationality: "South African",
+        sentence: "Nelson is from South Africa. He is South African.",
+        character: "Nelson",
+        hint: "Rainbow nation at southern tip of Africa with 6-color flag."
+      },
+      {
+        id: 26,
+        pack: 'ex2_1',
+        name: "Brazil",
+        altNames: ["brasil"],
+        code: "br",
+        flag: "images/flags/br.svg",
+        audio: "audio/2/2_1_26.mp3",
+        capital: "Brasília",
+        nationality: "Brazilian",
+        sentence: "She is from Brazil. She is Brazilian.",
+        character: "Camila",
+        hint: "Largest country in South America with green flag and yellow rhombus."
+      },
+      {
+        id: 27,
+        pack: 'ex2_1',
+        name: "Netherlands",
+        altNames: ["the netherlands", "holland"],
+        code: "nl",
+        flag: "images/flags/nl.svg",
+        audio: "audio/2/2_1_27.mp3",
+        capital: "Amsterdam",
+        nationality: "Dutch",
+        sentence: "They are from the Netherlands. They are Dutch.",
+        character: "Lars",
+        hint: "European country famous for windmills, canals, and capital Amsterdam."
+      },
+      {
+        id: 28,
+        pack: 'ex2_1',
+        name: "Spain",
+        altNames: ["españa"],
+        code: "es",
+        flag: "images/flags/es.svg",
+        audio: "audio/2/2_1_28.mp3",
+        capital: "Madrid",
+        nationality: "Spanish",
+        sentence: "Carlos is from Spain. He is Spanish.",
+        character: "Carlos",
+        hint: "European nation with red and yellow stripes and capital Madrid."
+      },
+      {
+        id: 29,
+        pack: 'ex2_1',
+        name: "Czech Republic",
+        altNames: ["czechia"],
+        code: "cz",
+        flag: "images/flags/cz.svg",
+        audio: "audio/2/2_1_29.mp3",
+        capital: "Prague",
+        nationality: "Czech",
+        sentence: "She is from the Czech Republic. She is Czech.",
+        character: "Tereza",
+        hint: "Central European country with blue triangle on white and red flag."
+      },
+      {
+        id: 30,
+        pack: 'ex2_1',
+        name: "Mexico",
+        altNames: ["méxico"],
+        code: "mx",
+        flag: "images/flags/mx.svg",
+        audio: "audio/2/2_1_30.mp3",
+        capital: "Mexico City",
+        nationality: "Mexican",
+        sentence: "Elena is from Mexico. She is Mexican.",
+        character: "Elena",
+        hint: "North American nation with green, white, and red flag with eagle emblem."
+      },
+      {
+        id: 31,
+        pack: 'ex2_1',
+        name: "India",
+        altNames: ["bharat"],
+        code: "in",
+        flag: "images/flags/in.svg",
+        audio: "audio/2/2_1_31.mp3",
+        capital: "New Delhi",
+        nationality: "Indian",
+        sentence: "Aarav is from India. He is Indian.",
+        character: "Aarav",
+        hint: "South Asian country with orange, white, green flag and blue Chakra wheel."
+      },
+      {
+        id: 32,
+        pack: 'ex2_1',
+        name: "United States of America",
+        altNames: ["usa", "united states", "us", "america"],
+        code: "us",
+        flag: "images/flags/us.svg",
+        audio: "audio/2/2_1_32.mp3",
+        capital: "Washington, D.C.",
+        nationality: "American",
+        sentence: "John is from the United States. He is American.",
+        character: "John",
+        hint: "North American country with Stars and Stripes flag and 50 stars."
+      },
+      {
+        id: 33,
+        pack: 'ex2_1',
+        name: "Japan",
+        altNames: ["nippon", "nihon"],
+        code: "jp",
+        flag: "images/flags/jp.svg",
+        audio: "audio/2/2_1_33.mp3",
+        capital: "Tokyo",
+        nationality: "Japanese",
+        sentence: "Kenji is from Japan. He is Japanese.",
+        character: "Kenji",
+        hint: "East Asian island country with red circle (rising sun) on white flag."
+      },
+      {
+        id: 34,
+        pack: 'ex2_1',
+        name: "Indonesia",
+        altNames: [],
+        code: "id",
+        flag: "images/flags/id.svg",
+        audio: "audio/2/2_1_34.mp3",
+        capital: "Jakarta",
+        nationality: "Indonesian",
+        sentence: "Siti is from Indonesia. She is Indonesian.",
+        character: "Siti",
+        hint: "Southeast Asian archipelago with simple red and white horizontal stripes."
+      },
+
+      // --- BONUS COUNTRIES: Somalia (Student Home) & Turkey (DK Example) ---
+      {
+        id: 35,
+        pack: 'bonus',
+        name: "Somalia",
+        altNames: ["soomaaliya"],
+        code: "so",
+        flag: "images/flags/so.svg",
+        audio: null,
+        capital: "Mogadishu",
+        nationality: "Somali",
+        sentence: "Abdi is from Somalia. He is Somali.",
+        character: "Abdi",
+        hint: "Abdi's home country! Light blue flag with a white star in the center."
+      },
+      {
+        id: 36,
+        pack: 'bonus',
+        name: "Turkey",
+        altNames: ["türkiye"],
+        code: "tr",
+        flag: "images/flags/tr.svg",
+        audio: "audio/2/2_1_eg.mp3",
+        capital: "Ankara",
+        nationality: "Turkish",
+        sentence: "They are from Turkey. They are Turkish.",
+        character: "Can",
+        hint: "DK Book Example country with red flag and white crescent moon."
+      }
+    ];
+
+    // ========================================================
+    // 2. STATE MANAGEMENT
+    // ========================================================
+    let currentPack = 'ex2_1'; // 'ex2_1', 'vocab19', 'all34'
+    let currentMode = 'quiz';  // 'quiz', 'audio', 'spelling', 'memory', 'dialogue', 'study'
+    let activeList = [];
+    let sfxEnabled = true;
+
+    let globalXP = parseInt(localStorage.getItem('abdi_global_xp') || '0', 10);
+    let streakCount = 0;
+
+    // Quiz Mode State
+    let quizIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    // Audio Mode State
+    let audioIndex = 0;
+    let audioScore = 0;
+    let audioAnswered = false;
+
+    // Spelling Mode State
+    let spellingIndex = 0;
+    let spellingScore = 0;
+    let spellingCurrentLetters = [];
+    let spellingAvailableLetters = [];
+
+    // Memory Mode State
+    let memoryCards = [];
+    let memoryFlipped = [];
+    let memoryMatchedCount = 0;
+    let memoryMoves = 0;
+    let memoryLock = false;
+
+    // Dialogue Mode State
+    let dialogueIndex = 0;
+    let dialogueScore = 0;
+    let dialoguePlacedWords = [];
+    let dialogueAvailableWords = [];
+
+    // ========================================================
+    // 3. SOUND SYNTHESIS & SPEECH ENGINE
+    // ========================================================
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.1) {
+      if (!sfxEnabled) return;
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // AudioContext error suppressed
+      }
+    }
+
+    function playSuccessSound() {
+      if (!sfxEnabled) return;
+      playTone(523.25, 'triangle', 0.12, 0.15); // C5
+      setTimeout(() => playTone(659.25, 'triangle', 0.12, 0.15), 100); // E5
+      setTimeout(() => playTone(783.99, 'triangle', 0.25, 0.2), 200); // G5
+    }
+
+    function playErrorSound() {
+      if (!sfxEnabled) return;
+      playTone(220, 'sawtooth', 0.25, 0.15);
+      setTimeout(() => playTone(185, 'sawtooth', 0.3, 0.15), 120);
+    }
+
+    function playFlipSound() {
+      if (!sfxEnabled) return;
+      playTone(400, 'sine', 0.06, 0.08);
+    }
+
+    function toggleSfx() {
+      sfxEnabled = !sfxEnabled;
+      const icon = document.getElementById('sfx-icon');
+      if (sfxEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-stone-700';
+        playTone(600, 'sine', 0.1);
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-rose-500';
+      }
+    }
+
+    function playCountryAudio(country) {
+      if (country.audio) {
+        const audio = new Audio(country.audio);
+        audio.play().catch(() => {
+          speakUtterance(country.name);
+        });
+      } else {
+        speakUtterance(country.name);
+      }
+    }
+
+    function speakUtterance(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.88;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function addXP(amount) {
+      globalXP += amount;
+      localStorage.setItem('abdi_global_xp', globalXP);
+      document.getElementById('global-xp').innerText = `${globalXP} XP`;
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    // ========================================================
+    // 4. PACK & MODE SELECTION
+    // ========================================================
+    function getActiveDataset() {
+      if (currentPack === 'ex2_1') {
+        return COUNTRIES_DATA.filter(c => c.pack === 'ex2_1');
+      } else if (currentPack === 'vocab19') {
+        return COUNTRIES_DATA.filter(c => c.pack === 'vocab19');
+      } else {
+        // all34 + bonuses
+        return [...COUNTRIES_DATA];
+      }
+    }
+
+    function selectPack(packKey) {
+      currentPack = packKey;
+      
+      // Update UI button highlights
+      ['ex2_1', 'vocab19', 'all34'].forEach(k => {
+        const btn = document.getElementById(`pack-btn-${k}`);
+        if (k === packKey) {
+          btn.className = "pack-btn p-2.5 rounded-xl border-2 border-emerald-600 bg-emerald-50/80 text-emerald-950 text-left transition flex items-center gap-2.5 shadow-xs";
+        } else {
+          btn.className = "pack-btn p-2.5 rounded-xl border border-stone-200 bg-white/70 text-stone-800 hover:bg-stone-50 text-left transition flex items-center gap-2.5";
+        }
+      });
+
+      const titleEl = document.getElementById('active-pack-title');
+      const badgeEl = document.getElementById('pack-count-badge');
+      if (packKey === 'ex2_1') {
+        titleEl.innerText = "Exercise 2.1 (p.15) — 15 Countries";
+        badgeEl.innerText = "15 Countries";
+      } else if (packKey === 'vocab19') {
+        titleEl.innerText = "Unit 2.1 Vocabulary — 19 Countries";
+        badgeEl.innerText = "19 Countries";
+      } else {
+        titleEl.innerText = "All Countries Master Pack";
+        badgeEl.innerText = "36 Total Countries";
+      }
+
+      shuffleAndRestart();
+    }
+
+    function switchGameMode(modeKey) {
+      currentMode = modeKey;
+
+      // Update Tabs
+      const modes = ['quiz', 'audio', 'spelling', 'memory', 'dialogue', 'study'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`tab-btn-${m}`);
+        const view = document.getElementById(`view-mode-${m}`);
+        if (m === modeKey) {
+          btn.className = "mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl bg-emerald-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap";
+          view.classList.remove('hidden');
+        } else {
+          btn.className = "mode-tab-btn flex-1 py-2 px-3 text-xs md:text-sm font-bold rounded-xl text-stone-600 hover:text-stone-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap";
+          view.classList.add('hidden');
+        }
+      });
+
+      restartActiveMode();
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function shuffleAndRestart() {
+      activeList = shuffleArray(getActiveDataset());
+      restartActiveMode();
+    }
+
+    function restartActiveMode() {
+      closeResultsModal();
+      activeList = shuffleArray(getActiveDataset());
+
+      if (currentMode === 'quiz') initQuiz();
+      else if (currentMode === 'audio') initAudio();
+      else if (currentMode === 'spelling') initSpelling();
+      else if (currentMode === 'memory') initMemoryGame();
+      else if (currentMode === 'dialogue') initDialogue();
+      else if (currentMode === 'study') renderStudyHall();
+    }
+
+    // ========================================================
+    // 5. MODE 1: FLAG QUIZ LOGIC
+    // ========================================================
+    function initQuiz() {
+      quizIndex = 0;
+      quizScore = 0;
+      quizAnswered = false;
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      quizAnswered = false;
+      const current = activeList[quizIndex];
+      const total = activeList.length;
+
+      document.getElementById('quiz-progress-text').innerText = `Question ${quizIndex + 1} of ${total}`;
+      document.getElementById('quiz-score-badge').innerText = `Score: ${quizScore} / ${quizIndex}`;
+      document.getElementById('quiz-progress-bar').style.width = `${((quizIndex) / total) * 100}%`;
+
+      document.getElementById('quiz-flag-img').src = current.flag;
+      document.getElementById('quiz-feedback-box').classList.add('hidden');
+      document.getElementById('quiz-next-btn').classList.add('hidden');
+
+      // Generate 4 options (1 correct, 3 distractors)
+      const distractors = COUNTRIES_DATA.filter(c => c.name !== current.name);
+      const shuffledDistractors = shuffleArray(distractors).slice(0, 3);
+      const options = shuffleArray([current, ...shuffledDistractors]);
+
+      const grid = document.getElementById('quiz-options-grid');
+      grid.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "btn-ghibli w-full p-3.5 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm text-left flex items-center justify-between transition shadow-xs";
+        btn.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-stone-100 border border-stone-300 text-stone-700 flex items-center justify-center text-xs font-black">${letters[idx]}</span>
+            <span>${opt.name}</span>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-stone-400"></i>
+        `;
+        btn.onclick = () => handleQuizAnswer(opt.name, current, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function handleQuizAnswer(selectedName, correctCountry, clickedBtn) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const isCorrect = (selectedName.toLowerCase() === correctCountry.name.toLowerCase());
+      const optionBtns = document.getElementById('quiz-options-grid').querySelectorAll('button');
+
+      optionBtns.forEach(btn => {
+        btn.disabled = true;
+        const text = btn.querySelector('span:nth-child(2)').innerText;
+        if (text.toLowerCase() === correctCountry.name.toLowerCase()) {
+          btn.classList.remove('border-stone-200', 'bg-white');
+          btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-950');
+          btn.querySelector('i').className = 'fa-solid fa-check text-emerald-600 text-sm';
+        }
+      });
+
+      const fbBox = document.getElementById('quiz-feedback-box');
+      const fbTitle = document.getElementById('quiz-feedback-title');
+      fbBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        playSuccessSound();
+        quizScore++;
+        streakCount++;
+        addXP(10);
+        clickedBtn.classList.remove('border-stone-200', 'bg-white');
+        clickedBtn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-950');
+        
+        fbBox.className = "p-4 rounded-xl space-y-2 border-2 border-emerald-400 bg-emerald-50/90";
+        fbTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> <span class="text-emerald-950">Brilliant! That's correct (+10 XP)</span>`;
+        if (streakCount >= 3) triggerConfetti();
+      } else {
+        playErrorSound();
+        streakCount = 0;
+        clickedBtn.classList.remove('border-stone-200', 'bg-white');
+        clickedBtn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-950');
+        clickedBtn.querySelector('i').className = 'fa-solid fa-xmark text-rose-600 text-sm';
+
+        fbBox.className = "p-4 rounded-xl space-y-2 border-2 border-amber-300 bg-amber-50/90";
+        fbTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-600 text-base"></i> <span class="text-amber-950">Nice try! Correct answer: <strong>${correctCountry.name}</strong></span>`;
+      }
+
+      document.getElementById('streak-counter').innerText = streakCount;
+      document.getElementById('quiz-score-badge').innerText = `Score: ${quizScore} / ${quizIndex + 1}`;
+
+      // Populate country facts
+      document.getElementById('quiz-fb-country').innerText = correctCountry.name;
+      document.getElementById('quiz-fb-capital').innerText = correctCountry.capital;
+      document.getElementById('quiz-fb-nationality').innerText = correctCountry.nationality;
+      document.getElementById('quiz-fb-sentence').innerText = `"${correctCountry.sentence}"`;
+
+      document.getElementById('quiz-next-btn').classList.remove('hidden');
+    }
+
+    function playCurrentQuestionAudio() {
+      const current = activeList[quizIndex];
+      playCountryAudio(current);
+    }
+
+    function speakCurrentSentence() {
+      const current = activeList[quizIndex];
+      speakUtterance(current.sentence);
+    }
+
+    function nextQuizQuestion() {
+      quizIndex++;
+      if (quizIndex < activeList.length) {
+        renderQuizQuestion();
+      } else {
+        showFinalResults(quizScore, activeList.length);
+      }
+    }
+
+    // ========================================================
+    // 6. MODE 2: AUDIO LISTENING TEST LOGIC
+    // ========================================================
+    function initAudio() {
+      audioIndex = 0;
+      audioScore = 0;
+      audioAnswered = false;
+      renderAudioQuestion();
+    }
+
+    function renderAudioQuestion() {
+      audioAnswered = false;
+      const current = activeList[audioIndex];
+      const total = activeList.length;
+
+      document.getElementById('audio-progress-text').innerText = `Audio Question ${audioIndex + 1} of ${total}`;
+      document.getElementById('audio-score-badge').innerText = `Score: ${audioScore} / ${audioIndex}`;
+      document.getElementById('audio-feedback-box').classList.add('hidden');
+      document.getElementById('audio-next-btn').classList.add('hidden');
+
+      // Automatically play pronunciation on question load after short delay
+      setTimeout(() => {
+        playCountryAudio(current);
+      }, 300);
+
+      // Distractors
+      const distractors = shuffleArray(COUNTRIES_DATA.filter(c => c.name !== current.name)).slice(0, 3);
+      const options = shuffleArray([current, ...distractors]);
+
+      const grid = document.getElementById('audio-options-grid');
+      grid.innerHTML = '';
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "btn-ghibli p-3 rounded-2xl border-2 border-stone-200 bg-white hover:bg-stone-50 flex flex-col items-center text-center space-y-2 shadow-xs transition";
+        btn.innerHTML = `
+          <img src="${opt.flag}" alt="${opt.name}" class="w-24 h-16 object-cover rounded-lg shadow-sm border border-stone-300">
+          <span class="text-xs font-bold text-stone-800">${opt.name}</span>
+        `;
+        btn.onclick = () => handleAudioAnswer(opt.name, current, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function playCurrentAudioTestTrack() {
+      const current = activeList[audioIndex];
+      playCountryAudio(current);
+    }
+
+    function handleAudioAnswer(selectedName, correctCountry, clickedBtn) {
+      if (audioAnswered) return;
+      audioAnswered = true;
+
+      const isCorrect = (selectedName.toLowerCase() === correctCountry.name.toLowerCase());
+      const optionBtns = document.getElementById('audio-options-grid').querySelectorAll('button');
+
+      optionBtns.forEach(btn => {
+        btn.disabled = true;
+        const text = btn.querySelector('span').innerText;
+        if (text.toLowerCase() === correctCountry.name.toLowerCase()) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-50');
+        }
+      });
+
+      const fbBox = document.getElementById('audio-feedback-box');
+      fbBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        playSuccessSound();
+        audioScore++;
+        addXP(10);
+        streakCount++;
+        fbBox.className = "p-3 rounded-xl border-2 border-emerald-400 bg-emerald-50 text-emerald-950 text-center font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `🎉 Correct! The audio was <strong>${correctCountry.name}</strong>!`;
+      } else {
+        playErrorSound();
+        streakCount = 0;
+        clickedBtn.classList.add('border-rose-400', 'bg-rose-50');
+        fbBox.className = "p-3 rounded-xl border-2 border-amber-300 bg-amber-50 text-amber-950 text-center font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `🔊 That was <strong>${correctCountry.name}</strong>!`;
+      }
+
+      document.getElementById('streak-counter').innerText = streakCount;
+      document.getElementById('audio-score-badge').innerText = `Score: ${audioScore} / ${audioIndex + 1}`;
+      document.getElementById('audio-next-btn').classList.remove('hidden');
+    }
+
+    function nextAudioQuestion() {
+      audioIndex++;
+      if (audioIndex < activeList.length) {
+        renderAudioQuestion();
+      } else {
+        showFinalResults(audioScore, activeList.length);
+      }
+    }
+
+    // ========================================================
+    // 7. MODE 3: SPELLING BEE & UNSCRAMBLE
+    // ========================================================
+    function initSpelling() {
+      spellingIndex = 0;
+      spellingScore = 0;
+      renderSpellingQuestion();
+    }
+
+    function renderSpellingQuestion() {
+      const current = activeList[spellingIndex];
+      const total = activeList.length;
+
+      document.getElementById('spelling-progress-text').innerText = `Spelling ${spellingIndex + 1} of ${total}`;
+      document.getElementById('spelling-score-badge').innerText = `Score: ${spellingScore} / ${spellingIndex}`;
+      document.getElementById('spelling-flag-img').src = current.flag;
+      document.getElementById('spelling-feedback-box').classList.add('hidden');
+      document.getElementById('spelling-next-btn').classList.add('hidden');
+
+      spellingCurrentLetters = [];
+      const cleanTarget = current.name.toUpperCase();
+
+      // Scramble letters (letters only, preserving spaces)
+      const lettersOnly = cleanTarget.replace(/[^A-Z]/g, '').split('');
+      spellingAvailableLetters = shuffleArray(lettersOnly).map((char, idx) => ({
+        id: idx,
+        char: char,
+        used: false
+      }));
+
+      renderSpellingUI();
+    }
+
+    function renderSpellingUI() {
+      const current = activeList[spellingIndex];
+      const cleanTarget = current.name.toUpperCase();
+      const slotsContainer = document.getElementById('spelling-slots-container');
+      const bankContainer = document.getElementById('spelling-bank-container');
+
+      slotsContainer.innerHTML = '';
+      bankContainer.innerHTML = '';
+
+      // Target Slots
+      let letterCounter = 0;
+      for (let i = 0; i < cleanTarget.length; i++) {
+        const char = cleanTarget[i];
+        if (char === ' ') {
+          const space = document.createElement('div');
+          space.className = "w-4";
+          slotsContainer.appendChild(space);
+        } else {
+          const slot = document.createElement('div');
+          slot.className = "w-8 h-10 md:w-9 md:h-11 rounded-lg border-2 border-stone-300 bg-white flex items-center justify-center font-black text-sm md:text-base text-stone-900 shadow-2xs";
+          if (letterCounter < spellingCurrentLetters.length) {
+            slot.innerText = spellingCurrentLetters[letterCounter].char;
+            slot.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-950');
+          } else {
+            slot.innerText = '';
+          }
+          slotsContainer.appendChild(slot);
+          letterCounter++;
+        }
+      }
+
+      // Bank letter tiles
+      spellingAvailableLetters.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.className = `w-9 h-10 md:w-10 md:h-11 rounded-xl font-black text-sm md:text-base shadow-xs transition flex items-center justify-center ${
+          item.used
+            ? 'bg-stone-200 text-stone-400 border border-stone-300 cursor-not-allowed opacity-40'
+            : 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-2 border-amber-300 cursor-pointer btn-ghibli'
+        }`;
+        btn.innerText = item.char;
+        btn.disabled = item.used;
+        btn.onclick = () => spellingAddLetter(item);
+        bankContainer.appendChild(btn);
+      });
+
+      // Auto check when all filled
+      const targetLettersLength = cleanTarget.replace(/[^A-Z]/g, '').length;
+      if (spellingCurrentLetters.length === targetLettersLength) {
+        checkSpellingResult();
+      }
+    }
+
+    function spellingAddLetter(letterObj) {
+      if (letterObj.used) return;
+      playFlipSound();
+      letterObj.used = true;
+      spellingCurrentLetters.push(letterObj);
+      renderSpellingUI();
+    }
+
+    function spellingBackspace() {
+      if (spellingCurrentLetters.length === 0) return;
+      playFlipSound();
+      const removed = spellingCurrentLetters.pop();
+      removed.used = false;
+      renderSpellingUI();
+    }
+
+    function spellingClearAll() {
+      spellingCurrentLetters = [];
+      spellingAvailableLetters.forEach(l => l.used = false);
+      renderSpellingUI();
+    }
+
+    function spellingGiveHint() {
+      const current = activeList[spellingIndex];
+      const cleanLetters = current.name.toUpperCase().replace(/[^A-Z]/g, '');
+      const nextIndex = spellingCurrentLetters.length;
+      if (nextIndex >= cleanLetters.length) return;
+
+      const neededChar = cleanLetters[nextIndex];
+      const found = spellingAvailableLetters.find(l => !l.used && l.char === neededChar);
+      if (found) {
+        spellingAddLetter(found);
+      }
+    }
+
+    function playCurrentSpellingAudio() {
+      const current = activeList[spellingIndex];
+      playCountryAudio(current);
+    }
+
+    function checkSpellingResult() {
+      const current = activeList[spellingIndex];
+      const cleanTarget = current.name.toUpperCase().replace(/[^A-Z]/g, '');
+      const userSpelling = spellingCurrentLetters.map(l => l.char).join('');
+
+      const fbBox = document.getElementById('spelling-feedback-box');
+      fbBox.classList.remove('hidden');
+
+      if (userSpelling === cleanTarget) {
+        playSuccessSound();
+        spellingScore++;
+        addXP(10);
+        streakCount++;
+        fbBox.className = "p-3 rounded-xl border-2 border-emerald-400 bg-emerald-50 text-emerald-950 font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `🎉 Superb! You spelled <strong>${current.name}</strong> correctly!`;
+        document.getElementById('spelling-next-btn').classList.remove('hidden');
+      } else {
+        playErrorSound();
+        fbBox.className = "p-3 rounded-xl border-2 border-rose-300 bg-rose-50 text-rose-950 font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `Not quite right! Tap Clear or Delete to try again.`;
+      }
+      document.getElementById('streak-counter').innerText = streakCount;
+      document.getElementById('spelling-score-badge').innerText = `Score: ${spellingScore} / ${spellingIndex + 1}`;
+    }
+
+    function nextSpellingQuestion() {
+      spellingIndex++;
+      if (spellingIndex < activeList.length) {
+        renderSpellingQuestion();
+      } else {
+        showFinalResults(spellingScore, activeList.length);
+      }
+    }
+
+    // ========================================================
+    // 8. MODE 4: 3D MEMORY CARD MATCH
+    // ========================================================
+    function initMemoryGame() {
+      memoryMatchedCount = 0;
+      memoryMoves = 0;
+      memoryFlipped = [];
+      memoryLock = false;
+      document.getElementById('mem-moves-count').innerText = "0";
+      document.getElementById('memory-victory-card').classList.add('hidden');
+
+      // Pick 6 random countries from active set
+      const selectedPool = shuffleArray(activeList).slice(0, 6);
+
+      // Create 12 cards: 6 flags + 6 country names
+      const rawCards = [];
+      selectedPool.forEach(item => {
+        rawCards.push({
+          countryId: item.id,
+          name: item.name,
+          type: 'flag',
+          flag: item.flag,
+          matched: false
+        });
+        rawCards.push({
+          countryId: item.id,
+          name: item.name,
+          type: 'text',
+          matched: false
+        });
+      });
+
+      memoryCards = shuffleArray(rawCards);
+      renderMemoryCardsGrid();
+    }
+
+    function renderMemoryCardsGrid() {
+      const grid = document.getElementById('memory-cards-grid');
+      grid.innerHTML = '';
+
+      memoryCards.forEach((card, idx) => {
+        const cardContainer = document.createElement('div');
+        cardContainer.className = "memory-card perspective-1000 relative rounded-2xl";
+        cardContainer.setAttribute('data-index', idx);
+
+        let frontContent = '';
+        if (card.type === 'flag') {
+          frontContent = `
+            <img src="${card.flag}" alt="${card.name}" class="w-16 h-11 md:w-20 md:h-14 object-cover rounded-md shadow-xs border border-stone-200">
+            <span class="text-[10px] font-bold text-stone-500 uppercase mt-1">Flag</span>
+          `;
+        } else {
+          frontContent = `
+            <i class="fa-solid fa-earth-americas text-emerald-700 text-lg md:text-xl"></i>
+            <span class="text-xs md:text-sm font-extrabold text-stone-900 text-center px-1 leading-tight">${card.name}</span>
+          `;
+        }
+
+        cardContainer.innerHTML = `
+          <div class="card-inner w-full h-full relative transform-style-3d transition-transform duration-500 rounded-2xl shadow-xs">
+            <!-- Back of card (Facing player initially) -->
+            <div class="card-back absolute inset-0 backface-hidden bg-gradient-to-br from-emerald-800 to-emerald-950 border-2 border-emerald-600 rounded-2xl flex flex-col items-center justify-center text-amber-200 hover:scale-102 transition">
+              <span class="text-xl md:text-2xl font-black font-ghibli">${idx + 1}</span>
+              <span class="text-[9px] font-bold uppercase tracking-widest text-emerald-200">World</span>
+            </div>
+            <!-- Front of card (Revealed on flip) -->
+            <div class="card-front absolute inset-0 backface-hidden rotate-y-180 bg-white border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 shadow-sm">
+              ${frontContent}
+            </div>
+          </div>
+        `;
+
+        cardContainer.onclick = () => handleMemoryCardClick(idx, cardContainer);
+        grid.appendChild(cardContainer);
+      });
+    }
+
+    function handleMemoryCardClick(index, cardEl) {
+      if (memoryLock) return;
+      const card = memoryCards[index];
+      if (card.matched) return;
+      if (memoryFlipped.some(f => f.index === index)) return;
+
+      playFlipSound();
+      const inner = cardEl.querySelector('.card-inner');
+      inner.classList.add('rotate-y-180');
+      memoryFlipped.push({ index, card, el: cardEl });
+
+      if (memoryFlipped.length === 2) {
+        memoryMoves++;
+        document.getElementById('mem-moves-count').innerText = memoryMoves;
+        memoryLock = true;
+
+        const [first, second] = memoryFlipped;
+        if (first.card.countryId === second.card.countryId) {
+          // MATCH!
+          setTimeout(() => {
+            playSuccessSound();
+            first.card.matched = true;
+            second.card.matched = true;
+            first.el.classList.add('matched');
+            second.el.classList.add('matched');
+            memoryMatchedCount++;
+            addXP(15);
+
+            memoryFlipped = [];
+            memoryLock = false;
+
+            if (memoryMatchedCount === 6) {
+              triggerConfetti();
+              document.getElementById('memory-victory-card').classList.remove('hidden');
+              document.getElementById('memory-victory-desc').innerText = `You finished the 6 pairs in ${memoryMoves} moves! (+90 XP)`;
+            }
+          }, 400);
+        } else {
+          // NO MATCH
+          setTimeout(() => {
+            first.el.querySelector('.card-inner').classList.remove('rotate-y-180');
+            second.el.querySelector('.card-inner').classList.remove('rotate-y-180');
+            memoryFlipped = [];
+            memoryLock = false;
+          }, 900);
+        }
+      }
+    }
+
+    // ========================================================
+    // 9. MODE 5: "WHERE ARE YOU FROM?" DIALOGUE LOGIC
+    // ========================================================
+    function initDialogue() {
+      dialogueIndex = 0;
+      dialogueScore = 0;
+      renderDialogueQuestion();
+    }
+
+    function renderDialogueQuestion() {
+      const current = activeList[dialogueIndex];
+      const total = activeList.length;
+
+      document.getElementById('dialogue-progress-text').innerText = `Sentence ${dialogueIndex + 1} of ${total}`;
+      document.getElementById('dialogue-score-badge').innerText = `Score: ${dialogueScore} / ${dialogueIndex}`;
+      document.getElementById('dialogue-flag-img').src = current.flag;
+      document.getElementById('dialogue-character-prompt').innerText = `"Where is ${current.character} from?"`;
+      document.getElementById('dialogue-feedback-box').classList.add('hidden');
+      document.getElementById('dialogue-next-btn').classList.add('hidden');
+
+      dialoguePlacedWords = [];
+
+      // Target sentence components, e.g. "He is from Argentina."
+      const pronoun = (current.character === 'Maria' || current.character === 'Eleni' || current.character === 'Camila' || current.character === 'Elena' || current.character === 'Olga' || current.character === 'Zuzana' || current.character === 'Beatriz' || current.character === 'Emma' || current.character === 'Aroha' || current.character === 'Anna' || current.character === 'Tereza' || current.character === 'Siti') ? 'She' : 'He';
+      const rawTargetWords = [pronoun, "is", "from", current.name];
+      
+      // Add distractors to make it an active test
+      const distractors = ["in", "at", "are", "am", "to"];
+      const shuffledTokens = shuffleArray([...rawTargetWords, ...distractors.slice(0, 3)]).map((w, idx) => ({
+        id: idx,
+        word: w,
+        used: false
+      }));
+
+      dialogueAvailableWords = shuffledTokens;
+      renderDialogueUI();
+    }
+
+    function renderDialogueUI() {
+      const zone = document.getElementById('dialogue-sentence-zone');
+      const bank = document.getElementById('dialogue-word-bank');
+
+      zone.innerHTML = '';
+      bank.innerHTML = '';
+
+      if (dialoguePlacedWords.length === 0) {
+        zone.innerHTML = `<span class="text-xs text-stone-400 font-bold italic">Tap words below to build the sentence...</span>`;
+      } else {
+        dialoguePlacedWords.forEach((item) => {
+          const chip = document.createElement('button');
+          chip.className = "px-3 py-1.5 rounded-xl bg-emerald-700 text-white font-bold text-xs md:text-sm shadow-xs flex items-center gap-1.5";
+          chip.innerHTML = `<span>${item.word}</span> <i class="fa-solid fa-xmark text-[10px] opacity-70"></i>`;
+          chip.onclick = () => dialogueRemoveWord(item);
+          zone.appendChild(chip);
+        });
+      }
+
+      dialogueAvailableWords.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.className = `btn-ghibli px-3 py-1.5 rounded-xl font-bold text-xs md:text-sm transition ${
+          item.used
+            ? 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed opacity-40'
+            : 'bg-white hover:bg-stone-50 text-stone-800 border-2 border-stone-300 shadow-2xs'
+        }`;
+        btn.innerText = item.word;
+        btn.disabled = item.used;
+        btn.onclick = () => dialogueAddWord(item);
+        bank.appendChild(btn);
+      });
+    }
+
+    function dialogueAddWord(wordObj) {
+      if (wordObj.used) return;
+      playFlipSound();
+      wordObj.used = true;
+      dialoguePlacedWords.push(wordObj);
+      renderDialogueUI();
+    }
+
+    function dialogueRemoveWord(wordObj) {
+      playFlipSound();
+      wordObj.used = false;
+      dialoguePlacedWords = dialoguePlacedWords.filter(w => w.id !== wordObj.id);
+      renderDialogueUI();
+    }
+
+    function dialogueResetWords() {
+      dialoguePlacedWords = [];
+      dialogueAvailableWords.forEach(w => w.used = false);
+      renderDialogueUI();
+    }
+
+    function dialogueCheckAnswer() {
+      const current = activeList[dialogueIndex];
+      const pronoun = (current.character === 'Maria' || current.character === 'Eleni' || current.character === 'Camila' || current.character === 'Elena' || current.character === 'Olga' || current.character === 'Zuzana' || current.character === 'Beatriz' || current.character === 'Emma' || current.character === 'Aroha' || current.character === 'Anna' || current.character === 'Tereza' || current.character === 'Siti') ? 'She' : 'He';
+      const targetStr = `${pronoun} is from ${current.name}`.toLowerCase();
+      const userStr = dialoguePlacedWords.map(w => w.word).join(' ').toLowerCase();
+
+      const fbBox = document.getElementById('dialogue-feedback-box');
+      fbBox.classList.remove('hidden');
+
+      if (userStr === targetStr) {
+        playSuccessSound();
+        dialogueScore++;
+        addXP(10);
+        streakCount++;
+        fbBox.className = "p-3 rounded-xl border-2 border-emerald-400 bg-emerald-50 text-emerald-950 font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `🎉 Correct! <em>"${pronoun} is from ${current.name}."</em>`;
+        document.getElementById('dialogue-next-btn').classList.remove('hidden');
+      } else {
+        playErrorSound();
+        fbBox.className = "p-3 rounded-xl border-2 border-amber-300 bg-amber-50 text-amber-950 font-bold text-xs md:text-sm";
+        fbBox.innerHTML = `Close! The correct sentence is: <strong>${pronoun} is from ${current.name}.</strong>`;
+      }
+      document.getElementById('streak-counter').innerText = streakCount;
+      document.getElementById('dialogue-score-badge').innerText = `Score: ${dialogueScore} / ${dialogueIndex + 1}`;
+    }
+
+    function nextDialogueQuestion() {
+      dialogueIndex++;
+      if (dialogueIndex < activeList.length) {
+        renderDialogueQuestion();
+      } else {
+        showFinalResults(dialogueScore, activeList.length);
+      }
+    }
+
+    // ========================================================
+    // 10. MODE 6: STUDY HALL & FLASHCARDS
+    // ========================================================
+    function renderStudyHall() {
+      const container = document.getElementById('study-hall-grid');
+      container.innerHTML = '';
+
+      const list = getActiveDataset();
+      list.forEach((country) => {
+        const card = document.createElement('div');
+        card.className = "ghibli-card p-3.5 space-y-2.5 transition hover:shadow-md";
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${country.flag}" alt="${country.name}" class="w-14 h-9 object-cover rounded-md shadow-xs border border-stone-200">
+            <div class="min-w-0 flex-1">
+              <h4 class="font-bold text-sm text-stone-900 truncate">${country.name}</h4>
+              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">${country.nationality}</span>
+            </div>
+          </div>
+          
+          <div class="text-[11px] text-stone-600 space-y-1">
+            <div><strong class="text-stone-800">Capital:</strong> ${country.capital}</div>
+            <div class="italic text-stone-500 leading-tight">"${country.sentence}"</div>
+          </div>
+
+          <div class="flex items-center gap-2 pt-1">
+            <button onclick='playCountryAudio(${JSON.stringify(country)})' class="btn-ghibli flex-1 py-1 bg-blue-100 hover:bg-blue-200 text-blue-900 text-xs font-bold rounded-lg flex items-center justify-center gap-1">
+              <i class="fa-solid fa-volume-high text-blue-700"></i> Name
+            </button>
+            <button onclick="speakUtterance('${country.sentence.replace(/'/g, "\\'")}')" class="btn-ghibli px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold rounded-lg flex items-center justify-center gap-1">
+              <i class="fa-solid fa-comment-dots text-amber-700"></i> Sentence
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterStudyCards() {
+      const q = document.getElementById('study-search-input').value.toLowerCase().trim();
+      const cards = document.getElementById('study-hall-grid').children;
+      Array.from(cards).forEach(c => {
+        const text = c.innerText.toLowerCase();
+        c.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    // ========================================================
+    // 11. RESULTS MODAL & THEMES
+    // ========================================================
+    function showFinalResults(score, total) {
+      triggerConfetti();
+      playSuccessSound();
+
+      const modal = document.getElementById('results-modal');
+      const scoreDisp = document.getElementById('results-score-display');
+      const starsDisp = document.getElementById('results-stars-display');
+      const xpDisp = document.getElementById('results-xp-earned');
+
+      const pct = Math.round((score / total) * 100);
+      scoreDisp.innerText = `${score} / ${total} (${pct}%)`;
+
+      let stars = "⭐⭐⭐⭐⭐";
+      if (pct < 60) stars = "⭐⭐⭐";
+      else if (pct < 85) stars = "⭐⭐⭐⭐";
+      starsDisp.innerText = stars;
+
+      const earnedXP = score * 10;
+      xpDisp.innerText = `+${earnedXP} XP Earned for Abdi!`;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeResultsModal() {
+      document.getElementById('results-modal').classList.add('hidden');
+    }
+
+    // Theme Engine (Day, Sunset, Night)
+    const themes = ['theme-day', 'theme-sunset', 'theme-night'];
+    let currentThemeIdx = 0;
+
+    function cycleTheme() {
+      document.documentElement.classList.remove(themes[currentThemeIdx]);
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      document.documentElement.classList.add(themes[currentThemeIdx]);
+
+      const icons = ['☀️', '🌅', '🌙'];
+      document.getElementById('tod-icon').innerText = icons[currentThemeIdx];
+      localStorage.setItem('abdi_game_theme', themes[currentThemeIdx]);
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Restore theme
+      const savedTheme = localStorage.getItem('abdi_game_theme');
+      if (savedTheme && themes.includes(savedTheme)) {
+        document.documentElement.classList.remove('theme-day');
+        document.documentElement.classList.add(savedTheme);
+        currentThemeIdx = themes.indexOf(savedTheme);
+        const icons = ['☀️', '🌅', '🌙'];
+        document.getElementById('tod-icon').innerText = icons[currentThemeIdx];
+      }
+
+      // Restore XP
+      document.getElementById('global-xp').innerText = `${globalXP} XP`;
+
+      // Start with Exercise 2.1 (p.15) pack
+      selectPack('ex2_1');
+    });
+  </script>
+
+</body>
+</html>

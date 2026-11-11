@@ -1,0 +1,230 @@
+{
+  "p38": [
+    {
+      "num": "Example",
+      "correct": "go to work",
+      "audio": "audio/12/12_1_eg.mp3",
+      "img": "images/routines/go_to_work.png",
+      "is_example": true,
+      "rec_id": "p38_ex1_i1"
+    },
+    {
+      "num": "1.",
+      "correct": "buy groceries",
+      "audio": "audio/12/12_1_1.mp3",
+      "img": "images/routines/buy_groceries.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i2"
+    },
+    {
+      "num": "2.",
+      "correct": "take a bath",
+      "audio": "audio/12/12_1_2.mp3",
+      "img": "images/routines/take_a_bath.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i3"
+    },
+    {
+      "num": "3.",
+      "correct": "eat lunch",
+      "audio": "audio/12/12_1_3.mp3",
+      "img": "images/routines/eat_lunch.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i4"
+    },
+    {
+      "num": "4.",
+      "correct": "wake up",
+      "audio": "audio/12/12_1_4.mp3",
+      "img": "images/routines/wake_up.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i5"
+    },
+    {
+      "num": "5.",
+      "correct": "cook dinner",
+      "audio": "audio/12/12_1_5.mp3",
+      "img": "images/routines/cook_dinner.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i6"
+    },
+    {
+      "num": "6.",
+      "correct": "brush hair",
+      "audio": "audio/12/12_1_6.mp3",
+      "img": "images/routines/brush_hair.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i7"
+    },
+    {
+      "num": "7.",
+      "correct": "start work",
+      "audio": "audio/12/12_1_7.mp3",
+      "img": "images/routines/start_work.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i8"
+    },
+    {
+      "num": "8.",
+      "correct": "eat dinner",
+      "audio": "audio/12/12_1_8.mp3",
+      "img": "images/routines/eat_dinner.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i9"
+    },
+    {
+      "num": "9.",
+      "correct": "go to school",
+      "audio": "audio/12/12_1_9.mp3",
+      "img": "images/routines/go_to_school.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i10"
+    },
+    {
+      "num": "10.",
+      "correct": "get dressed",
+      "audio": "audio/12/12_1_10.mp3",
+      "img": "images/routines/get_dressed.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i11"
+    },
+    {
+      "num": "11.",
+      "correct": "go to bed",
+      "audio": "audio/12/12_1_11.mp3",
+      "img": "images/routines/go_to_bed.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i12"
+    },
+    {
+      "num": "12.",
+      "correct": "morning",
+      "audio": "audio/12/12_1_12.mp3",
+      "img": "images/routines/morning.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i13"
+    },
+    {
+      "num": "13.",
+      "correct": "afternoon",
+      "audio": "audio/12/12_1_13.mp3",
+      "img": "images/routines/afternoon.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i14"
+    },
+    {
+      "num": "14.",
+      "correct": "evening",
+      "audio": "audio/12/12_1_14.mp3",
+      "img": "images/routines/evening.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i15"
+    },
+    {
+      "num": "15.",
+      "correct": "night",
+      "audio": "audio/12/12_1_15.mp3",
+      "img": "images/routines/night.png",
+      "is_example": false,
+      "rec_id": "p38_ex1_i16"
+    }
+  ],
+  "p39": [
+    {
+      "num": "16.",
+      "correct": "clear the table",
+      "audio": "audio/12/12_1_16.mp3",
+      "img": "images/routines/clear_the_table.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i1"
+    },
+    {
+      "num": "17.",
+      "correct": "leave work",
+      "audio": "audio/12/12_1_17.mp3",
+      "img": "images/routines/leave_work.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i2"
+    },
+    {
+      "num": "18.",
+      "correct": "wash your face",
+      "audio": "audio/12/12_1_18.mp3",
+      "img": "images/routines/wash_your_face.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i3"
+    },
+    {
+      "num": "19.",
+      "correct": "finish work",
+      "audio": "audio/12/12_1_19.mp3",
+      "img": "images/routines/finish_work.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i4"
+    },
+    {
+      "num": "20.",
+      "correct": "brush your teeth",
+      "audio": "audio/12/12_1_20.mp3",
+      "img": "images/routines/brush_your_teeth.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i5"
+    },
+    {
+      "num": "21.",
+      "correct": "go home",
+      "audio": "audio/12/12_1_21.mp3",
+      "img": "images/routines/go_home.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i6"
+    },
+    {
+      "num": "22.",
+      "correct": "take a shower",
+      "audio": "audio/12/12_1_22.mp3",
+      "img": "images/routines/take_a_shower.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i7"
+    },
+    {
+      "num": "23.",
+      "correct": "get up",
+      "audio": "audio/12/12_1_23.mp3",
+      "img": "images/routines/get_up.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i8"
+    },
+    {
+      "num": "24.",
+      "correct": "iron a shirt",
+      "audio": "audio/12/12_1_24.mp3",
+      "img": "images/routines/iron_a_shirt.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i9"
+    },
+    {
+      "num": "25.",
+      "correct": "do the dishes",
+      "audio": "audio/12/12_1_25.mp3",
+      "img": "images/routines/do_the_dishes.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i10"
+    },
+    {
+      "num": "26.",
+      "correct": "have breakfast",
+      "audio": "audio/12/12_1_26.mp3",
+      "img": "images/routines/have_breakfast.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i11"
+    },
+    {
+      "num": "27.",
+      "correct": "walk the dog",
+      "audio": "audio/12/12_1_27.mp3",
+      "img": "images/routines/walk_the_dog.png",
+      "is_example": false,
+      "rec_id": "p39_ex1_i12"
+    }
+  ]
+}

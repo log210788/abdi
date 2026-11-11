@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#docGrad)"/>
+  <circle cx="60" cy="60" r="48" fill="#ffffff" opacity="0.12"/>
+  <!-- Stethoscope / Medical Cross -->
+  <rect x="52" y="30" width="16" height="42" rx="4" fill="#ffffff"/>
+  <rect x="39" y="43" width="42" height="16" rx="4" fill="#ffffff"/>
+  <!-- Stethoscope curve -->
+  <path d="M40 70 C40 90, 80 90, 80 70" fill="none" stroke="#fef08a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="60" cy="85" r="7" fill="#fef08a"/>
+  <!-- Heartbeat pulse -->
+  <path d="M44 51 L53 51 L57 45 L63 57 L67 51 L76 51" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

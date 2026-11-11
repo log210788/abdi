@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <rect width="1200" height="200" fill="#078930"/>
+  <rect y="200" width="1200" height="200" fill="#FCDD09"/>
+  <rect y="400" width="1200" height="200" fill="#DA121A"/>
+  <circle cx="600" cy="300" r="160" fill="#0F47AF"/>
+  <g fill="#FCDD09" stroke="#FCDD09">
+    <!-- Center 5-pointed star -->
+    <polygon points="600,165 633,266 738,266 653,328 685,429 600,367 515,429 547,328 462,266 567,266"/>
+    <!-- Yellow rays emanating between arms -->
+    <line x1="600" y1="300" x2="600" y2="175" stroke-width="8"/>
+    <line x1="600" y1="300" x2="719" y2="213" stroke-width="8"/>
+    <line x1="600" y1="300" x2="674" y2="352" stroke-width="8"/>
+    <line x1="600" y1="300" x2="526" y2="352" stroke-width="8"/>
+    <line x1="600" y1="300" x2="481" y2="213" stroke-width="8"/>
+  </g>
+</svg>

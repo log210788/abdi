@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="classBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="50%" stop-color="#faf5ff"/>
+      <stop offset="100%" stop-color="#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="boardFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="50%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="boardSlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="boardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#581c87" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#classBg)"/>
+  <circle cx="250" cy="240" r="185" fill="#ffffff" opacity="0.6"/>
+
+  <!-- Chalkboard Group -->
+  <g filter="url(#boardShadow)" transform="translate(60, 110)">
+    <!-- Wooden Frame -->
+    <rect x="0" y="0" width="380" height="230" rx="16" fill="url(#boardFrame)" stroke="#78350f" stroke-width="4"/>
+    <!-- Dark Chalkboard Slate -->
+    <rect x="16" y="16" width="348" height="198" rx="8" fill="url(#boardSlate)"/>
+
+    <!-- Chalk Tray -->
+    <rect x="25" y="214" width="330" height="12" rx="4" fill="#92400e"/>
+    <!-- Pieces of Chalk -->
+    <rect x="80" y="210" width="22" height="6" rx="2" fill="#ffffff"/>
+    <rect x="110" y="210" width="20" height="6" rx="2" fill="#fde047"/>
+    <rect x="135" y="210" width="24" height="6" rx="2" fill="#67e8f9"/>
+    <!-- Wooden Eraser -->
+    <rect x="260" y="206" width="45" height="12" rx="3" fill="#ca8a04"/>
+    <rect x="260" y="214" width="45" height="4" rx="1" fill="#713f12"/>
+
+    <!-- Chalk Writing on Blackboard -->
+    <text x="190" y="65" font-family="'Plus Jakarta Sans', cursive, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#fde047" letter-spacing="1">ENGLISH CLASS</text>
+    <line x1="100" y1="75" x2="280" y2="75" stroke="#fde047" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+    <text x="190" y="115" font-family="'Plus Jakarta Sans', monospace, sans-serif" font-size="28" font-weight="800" text-anchor="middle" fill="#ffffff">9:00 AM</text>
+    <text x="190" y="150" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#67e8f9">Lesson 3: Daily Routines</text>
+    
+    <!-- Stars & chalk accents -->
+    <text x="60" y="105" font-size="18" fill="#fde047">✨</text>
+    <text x="315" y="105" font-size="18" fill="#fde047">✨</text>
+  </g>
+
+  <!-- Golden School Hand Bell -->
+  <g transform="translate(110, 335)">
+    <!-- Wooden Handle -->
+    <rect x="16" y="0" width="10" height="30" rx="4" fill="#78350f"/>
+    <!-- Brass Bell Dome -->
+    <path d="M6 30 C 6 22, 36 22, 36 30 L 42 55 L 0 55 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+    <ellipse cx="21" cy="55" rx="21" ry="5" fill="#d97706"/>
+    <circle cx="21" cy="60" r="4" fill="#78350f"/>
+  </g>
+
+  <!-- Open Notebook on Student Desk -->
+  <g transform="translate(280, 330)">
+    <!-- Desk Wood -->
+    <rect x="-40" y="30" width="160" height="24" rx="8" fill="#d97706"/>
+    <!-- Notebook Left & Right Pages -->
+    <rect x="-20" y="0" width="55" height="42" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="35" y="0" width="55" height="42" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <!-- Spiral Ring -->
+    <line x1="35" y1="2" x2="35" y2="40" stroke="#94a3b8" stroke-width="4" stroke-dasharray="4 3"/>
+    <!-- Pen -->
+    <rect x="100" y="5" width="6" height="35" rx="3" fill="#2563eb" transform="rotate(20 100 5)"/>
+  </g>
+
+  <!-- Label -->
+  <text x="250" y="465" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" text-anchor="middle" fill="#6b21a8" letter-spacing="1">START CLASS / WORK 🏫</text>
+</svg>
