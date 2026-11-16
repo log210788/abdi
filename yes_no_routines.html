@@ -20,19 +20,13 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <!-- Studio Ghibli Theme Tokens -->
-  <link rel="stylesheet" href="ghibli_theme.css">
-
   <style>
     :root {
       --ghibli-bg-green: #2c4a38;
       --ghibli-parchment: #fdfaf2;
       --ghibli-card-bg: rgba(255, 253, 246, 0.96);
       --ghibli-card-border: rgba(226, 215, 195, 0.85);
-      --ghibli-accent-gold: #d97724;
-      --ghibli-accent-green: #3b744d;
       --ghibli-text-main: #2b261f;
-      --ghibli-text-muted: #6e6454;
       --ghibli-bg-url: url('images/ghibli/bg.webp');
     }
 
@@ -46,11 +40,11 @@
       --ghibli-card-bg: rgba(27, 38, 54, 0.95);
       --ghibli-card-border: rgba(67, 85, 112, 0.75);
       --ghibli-text-main: #f8fafc;
-      --ghibli-text-muted: #cbd5e1;
       --ghibli-parchment: #0f172a;
     }
 
     body {
+      background-color: #dce8dc;
       background-image: var(--ghibli-bg-url);
       background-size: cover;
       background-position: center top;
@@ -60,7 +54,7 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       transition: background-image 0.5s ease;
       -webkit-tap-highlight-color: transparent;
-      padding-bottom: 84px;
+      overflow-x: hidden;
     }
 
     .font-ghibli { font-family: 'Playfair Display', serif; }
@@ -72,21 +66,32 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1.5px solid var(--ghibli-card-border);
-      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.14), 0 4px 6px -2px rgba(0, 0, 0, 0.06);
       border-radius: 1.25rem;
+    }
+
+    .theme-night .ghibli-card h2,
+    .theme-night .ghibli-card h3,
+    .theme-night .ghibli-card p.text-stone-900,
+    .theme-night .ghibli-card p.text-stone-700 {
+      color: #f8fafc;
+    }
+    .theme-night .ghibli-card p.text-stone-600 {
+      color: #cbd5e1;
     }
 
     .btn-bounce {
       transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
       touch-action: manipulation;
     }
-    .btn-bounce:hover { transform: translateY(-2px); }
-    .btn-bounce:active { transform: scale(0.96); }
+    .btn-bounce:hover { transform: translateY(-1px); }
+    .btn-bounce:active { transform: scale(0.97); }
 
-    .nav-tab-active {
+    .l5-tab-active {
       background: #15803d !important;
       color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);
+      border-color: #166534 !important;
+      box-shadow: 0 3px 10px rgba(21, 128, 61, 0.3);
     }
 
     .word-chip {
@@ -102,73 +107,78 @@
 <body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
 
   <!-- TOP HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 shadow-xs">
-    <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
-
-      <!-- Brand & Title -->
-      <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-emerald-700 text-emerald-50 flex items-center justify-center shadow-xs shrink-0">
-          <i class="fa-solid fa-comments text-lg"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
-            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 5</span>
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 shadow-sm">
+    <div class="max-w-3xl mx-auto space-y-2">
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <!-- Brand & Title -->
+        <div class="flex items-center gap-2.5">
+          <a href="index.html" class="w-10 h-10 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white flex items-center justify-center shadow-sm shrink-0 transition" title="Home Hub">
+            <i class="fa-solid fa-comments text-base"></i>
+          </a>
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 5 🇪🇹</span>
+            </div>
+            <p class="text-[11px] text-stone-600 font-semibold leading-tight mt-0.5">Yes &amp; No: I do / I don't • He/She doesn't</p>
           </div>
-          <p class="text-[11px] text-stone-500 font-semibold leading-none mt-0.5">Yes & No: I do / I don't • He/She doesn't</p>
+        </div>
+
+        <!-- Primary Controls (Always Readable on Mobile & Desktop) -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Switch voice speed">
+            <span id="speed-icon">🐢</span>
+            <span id="speed-label">Slow</span>
+          </button>
+
+          <button onclick="openPreplyModalL5()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-sm flex items-center gap-1.5 border border-rose-500" title="Send Lesson 5 to Teacher on Preply">
+            <i class="fa-solid fa-paper-plane text-[11px]"></i>
+            <span>Preply</span>
+          </button>
+
+          <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-stone-800 text-xs font-bold hover:bg-stone-200 flex items-center justify-center" title="Toggle Day/Sunset/Night">
+            <span id="tod-icon">☀️</span>
+          </button>
+
+          <div class="px-2.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1">
+            <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+            <span id="global-xp">0 XP</span>
+          </div>
         </div>
       </div>
 
-      <!-- Controls -->
-      <div class="flex items-center gap-1.5 flex-wrap justify-end">
-        <button id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Switch voice speed">
-          <span id="speed-icon">🐢</span>
-          <span id="speed-label" class="hidden sm:inline">Slow</span>
-        </button>
-
-        <button onclick="openPreplyModalL5()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 text-white text-xs font-black shadow-sm flex items-center gap-1.5 border border-red-500" title="Send Lesson 5 to Teacher on Preply">
-          <i class="fa-solid fa-paper-plane text-[11px]"></i>
-          <span class="hidden sm:inline">Preply</span>
-        </button>
-
-        <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 text-xs font-bold hover:bg-stone-200 flex items-center gap-1" title="Toggle Day/Sunset/Night">
-          <span id="tod-icon">☀️</span>
-        </button>
-
-        <div class="px-2.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1 shadow-xs">
-          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
-          <span id="global-xp">0 XP</span>
-        </div>
-
-        <a href="index.html" class="px-2 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-700 text-xs font-bold hidden sm:flex items-center gap-1" title="Lesson 1 (Home Hub)">L1</a>
-        <a href="jobs_flashcards.html" class="px-2 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Lesson 2 (Jobs)">L2</a>
-        <a href="daily_routines.html" class="px-2 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Lesson 3 (Time)">L3</a>
-        <a href="weekly_routines.html" class="px-2 py-1.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Lesson 4 (Days & He/She)">L4</a>
-        <a href="verb_practice.html" class="px-2 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Verbs">Verbs</a>
+      <!-- Compact Lesson Switcher Strip -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[11px] font-bold">
+        <a href="index.html" class="shrink-0 px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800">🏠 Home / L1</a>
+        <a href="jobs_flashcards.html" class="shrink-0 px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-900">L2 Jobs</a>
+        <a href="daily_routines.html" class="shrink-0 px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900">L3 Time</a>
+        <a href="weekly_routines.html" class="shrink-0 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 border border-indigo-300 text-indigo-900">L4 Week</a>
+        <span class="shrink-0 px-2.5 py-1 rounded-lg bg-emerald-700 text-white">L5 Yes/No</span>
+        <a href="verb_practice.html" class="shrink-0 px-2.5 py-1 rounded-lg bg-teal-50 hover:bg-teal-100 border border-teal-300 text-teal-900">Verbs</a>
       </div>
     </div>
   </header>
 
-  <!-- SUB-NAVIGATION: 5 EASY MODES -->
-  <nav class="sticky top-[57px] z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-1.5 shadow-2xs">
-    <div class="max-w-3xl mx-auto flex items-center justify-between gap-1 overflow-x-auto py-0.5">
-      <button onclick="switchView('yesno')" id="tab-btn-yesno" class="nav-btn flex-1 min-w-[82px] py-2 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition nav-tab-active">
+  <!-- SUB-NAVIGATION: 5 EASY MODES (ALL VISIBLE ON MOBILE GRID) -->
+  <nav class="bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-2 shadow-xs">
+    <div class="max-w-3xl mx-auto grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+      <button type="button" onclick="switchView('yesno')" id="tab-btn-yesno" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white flex items-center justify-center gap-1 transition l5-tab-active">
         <i class="fa-solid fa-check-double"></i>
-        <span>1. I / I don't</span>
+        <span>1. Yes/No</span>
       </button>
-      <button onclick="switchView('questions')" id="tab-btn-questions" class="nav-btn flex-1 min-w-[85px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-circle-question"></i>
         <span>2. Do you?</span>
       </button>
-      <button onclick="switchView('heshe')" id="tab-btn-heshe" class="nav-btn flex-1 min-w-[85px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+      <button type="button" onclick="switchView('heshe')" id="tab-btn-heshe" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-user-group"></i>
-        <span>3. He / She</span>
+        <span>3. He/She</span>
       </button>
-      <button onclick="switchView('builder')" id="tab-btn-builder" class="nav-btn flex-1 min-w-[80px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-puzzle-piece"></i>
         <span>4. Build</span>
       </button>
-      <button onclick="switchView('quiz')" id="tab-btn-quiz" class="nav-btn flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l5-tab-btn col-span-2 sm:col-span-1 py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-trophy"></i>
         <span>5. Quiz</span>
       </button>
@@ -176,7 +186,7 @@
   </nav>
 
   <!-- MAIN WRAPPER -->
-  <main class="flex-1 max-w-3xl w-full mx-auto p-3 sm:p-4 space-y-4">
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3 sm:p-4 pb-24 space-y-4">
 
     <!-- ========================================================
          VIEW 1: SAY YES & NO (I ... vs I DON'T ...) + WARMUP FIXES
@@ -193,9 +203,7 @@
           <span class="text-xs font-semibold text-stone-500">Tap to listen 🔊</span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="warmup-fixes-grid">
-          <!-- Populated by JS -->
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="warmup-fixes-grid"></div>
       </div>
 
       <!-- Main I vs I don't Picture Cards -->
@@ -212,9 +220,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="yesno-cards-grid">
-          <!-- Populated by JS -->
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="yesno-cards-grid"></div>
       </div>
     </section>
 
@@ -231,9 +237,7 @@
           </p>
         </div>
 
-        <div class="space-y-3" id="questions-container">
-          <!-- Populated by JS -->
-        </div>
+        <div class="space-y-3" id="questions-container"></div>
       </div>
     </section>
 
@@ -250,9 +254,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-3.5" id="heshe-cards-container">
-          <!-- Populated by JS -->
-        </div>
+        <div class="grid grid-cols-1 gap-3.5" id="heshe-cards-container"></div>
       </div>
     </section>
 
@@ -263,16 +265,16 @@
       <div class="ghibli-card p-4 sm:p-6 space-y-4 text-center">
         <div class="flex items-center justify-between">
           <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300">Easy Sentence Builder</span>
-          <span id="builder-progress" class="text-xs font-extrabold text-stone-600 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">1 / 5</span>
+          <span id="builder-progress" class="text-xs font-extrabold text-stone-700 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">1 / 5</span>
         </div>
 
         <!-- Visual Clue -->
         <div class="flex flex-col items-center space-y-2 py-1">
           <div class="w-36 h-36 rounded-2xl bg-white border border-stone-200 shadow-xs p-2 flex items-center justify-center">
-            <img id="builder-img" src="images/routines/no_tv.svg" alt="Routine clue" class="w-full h-full object-contain">
+            <img id="builder-img" src="images/routines/no_tv.svg" alt="Routine clue" width="128" height="128" class="w-32 h-32 object-contain">
           </div>
           <p id="builder-meaning" class="text-sm font-bold text-stone-700"></p>
-          <button onclick="speakBuilderTarget()" class="btn-bounce px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
+          <button type="button" onclick="speakBuilderTarget()" class="btn-bounce px-3.5 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
             <i class="fa-solid fa-volume-high"></i>
             <span>Hear Hint</span>
           </button>
@@ -284,17 +286,15 @@
         </div>
 
         <!-- Word Chips Pool -->
-        <div id="builder-chips-pool" class="flex flex-wrap items-center justify-center gap-2 pt-1">
-          <!-- Populated by JS -->
-        </div>
+        <div id="builder-chips-pool" class="flex flex-wrap items-center justify-center gap-2 pt-1"></div>
 
         <div id="builder-feedback" class="hidden p-3 rounded-xl text-xs font-bold"></div>
 
         <div class="flex items-center justify-center gap-2 pt-2">
-          <button onclick="resetBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-700 text-xs font-bold">
+          <button type="button" onclick="resetBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-700 text-xs font-bold">
             <i class="fa-solid fa-rotate-left"></i> Clear
           </button>
-          <button onclick="nextBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs">
+          <button type="button" onclick="nextBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs">
             Next Sentence <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -314,16 +314,14 @@
           <span id="quiz-score-badge" class="px-3 py-1 rounded-xl bg-stone-100 border border-stone-200 text-xs font-extrabold text-stone-700">Score: 0 / 6</span>
         </div>
 
-        <div id="quiz-container" class="space-y-3.5">
-          <!-- Populated by JS -->
-        </div>
+        <div id="quiz-container" class="space-y-3.5"></div>
 
         <div class="pt-2 flex flex-wrap items-center justify-between gap-2">
-          <button onclick="openPreplyModalL5()" class="btn-bounce px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+          <button type="button" onclick="openPreplyModalL5()" class="btn-bounce px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Send to Teacher</span>
           </button>
-          <button onclick="gradeQuiz()" class="btn-bounce px-5 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
+          <button type="button" onclick="gradeQuiz()" class="btn-bounce px-5 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-check-double"></i>
             <span>Check My Answers</span>
           </button>
@@ -333,12 +331,12 @@
 
   </main>
 
-  <!-- KODAMA MASCOT FLOATER -->
-  <div class="fixed bottom-4 right-4 z-40 flex items-end gap-2">
-    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[230px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl">
-      🇪🇹 በርታ አብዲ! (Berta Abdi!) Say it slowly: <strong>"I don't watch TV. I watch my phone."</strong> You've got this! 🌟
+  <!-- KODAMA MASCOT FLOATER (COMPACT, DOES NOT BLOCK CONTENT) -->
+  <div class="fixed bottom-3 right-3 z-40 flex items-end gap-2">
+    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[220px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl">
+      🇪🇹 በርታ አብዲ! Say it slowly: <strong>"I don't watch TV. I watch my phone."</strong> 🌟
     </div>
-    <button onclick="toggleKodamaBubble()" class="w-12 h-12 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition" title="Mascot Helper">
+    <button type="button" onclick="toggleKodamaBubble()" class="w-11 h-11 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-lg hover:scale-105 active:scale-95 transition" title="Mascot Helper">
       🌱
     </button>
   </div>
@@ -356,7 +354,7 @@
             <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹)</p>
           </div>
         </div>
-        <button onclick="closePreplyModalL5()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">✕</button>
+        <button type="button" onclick="closePreplyModalL5()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">✕</button>
       </div>
 
       <div class="space-y-1.5">
@@ -369,11 +367,11 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-        <button onclick="shareViaMobileL5()" class="btn-bounce w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+        <button type="button" onclick="shareViaMobileL5()" class="btn-bounce w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
           <i class="fa-solid fa-share-nodes text-sm"></i>
           <span>Share on Phone</span>
         </button>
-        <button onclick="copyPreplyTextL5()" id="btn-copy-preply-l5" class="btn-bounce w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+        <button type="button" onclick="copyPreplyTextL5()" id="btn-copy-preply-l5" class="btn-bounce w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
           <i class="fa-solid fa-copy text-sm"></i>
           <span>Copy for Preply Chat</span>
         </button>
@@ -389,7 +387,7 @@
   <script>
     /* ================= GLOBAL STATE & AUDIO ================= */
     let currentXP = parseInt(localStorage.getItem('abdi_xp') || '0', 10);
-    let isSlowSpeech = true; // Default to SLOW for very low level!
+    let isSlowSpeech = true;
 
     function updateXPDisplay() {
       document.getElementById('global-xp').textContent = `${currentXP} XP`;
@@ -439,13 +437,13 @@
     function switchView(viewName) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
       document.getElementById(`view-${viewName}`).classList.remove('hidden');
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('nav-tab-active');
-        btn.classList.add('text-stone-600');
+      document.querySelectorAll('.l5-tab-btn').forEach(btn => {
+        btn.classList.remove('l5-tab-active');
+        btn.classList.add('text-stone-700', 'bg-white');
       });
       const activeBtn = document.getElementById(`tab-btn-${viewName}`);
-      activeBtn.classList.add('nav-tab-active');
-      activeBtn.classList.remove('text-stone-600');
+      activeBtn.classList.add('l5-tab-active');
+      activeBtn.classList.remove('text-stone-700', 'bg-white');
     }
 
     /* ================= 1. WARM-UP FIXES & I / I DON'T CARDS ================= */
@@ -483,9 +481,11 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.onclick = () => { speak(item.right); addXP(5); };
-        btn.className = 'btn-bounce text-left p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-2xs flex items-center gap-3';
+        btn.className = 'btn-bounce text-left p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-xs flex items-center gap-3 w-full';
         btn.innerHTML = `
-          <img src="${item.img}" alt="" class="w-14 h-14 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+          <div class="w-14 h-14 rounded-xl bg-stone-50 border border-stone-100 p-1 shrink-0 flex items-center justify-center">
+            <img src="${item.img}" alt="" width="48" height="48" class="w-12 h-12 object-contain">
+          </div>
           <div class="min-w-0 flex-1 space-y-0.5">
             <p class="text-[11px] text-rose-600 line-through font-semibold">❌ ${item.wrong}</p>
             <p class="text-sm font-extrabold text-emerald-900 leading-snug">✅ ${item.right}</p>
@@ -552,19 +552,21 @@
         card.className = 'p-3.5 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-3 flex flex-col';
         card.innerHTML = `
           <div class="flex items-center gap-3">
-            <img src="${c.img}" alt="${c.title}" class="w-20 h-20 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
-            <div>
+            <div class="w-20 h-20 rounded-xl bg-stone-50 border border-stone-100 p-1 shrink-0 flex items-center justify-center">
+              <img src="${c.img}" alt="${c.title}" width="72" height="72" class="w-[72px] h-[72px] object-contain">
+            </div>
+            <div class="min-w-0 flex-1">
               <h3 class="font-display font-extrabold text-base text-stone-900">${c.title}</h3>
               <p class="text-[11px] text-stone-500 font-ethiopic mt-0.5">${c.clue}</p>
               <p id="yn-out-${i}" class="text-xs font-extrabold text-emerald-800 mt-1.5 min-h-[18px]">Tap YES or NO 👇</p>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2 mt-auto">
-            <button type="button" onclick="playYesNo(${i}, 'yes')" class="btn-bounce py-2.5 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs flex items-center justify-center gap-1">
-              <span>🟢</span><span>I ...</span>
+            <button type="button" onclick="playYesNo(${i}, 'yes')" class="btn-bounce py-2.5 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs whitespace-nowrap flex items-center justify-center gap-1">
+              <span>🟢</span><span>I do</span>
             </button>
-            <button type="button" onclick="playYesNo(${i}, 'no')" class="btn-bounce py-2.5 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs flex items-center justify-center gap-1">
-              <span>🔴</span><span>I don't ...</span>
+            <button type="button" onclick="playYesNo(${i}, 'no')" class="btn-bounce py-2.5 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs whitespace-nowrap flex items-center justify-center gap-1">
+              <span>🔴</span><span>I don't</span>
             </button>
           </div>
         `;
@@ -638,7 +640,9 @@
         card.className = 'p-4 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-3';
         card.innerHTML = `
           <div class="flex items-center gap-3">
-            <img src="${item.img}" alt="" class="w-16 h-16 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+            <div class="w-16 h-16 rounded-xl bg-stone-50 border border-stone-100 p-1 shrink-0 flex items-center justify-center">
+              <img src="${item.img}" alt="" width="56" height="56" class="w-14 h-14 object-contain">
+            </div>
             <div class="flex-1 min-w-0">
               <p class="font-display font-extrabold text-base sm:text-lg text-stone-900">${item.q}</p>
               <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
@@ -648,10 +652,10 @@
             </button>
           </div>
           <div class="grid grid-cols-2 gap-2.5">
-            <button type="button" onclick="answerDoYou(${idx}, 'yes')" class="btn-bounce py-3 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs sm:text-sm">
+            <button type="button" onclick="answerDoYou(${idx}, 'yes')" class="btn-bounce py-3 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs sm:text-sm whitespace-nowrap">
               ✅ Yes, I do.
             </button>
-            <button type="button" onclick="answerDoYou(${idx}, 'no')" class="btn-bounce py-3 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs sm:text-sm">
+            <button type="button" onclick="answerDoYou(${idx}, 'no')" class="btn-bounce py-3 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs sm:text-sm whitespace-nowrap">
               ❌ No, I don't.
             </button>
           </div>
@@ -735,16 +739,18 @@
         const card = document.createElement('div');
         card.className = 'p-4 rounded-2xl bg-white border border-stone-200 shadow-xs flex flex-col sm:flex-row items-center gap-4';
         card.innerHTML = `
-          <img src="${item.img}" alt="" class="w-20 h-20 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+          <div class="w-20 h-20 rounded-xl bg-stone-50 border border-stone-100 p-1 shrink-0 flex items-center justify-center">
+            <img src="${item.img}" alt="" width="72" height="72" class="w-[72px] h-[72px] object-contain">
+          </div>
           <div class="flex-1 text-center sm:text-left space-y-1.5">
             <p id="hs-text-${i}" class="font-display font-extrabold text-lg text-stone-900">${item.yesHtml}</p>
             <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <button type="button" onclick="toggleHeShe(${i}, 'yes')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs">
+            <button type="button" onclick="toggleHeShe(${i}, 'yes')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs whitespace-nowrap">
               🟢 YES (-s)
             </button>
-            <button type="button" onclick="toggleHeShe(${i}, 'no')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-xs">
+            <button type="button" onclick="toggleHeShe(${i}, 'no')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-xs whitespace-nowrap">
               🔴 NO (doesn't)
             </button>
           </div>
@@ -803,7 +809,6 @@
       const item = BUILDER_CHALLENGES[builderIndex];
       builtWords = [];
       shuffledWords = [...item.words].sort(() => Math.random() - 0.5);
-      // Avoid already-in-order start when possible
       if (shuffledWords.join(' ') === item.words.join(' ') && item.words.length > 2) {
         shuffledWords.reverse();
       }
@@ -837,7 +842,7 @@
         const isUsed = builtWords.some(b => b.poolIdx === pIdx);
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `word-chip px-4 py-2.5 rounded-xl bg-white border-2 border-stone-300 hover:border-emerald-500 text-stone-900 font-display font-bold text-sm shadow-2xs ${isUsed ? 'chip-used' : ''}`;
+        btn.className = `word-chip px-4 py-2.5 rounded-xl bg-white border-2 border-stone-300 hover:border-emerald-500 text-stone-900 font-display font-bold text-sm shadow-xs ${isUsed ? 'chip-used' : ''}`;
         btn.textContent = word;
         btn.onclick = () => selectPoolWord(word, pIdx);
         pool.appendChild(btn);
@@ -977,7 +982,9 @@
         });
         card.innerHTML = `
           <div class="flex items-center gap-3">
-            <img src="${q.img}" alt="" class="w-12 h-12 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+            <div class="w-12 h-12 rounded-xl bg-stone-50 border border-stone-100 p-1 shrink-0 flex items-center justify-center">
+              <img src="${q.img}" alt="" width="40" height="40" class="w-10 h-10 object-contain">
+            </div>
             <p class="font-bold text-xs sm:text-sm text-stone-900 flex-1">${idx + 1}. ${q.q}</p>
             <button type="button" onclick="speak('${q.q.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center shrink-0" title="Listen">
               <i class="fa-solid fa-volume-high text-xs"></i>

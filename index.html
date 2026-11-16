@@ -16,12 +16,14 @@
   </script>
 
   <style>
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { overflow-x: hidden; max-width: 100vw; }
     img { max-width: 100%; height: auto; display: block; }
+    .ghibli-container { max-width: 1120px; width: 100%; overflow-x: hidden; }
     .ghibli-avatar-wrap { width: 76px; height: 76px; position: relative; flex-shrink: 0; }
     .ghibli-avatar-img { width: 76px; height: 76px; max-width: 76px; max-height: 76px; border-radius: 50%; object-fit: cover; }
-    .mascot-avatar-wrap { width: 220px; height: 220px; position: relative; flex-shrink: 0; }
-    .mascot-avatar { width: 220px; height: 220px; max-width: 220px; max-height: 220px; border-radius: 50%; object-fit: cover; }
+    .mascot-avatar-wrap { width: 76px !important; height: 76px !important; position: relative; flex-shrink: 0; }
+    .mascot-avatar { width: 76px !important; height: 76px !important; max-width: 76px !important; max-height: 76px !important; border-radius: 50%; object-fit: cover; }
   </style>
 
   <!-- Google Fonts -->
@@ -43,11 +45,73 @@
     }
     body.theme-night { --ghibli-bg-url: url('images/ghibli/night.webp'); }
     body.theme-sunset { --ghibli-bg-url: url('images/ghibli/sunset.webp'); }
-    .chapter-nav-bar { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; flex-wrap: wrap; background: rgba(255,255,255,0.16); backdrop-filter: blur(8px); border-radius: 40px; margin: 0 auto 16px auto; max-width: 920px; border: 1.5px solid rgba(255,255,255,0.28); }
-    .ch-nav-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: all 0.2s; border: 2px solid transparent; color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.18); }
-    .ch-nav-pill:hover { background: rgba(255,255,255,0.34); color: #fff; transform: translateY(-1px); }
-    .ch-nav-pill.active { background: #2d5a27; color: #fff; border-color: rgba(255,255,255,0.45); }
-    .ch-nav-pill.submit-pill { background: linear-gradient(135deg, #e5a93c, #d48817); color: #fff; border-color: rgba(255,255,255,0.6); box-shadow: 0 3px 10px rgba(212, 136, 23, 0.35); }
+    .chapter-nav-bar { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; flex-wrap: wrap; background: rgba(255,255,255,0.86); backdrop-filter: blur(8px); border-radius: 24px; margin: 0 auto 16px auto; max-width: 960px; border: 1.5px solid rgba(45,90,39,0.2); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .ch-nav-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: all 0.2s; border: 1.5px solid #cbd5e1; color: #1e293b; background: #ffffff; }
+    .ch-nav-pill:hover { background: #ecfdf5; color: #14532d; border-color: #48825c; transform: translateY(-1px); }
+    .ch-nav-pill.active { background: #2d5a27; color: #ffffff; border-color: #2d5a27; }
+    .ch-nav-pill.submit-pill { background: linear-gradient(135deg, #d97706, #b45309); color: #ffffff; border-color: #b45309; box-shadow: 0 3px 10px rgba(180, 83, 9, 0.3); }
+
+    /* Lesson 5 Top Spotlight Card */
+    .l5-spotlight-card {
+      background: linear-gradient(135deg, rgba(255, 253, 247, 0.98), rgba(236, 253, 245, 0.96));
+      border: 2.5px solid #15803d;
+      border-radius: 24px;
+      padding: 20px 24px;
+      margin: 0 auto 18px auto;
+      box-shadow: 0 12px 30px rgba(21, 128, 61, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    body.theme-night .l5-spotlight-card {
+      background: linear-gradient(135deg, rgba(20, 35, 32, 0.97), rgba(15, 23, 42, 0.97));
+      border-color: #4ade80;
+      color: #f8fafc;
+    }
+    body.theme-night .chapter-nav-bar {
+      background: rgba(15, 23, 42, 0.88);
+      border-color: #334155;
+    }
+    body.theme-night .ch-nav-pill {
+      background: #1e293b;
+      color: #f1f5f9;
+      border-color: #475569;
+    }
+    body.theme-night .ghibli-btn-secondary {
+      background: #1e293b !important;
+      color: #f8fafc !important;
+      border-color: #475569 !important;
+    }
+    .l5-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #15803d, #166534);
+      color: #ffffff;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(21, 128, 61, 0.35);
+      transition: transform 0.15s ease;
+    }
+    .l5-cta-btn:hover { transform: translateY(-2px); }
+
+    /* Prevent horizontal overflow & giant floating overlays on mobile */
+    #ghibliMascotWidget .mascot-bubble-wrap { display: none; }
+    #ghibliMascotWidget.bubble-open .mascot-bubble-wrap { display: flex; }
+    @media (max-width: 768px) {
+      .ghibli-container { padding: 10px !important; }
+      .ghibli-mascot-container, .ghibli-floating-check-btn { display: none !important; }
+      .tree-descent-connector, .gen4-row, .gen5-row { margin-left: 0 !important; width: 100% !important; max-width: 100% !important; }
+      .tree-descent-connector * { margin-left: 0 !important; max-width: 100% !important; }
+      .l5-spotlight-card { padding: 16px; }
+      .l5-cta-btn { width: 100%; justify-content: center; }
+    }
 
     /* Student Homework Top Bar */
     .hw-student-bar {
@@ -357,6 +421,22 @@
         <button class="ghibli-btn ghibli-btn-secondary" id="ghibliResetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
       </div>
     </header>
+
+    <!-- TODAY'S LESSON 5 SPOTLIGHT (AT THE VERY TOP) -->
+    <section class="l5-spotlight-card" aria-label="Today's Lesson 5">
+      <div style="flex:1; min-width:240px;">
+        <div style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:99px; background:#dcfce7; color:#14532d; font-size:0.75rem; font-weight:800; border:1px solid #86efac; margin-bottom:8px;">
+          <span>🇪🇹 TODAY'S LESSON • NOV 17</span>
+        </div>
+        <h2 style="font-family:'Outfit',sans-serif; font-weight:800; font-size:1.35rem; margin:0 0 6px 0;">Lesson 5: Yes &amp; No (I do / I don't • He doesn't)</h2>
+        <p style="font-size:0.92rem; opacity:0.88; margin:0;">Tap pictures, listen slowly (🐢), practice <strong>"I don't watch TV, I watch my phone"</strong>, and send your score on Preply!</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+        <a href="yes_no_routines.html" class="l5-cta-btn">
+          <i class="fa-solid fa-play"></i> Open Lesson 5: Yes &amp; No →
+        </a>
+      </div>
+    </section>
 
     <!-- Homework Quick Section Jump Bar -->
     <div class="chapter-nav-bar">
@@ -4567,8 +4647,8 @@
         <div class="mascot-text" id="mascotTextContent">Welcome to your Bite-Size Homework (Exercises 1.1 – 5.4)! When you finish, click "Send on Preply" to send your score to Teacher Lewis! 🌿</div>
       </div>
     </div>
-    <div class="mascot-avatar-wrap kodama-mascot-img-wrap" id="mascotAvatarWrap">
-      <img src="images/ghibli/mascot.webp" alt="Kodama Mascot" class="mascot-avatar kodama-mascot-img" id="mascotAvatarImg" width="220" height="220" loading="eager" decoding="async">
+    <div class="mascot-avatar-wrap kodama-mascot-img-wrap" id="mascotAvatarWrap" onclick="document.getElementById('ghibliMascotWidget').classList.toggle('bubble-open')" title="Tap Kodama Guide">
+      <img src="images/ghibli/mascot.webp" alt="Kodama Mascot" class="mascot-avatar kodama-mascot-img" id="mascotAvatarImg" width="76" height="76" loading="eager" decoding="async">
     </div>
   </div>
 
