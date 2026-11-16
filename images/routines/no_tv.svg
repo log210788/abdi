@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ntvBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="50%" stop-color="#fee2e2"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <filter id="ntvShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#7f1d1d" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" rx="40" fill="url(#ntvBg)"/>
+  <circle cx="250" cy="230" r="175" fill="#ffffff" opacity="0.7"/>
+
+  <!-- TV Stand & Body -->
+  <g filter="url(#ntvShadow)" transform="translate(85, 115)">
+    <!-- Antennas -->
+    <line x1="130" y1="20" x2="95" y2="-30" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+    <line x1="200" y1="20" x2="235" y2="-30" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="95" cy="-30" r="7" fill="#64748b"/>
+    <circle cx="235" cy="-30" r="7" fill="#64748b"/>
+    <!-- TV Cabinet -->
+    <rect x="0" y="20" width="330" height="215" rx="28" fill="#78350f" stroke="#451a03" stroke-width="4"/>
+    <!-- Screen Off (dark slate) -->
+    <rect x="22" y="42" width="235" height="170" rx="20" fill="#1e293b" stroke="#334155" stroke-width="4"/>
+    <path d="M40 62 Q 95 55, 140 62" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+    <!-- Dials -->
+    <circle cx="292" cy="82" r="18" fill="#d97706" stroke="#fde68a" stroke-width="3"/>
+    <circle cx="292" cy="134" r="18" fill="#d97706" stroke="#fde68a" stroke-width="3"/>
+    <rect x="274" y="170" width="36" height="8" rx="4" fill="#451a03"/>
+    <rect x="274" y="186" width="36" height="8" rx="4" fill="#451a03"/>
+    <!-- Legs -->
+    <rect x="55" y="235" width="18" height="26" rx="6" fill="#451a03"/>
+    <rect x="257" y="235" width="18" height="26" rx="6" fill="#451a03"/>
+  </g>
+
+  <!-- Big Red NO / X Overlay -->
+  <g transform="translate(185, 165)">
+    <circle cx="65" cy="65" r="56" fill="#dc2626" opacity="0.92" stroke="#ffffff" stroke-width="6"/>
+    <line x1="38" y1="38" x2="92" y2="92" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+    <line x1="92" y1="38" x2="38" y2="92" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <text x="250" y="462" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" text-anchor="middle" fill="#b91c1c" letter-spacing="1">DON'T WATCH TV 📺</text>
+</svg>

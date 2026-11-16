@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="musBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f3ff"/>
+      <stop offset="50%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <filter id="musShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#4c1d95" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" rx="40" fill="url(#musBg)"/>
+  <circle cx="250" cy="235" r="175" fill="#ffffff" opacity="0.7"/>
+
+  <!-- Headphones -->
+  <g filter="url(#musShadow)" transform="translate(115, 115)">
+    <path d="M35 160 C 35 30, 235 30, 235 160" fill="none" stroke="#4f46e5" stroke-width="22" stroke-linecap="round"/>
+    <path d="M45 155 C 45 45, 225 45, 225 155" fill="none" stroke="#818cf8" stroke-width="8" stroke-linecap="round"/>
+    <!-- Left Ear Cup -->
+    <rect x="8" y="135" width="46" height="90" rx="22" fill="#312e81" stroke="#c7d2fe" stroke-width="4"/>
+    <rect x="44" y="145" width="16" height="70" rx="8" fill="#6366f1"/>
+    <!-- Right Ear Cup -->
+    <rect x="216" y="135" width="46" height="90" rx="22" fill="#312e81" stroke="#c7d2fe" stroke-width="4"/>
+    <rect x="210" y="145" width="16" height="70" rx="8" fill="#6366f1"/>
+  </g>
+
+  <!-- Music Notes -->
+  <g fill="#db2777">
+    <circle cx="220" cy="245" r="16"/>
+    <rect x="230" y="175" width="8" height="70" rx="4"/>
+    <circle cx="285" cy="230" r="16"/>
+    <rect x="295" y="160" width="8" height="70" rx="4"/>
+    <path d="M230 175 L303 160 L303 176 L230 191 Z"/>
+  </g>
+
+  <text x="250" y="462" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" text-anchor="middle" fill="#4338ca" letter-spacing="1">LISTEN TO MUSIC 🎧</text>
+</svg>

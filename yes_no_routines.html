@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full theme-day">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#2c4a38">
+  <title>Lesson 5: Yes & No in My Week • English with Abdi (Ethiopia 🇪🇹)</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Studio Ghibli Theme Tokens -->
+  <link rel="stylesheet" href="ghibli_theme.css">
+
+  <style>
+    :root {
+      --ghibli-bg-green: #2c4a38;
+      --ghibli-parchment: #fdfaf2;
+      --ghibli-card-bg: rgba(255, 253, 246, 0.96);
+      --ghibli-card-border: rgba(226, 215, 195, 0.85);
+      --ghibli-accent-gold: #d97724;
+      --ghibli-accent-green: #3b744d;
+      --ghibli-text-main: #2b261f;
+      --ghibli-text-muted: #6e6454;
+      --ghibli-bg-url: url('images/ghibli/bg.webp');
+    }
+
+    .theme-sunset {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+    }
+
+    .theme-night {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
+      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-text-main: #f8fafc;
+      --ghibli-text-muted: #cbd5e1;
+      --ghibli-parchment: #0f172a;
+    }
+
+    body {
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--ghibli-text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-image 0.5s ease;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: 84px;
+    }
+
+    .font-ghibli { font-family: 'Playfair Display', serif; }
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+    .font-ethiopic { font-family: 'Noto Sans Ethiopic', 'Plus Jakarta Sans', sans-serif; }
+
+    .ghibli-card {
+      background: var(--ghibli-card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-bounce {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+      touch-action: manipulation;
+    }
+    .btn-bounce:hover { transform: translateY(-2px); }
+    .btn-bounce:active { transform: scale(0.96); }
+
+    .nav-tab-active {
+      background: #15803d !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);
+    }
+
+    .word-chip {
+      user-select: none;
+      touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+    .word-chip:active { transform: scale(0.95); }
+    .chip-used { opacity: 0.35; pointer-events: none; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 shadow-xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
+
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-700 text-emerald-50 flex items-center justify-center shadow-xs shrink-0">
+          <i class="fa-solid fa-comments text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 5</span>
+          </div>
+          <p class="text-[11px] text-stone-500 font-semibold leading-none mt-0.5">Yes & No: I do / I don't • He/She doesn't</p>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-1.5 flex-wrap justify-end">
+        <button id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Switch voice speed">
+          <span id="speed-icon">🐢</span>
+          <span id="speed-label" class="hidden sm:inline">Slow</span>
+        </button>
+
+        <button onclick="openPreplyModalL5()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 text-white text-xs font-black shadow-sm flex items-center gap-1.5 border border-red-500" title="Send Lesson 5 to Teacher on Preply">
+          <i class="fa-solid fa-paper-plane text-[11px]"></i>
+          <span class="hidden sm:inline">Preply</span>
+        </button>
+
+        <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 text-xs font-bold hover:bg-stone-200 flex items-center gap-1" title="Toggle Day/Sunset/Night">
+          <span id="tod-icon">☀️</span>
+        </button>
+
+        <div class="px-2.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center gap-1 shadow-xs">
+          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+          <span id="global-xp">0 XP</span>
+        </div>
+
+        <a href="daily_routines.html" class="px-2 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Lesson 3 (Time)">L3</a>
+        <a href="weekly_routines.html" class="px-2 py-1.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Lesson 4 (Days & He/She)">L4</a>
+        <a href="verb_practice.html" class="px-2 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-xs hidden sm:flex items-center gap-1" title="Verbs">Verbs</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB-NAVIGATION: 5 EASY MODES -->
+  <nav class="sticky top-[57px] z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-1.5 shadow-2xs">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-1 overflow-x-auto py-0.5">
+      <button onclick="switchView('yesno')" id="tab-btn-yesno" class="nav-btn flex-1 min-w-[82px] py-2 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition nav-tab-active">
+        <i class="fa-solid fa-check-double"></i>
+        <span>1. I / I don't</span>
+      </button>
+      <button onclick="switchView('questions')" id="tab-btn-questions" class="nav-btn flex-1 min-w-[85px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>2. Do you?</span>
+      </button>
+      <button onclick="switchView('heshe')" id="tab-btn-heshe" class="nav-btn flex-1 min-w-[85px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-user-group"></i>
+        <span>3. He / She</span>
+      </button>
+      <button onclick="switchView('builder')" id="tab-btn-builder" class="nav-btn flex-1 min-w-[80px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <span>4. Build</span>
+      </button>
+      <button onclick="switchView('quiz')" id="tab-btn-quiz" class="nav-btn flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs font-extrabold text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 transition">
+        <i class="fa-solid fa-trophy"></i>
+        <span>5. Quiz</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-3xl w-full mx-auto p-3 sm:p-4 space-y-4">
+
+    <!-- ========================================================
+         VIEW 1: SAY YES & NO (I ... vs I DON'T ...) + WARMUP FIXES
+         ======================================================== -->
+    <section id="view-yesno" class="view-panel space-y-4">
+
+      <!-- Quick Warmup Fix Banner (From Last Class) -->
+      <div class="ghibli-card p-4 sm:p-5 space-y-3 border-l-4 border-l-amber-500">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">Step 1 • Warm-Up Review</span>
+            <h2 class="font-ghibli font-bold text-lg sm:text-xl text-stone-900 mt-1">Say "I" — Not "I'm"! 👍</h2>
+          </div>
+          <span class="text-xs font-semibold text-stone-500">Tap to listen 🔊</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="warmup-fixes-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Main I vs I don't Picture Cards -->
+      <div class="ghibli-card p-4 sm:p-5 space-y-4">
+        <div class="text-center space-y-1.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold">
+            <span>🟢 YES: I ...</span>
+            <span>|</span>
+            <span>🔴 NO: I don't ...</span>
+          </div>
+          <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">Tap YES or NO &amp; Listen!</h2>
+          <p class="text-xs sm:text-sm text-stone-600">
+            <strong>don't</strong> = NO ❌. Tap a green or red button, listen, and say it <strong>2 times</strong>!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="yesno-cards-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 2: DO YOU...? (REAL-LIFE YES / NO ANSWERS)
+         ======================================================== -->
+    <section id="view-questions" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="text-center space-y-1.5">
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-300">Real Life Speaking</span>
+          <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">Do You...? (About You, Abdi!)</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
+            Listen to the question, then tap <strong>Yes, I do</strong> or <strong>No, I don't</strong>.
+          </p>
+        </div>
+
+        <div class="space-y-3" id="questions-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 3: HE / SHE + DOESN'T (GENTLE BRIDGE FROM LESSON 4)
+         ======================================================== -->
+    <section id="view-heshe" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="text-center space-y-2">
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">He / She Magic Rule</span>
+          <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">He Plays 🟢 vs He Doesn't Play 🔴</h2>
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-950 font-semibold max-w-lg mx-auto">
+            ✨ <strong>Easy Trick:</strong> When you see <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold">doesn't</span>, the <strong>-s</strong> goes away!
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3.5" id="heshe-cards-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 4: EASY TAP-TO-BUILD SENTENCES (3–5 WORDS)
+         ======================================================== -->
+    <section id="view-builder" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4 text-center">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300">Easy Sentence Builder</span>
+          <span id="builder-progress" class="text-xs font-extrabold text-stone-600 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">1 / 5</span>
+        </div>
+
+        <!-- Visual Clue -->
+        <div class="flex flex-col items-center space-y-2 py-1">
+          <div class="w-36 h-36 rounded-2xl bg-white border border-stone-200 shadow-xs p-2 flex items-center justify-center">
+            <img id="builder-img" src="images/routines/no_tv.svg" alt="Routine clue" class="w-full h-full object-contain">
+          </div>
+          <p id="builder-meaning" class="text-sm font-bold text-stone-700"></p>
+          <button onclick="speakBuilderTarget()" class="btn-bounce px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>Hear Hint</span>
+          </button>
+        </div>
+
+        <!-- Answer Drop Zone -->
+        <div id="builder-answer-box" class="min-h-[60px] p-3 rounded-2xl bg-white border-2 border-dashed border-emerald-400 flex flex-wrap items-center justify-center gap-2">
+          <span class="text-xs text-stone-400 font-semibold">Tap the words below in order...</span>
+        </div>
+
+        <!-- Word Chips Pool -->
+        <div id="builder-chips-pool" class="flex flex-wrap items-center justify-center gap-2 pt-1">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="builder-feedback" class="hidden p-3 rounded-xl text-xs font-bold"></div>
+
+        <div class="flex items-center justify-center gap-2 pt-2">
+          <button onclick="resetBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-700 text-xs font-bold">
+            <i class="fa-solid fa-rotate-left"></i> Clear
+          </button>
+          <button onclick="nextBuilder()" class="btn-bounce px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs">
+            Next Sentence <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 5: EASY PICTURE QUIZ (3 OPTIONS EACH)
+         ======================================================== -->
+    <section id="view-quiz" class="view-panel hidden space-y-4">
+      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300">Step 5 • Check</span>
+            <h2 class="font-ghibli font-bold text-xl text-stone-900 mt-1">Lesson 5 Easy Quiz 🌟</h2>
+          </div>
+          <span id="quiz-score-badge" class="px-3 py-1 rounded-xl bg-stone-100 border border-stone-200 text-xs font-extrabold text-stone-700">Score: 0 / 6</span>
+        </div>
+
+        <div id="quiz-container" class="space-y-3.5">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-2">
+          <button onclick="openPreplyModalL5()" class="btn-bounce px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send to Teacher</span>
+          </button>
+          <button onclick="gradeQuiz()" class="btn-bounce px-5 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Check My Answers</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- KODAMA MASCOT FLOATER -->
+  <div class="fixed bottom-4 right-4 z-40 flex items-end gap-2">
+    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[230px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl">
+      🇪🇹 በርታ አብዲ! (Berta Abdi!) Say it slowly: <strong>"I don't watch TV. I watch my phone."</strong> You've got this! 🌟
+    </div>
+    <button onclick="toggleKodamaBubble()" class="w-12 h-12 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition" title="Mascot Helper">
+      🌱
+    </button>
+  </div>
+
+  <!-- PREPLY SHARE MODAL -->
+  <div id="preply-modal-l5" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border border-stone-200 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-stone-900 leading-tight">Send Lesson 5 to Teacher on Preply</h3>
+            <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹)</p>
+          </div>
+        </div>
+        <button onclick="closePreplyModalL5()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">✕</button>
+      </div>
+
+      <div class="space-y-1.5">
+        <label class="block text-[11px] font-bold text-stone-700">Your Preply message:</label>
+        <textarea id="preply-message-text-l5" rows="8" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-200 rounded-xl text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-500" readonly></textarea>
+      </div>
+
+      <div id="preply-copy-toast-l5" class="hidden p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold text-center">
+        ✅ Copied! Paste it in Preply Chat!
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+        <button onclick="shareViaMobileL5()" class="btn-bounce w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-share-nodes text-sm"></i>
+          <span>Share on Phone</span>
+        </button>
+        <button onclick="copyPreplyTextL5()" id="btn-copy-preply-l5" class="btn-bounce w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs">
+          <i class="fa-solid fa-copy text-sm"></i>
+          <span>Copy for Preply Chat</span>
+        </button>
+      </div>
+
+      <a href="https://preply.com/messages" target="_blank" rel="noopener noreferrer" class="btn-bounce w-full py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-800 font-bold text-xs flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        <span>Open Preply Chat</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* ================= GLOBAL STATE & AUDIO ================= */
+    let currentXP = parseInt(localStorage.getItem('abdi_xp') || '0', 10);
+    let isSlowSpeech = true; // Default to SLOW for very low level!
+
+    function updateXPDisplay() {
+      document.getElementById('global-xp').textContent = `${currentXP} XP`;
+    }
+    updateXPDisplay();
+
+    function addXP(amount) {
+      currentXP += amount;
+      localStorage.setItem('abdi_xp', currentXP.toString());
+      updateXPDisplay();
+    }
+
+    function toggleSpeed() {
+      isSlowSpeech = !isSlowSpeech;
+      document.getElementById('speed-icon').textContent = isSlowSpeech ? '🐢' : '🔊';
+      document.getElementById('speed-label').textContent = isSlowSpeech ? 'Slow' : 'Normal';
+      speak(isSlowSpeech ? "Slow voice on." : "Normal voice on.");
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = isSlowSpeech ? 0.78 : 0.94;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 55, spread: 60, origin: { y: 0.75 } });
+      }
+    }
+
+    /* ================= THEME TOGGLE ================= */
+    let todIndex = 0;
+    const todThemes = ['theme-day', 'theme-sunset', 'theme-night'];
+    const todIcons = ['☀️', '🌅', '🌙'];
+    function cycleTimeOfDay() {
+      todIndex = (todIndex + 1) % todThemes.length;
+      document.documentElement.className = `min-h-full ${todThemes[todIndex]}`;
+      document.getElementById('tod-icon').textContent = todIcons[todIndex];
+    }
+
+    /* ================= TAB NAVIGATION ================= */
+    function switchView(viewName) {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('nav-tab-active');
+        btn.classList.add('text-stone-600');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${viewName}`);
+      activeBtn.classList.add('nav-tab-active');
+      activeBtn.classList.remove('text-stone-600');
+    }
+
+    /* ================= 1. WARM-UP FIXES & I / I DON'T CARDS ================= */
+    const WARMUP_FIXES = [
+      {
+        wrong: "I'm eating 8:30",
+        right: "I eat at half past eight.",
+        img: "images/clocks/clock_08_30.svg",
+        clue: "🇪🇹 በስምንት ተኩል እበላለሁ"
+      },
+      {
+        wrong: "I'm going market Friday",
+        right: "I go to the market on Friday.",
+        img: "images/routines/go_market.svg",
+        clue: "🇪🇹 አርብ ገበያ እሄዳለሁ"
+      },
+      {
+        wrong: "Am eating in kitchen",
+        right: "I eat at home.",
+        img: "images/routines/cook_dinner.png",
+        clue: "🇪🇹 ቤት ውስጥ እበላለሁ"
+      },
+      {
+        wrong: "I'm not look TV, I phone",
+        right: "I don't watch TV. I watch my phone.",
+        img: "images/routines/watch_phone.svg",
+        clue: "🇪🇹 ቲቪ አላይም። ስልኬን አያለሁ"
+      }
+    ];
+
+    function renderWarmupFixes() {
+      const grid = document.getElementById('warmup-fixes-grid');
+      grid.innerHTML = '';
+      WARMUP_FIXES.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => { speak(item.right); addXP(5); };
+        btn.className = 'btn-bounce text-left p-3 rounded-2xl bg-white border border-stone-200 hover:border-emerald-400 shadow-2xs flex items-center gap-3';
+        btn.innerHTML = `
+          <img src="${item.img}" alt="" class="w-14 h-14 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+          <div class="min-w-0 flex-1 space-y-0.5">
+            <p class="text-[11px] text-rose-600 line-through font-semibold">❌ ${item.wrong}</p>
+            <p class="text-sm font-extrabold text-emerald-900 leading-snug">✅ ${item.right}</p>
+            <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+          </div>
+          <span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-volume-high text-xs"></i>
+          </span>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    const YESNO_CARDS = [
+      {
+        title: "Phone",
+        img: "images/routines/watch_phone.svg",
+        yes: "I watch my phone.",
+        no: "I don't watch my phone.",
+        clue: "🇪🇹 ስልኬን አያለሁ | 🇸🇴 Taleefan"
+      },
+      {
+        title: "TV",
+        img: "images/routines/no_tv.svg",
+        yes: "I watch TV.",
+        no: "I don't watch TV.",
+        clue: "🇪🇹 ቲቪ አላይም | 🇸🇴 TV ma daawado"
+      },
+      {
+        title: "Coffee (Bunna)",
+        img: "images/routines/drink_coffee.svg",
+        yes: "I drink coffee.",
+        no: "I don't drink coffee.",
+        clue: "🇪🇹 ቡና እጠጣለሁ | 🇸🇴 Bun baan cabbaa"
+      },
+      {
+        title: "Eat Out",
+        img: "images/routines/eat_out.svg",
+        yes: "I eat out.",
+        no: "I don't eat out.",
+        clue: "🇪🇹 ውጭ እበላለሁ | 🇸🇴 Dibadda"
+      },
+      {
+        title: "Market",
+        img: "images/routines/go_market.svg",
+        yes: "I go to the market.",
+        no: "I don't go to the market.",
+        clue: "🇪🇹 ገበያ እሄዳለሁ | 🇸🇴 Suuqa"
+      },
+      {
+        title: "Music",
+        img: "images/routines/listen_music.svg",
+        yes: "I listen to music.",
+        no: "I don't listen to music.",
+        clue: "🇪🇹 ሙዚቃ እሰማለሁ | 🇸🇴 Muusig"
+      }
+    ];
+
+    function renderYesNoCards() {
+      const grid = document.getElementById('yesno-cards-grid');
+      grid.innerHTML = '';
+      YESNO_CARDS.forEach((c, i) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-3 flex flex-col';
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${c.img}" alt="${c.title}" class="w-20 h-20 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+            <div>
+              <h3 class="font-display font-extrabold text-base text-stone-900">${c.title}</h3>
+              <p class="text-[11px] text-stone-500 font-ethiopic mt-0.5">${c.clue}</p>
+              <p id="yn-out-${i}" class="text-xs font-extrabold text-emerald-800 mt-1.5 min-h-[18px]">Tap YES or NO 👇</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mt-auto">
+            <button type="button" onclick="playYesNo(${i}, 'yes')" class="btn-bounce py-2.5 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs flex items-center justify-center gap-1">
+              <span>🟢</span><span>I ...</span>
+            </button>
+            <button type="button" onclick="playYesNo(${i}, 'no')" class="btn-bounce py-2.5 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs flex items-center justify-center gap-1">
+              <span>🔴</span><span>I don't ...</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function playYesNo(index, kind) {
+      const item = YESNO_CARDS[index];
+      const sentence = kind === 'yes' ? item.yes : item.no;
+      const out = document.getElementById(`yn-out-${index}`);
+      out.textContent = (kind === 'yes' ? '✅ ' : '❌ ') + sentence;
+      out.className = `text-xs font-extrabold mt-1.5 min-h-[18px] ${kind === 'yes' ? 'text-emerald-700' : 'text-rose-700'}`;
+      speak(sentence);
+      addXP(10);
+    }
+
+    /* ================= 2. DO YOU...? REAL LIFE Q&A ================= */
+    const DO_YOU_QUESTIONS = [
+      {
+        q: "Do you watch TV?",
+        img: "images/routines/no_tv.svg",
+        yesSay: "Yes, I do. I watch TV.",
+        noSay: "No, I don't. I don't watch TV.",
+        clue: "🇪🇹 ቲቪ ታያለህ? | 🇸🇴 TV ma daawataa?"
+      },
+      {
+        q: "Do you watch your phone?",
+        img: "images/routines/watch_phone.svg",
+        yesSay: "Yes, I do. I watch my phone every day.",
+        noSay: "No, I don't.",
+        clue: "🇪🇹 ስልክህን ታያለህ? | 🇸🇴 Taleefanka ma daawataa?"
+      },
+      {
+        q: "Do you drink coffee in the morning?",
+        img: "images/routines/drink_coffee.svg",
+        yesSay: "Yes, I do. I drink coffee in the morning.",
+        noSay: "No, I don't. I don't drink coffee.",
+        clue: "🇪🇹 ጠዋት ቡና ትጠጣለህ? | 🇸🇴 Subaxdii bun ma cabtaa?"
+      },
+      {
+        q: "Do you eat at home?",
+        img: "images/routines/cook_dinner.png",
+        yesSay: "Yes, I do. I eat at home.",
+        noSay: "No, I don't. I eat out.",
+        clue: "🇪🇹 ቤት ውስጥ ትበላለህ? | 🇸🇴 Guriga ma ku cuntaa?"
+      },
+      {
+        q: "Do you go to the market on Friday?",
+        img: "images/routines/go_market.svg",
+        yesSay: "Yes, I do. I go to the market on Friday.",
+        noSay: "No, I don't.",
+        clue: "🇪🇹 አርብ ገበያ ትሄዳለህ? | 🇸🇴 Jimcaha suuqa ma tagtaa?"
+      },
+      {
+        q: "Do you study English every week?",
+        img: "images/routines/study_english.svg",
+        yesSay: "Yes, I do. I study English!",
+        noSay: "No, I don't.",
+        clue: "🇪🇹 እንግሊዝኛ ታጠናለህ? | 🇸🇴 Ingiriis ma barataa?"
+      }
+    ];
+
+    const abdiRealAnswers = {};
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-container');
+      container.innerHTML = '';
+      DO_YOU_QUESTIONS.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-3';
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${item.img}" alt="" class="w-16 h-16 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-extrabold text-base sm:text-lg text-stone-900">${item.q}</p>
+              <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+            </div>
+            <button type="button" onclick="speak('${item.q.replace(/'/g, "\\'")}')" class="btn-bounce w-10 h-10 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0" title="Listen to question">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <button type="button" onclick="answerDoYou(${idx}, 'yes')" class="btn-bounce py-3 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs sm:text-sm">
+              ✅ Yes, I do.
+            </button>
+            <button type="button" onclick="answerDoYou(${idx}, 'no')" class="btn-bounce py-3 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs sm:text-sm">
+              ❌ No, I don't.
+            </button>
+          </div>
+          <div id="doyou-fb-${idx}" class="hidden p-2.5 rounded-xl text-xs font-bold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function answerDoYou(idx, choice) {
+      const item = DO_YOU_QUESTIONS[idx];
+      const fb = document.getElementById(`doyou-fb-${idx}`);
+      const reply = choice === 'yes' ? item.yesSay : item.noSay;
+      abdiRealAnswers[item.q] = reply;
+
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-rose-50', 'text-rose-900', 'border-rose-300');
+      fb.classList.add('border');
+      if (choice === 'yes') {
+        fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border-emerald-300');
+      } else {
+        fb.classList.add('bg-rose-50', 'text-rose-900', 'border-rose-300');
+      }
+      fb.innerHTML = `🗣️ Say aloud: <strong>"${reply}"</strong>`;
+      speak(reply);
+      addXP(15);
+    }
+
+    /* ================= 3. HE / SHE + DOESN'T ================= */
+    const HESHE_CARDS = [
+      {
+        name: "Dawit",
+        img: "images/routines/play_football.svg",
+        yesHtml: `He <span class="text-emerald-700 underline decoration-2">play<strong>s</strong></span> football on Saturday.`,
+        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> play football.`,
+        yesSay: "He plays football on Saturday.",
+        noSay: "He doesn't play football.",
+        clue: "🇪🇹 ቅዳሜ ኳስ ይጫወታል / አይጫወትም"
+      },
+      {
+        name: "Almaz",
+        img: "images/routines/cook_dinner.png",
+        yesHtml: `She <span class="text-emerald-700 underline decoration-2">cook<strong>s</strong></span> dinner at home.`,
+        noHtml: `She <span class="text-rose-700 font-black">doesn't</span> cook dinner.`,
+        yesSay: "She cooks dinner at home.",
+        noSay: "She doesn't cook dinner.",
+        clue: "🇪🇹 ቤት እራት ታበስላለች / አታበስልም"
+      },
+      {
+        name: "Dawit",
+        img: "images/routines/no_tv.svg",
+        yesHtml: `He <span class="text-emerald-700 underline decoration-2">watch<strong>es</strong></span> TV.`,
+        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> watch TV.`,
+        yesSay: "He watches TV.",
+        noSay: "He doesn't watch TV.",
+        clue: "🇪🇹 ቲቪ ይመለከታል / አይመለከትም"
+      },
+      {
+        name: "Almaz",
+        img: "images/routines/study_english.svg",
+        yesHtml: `She <span class="text-emerald-700 underline decoration-2">stud<strong>ies</strong></span> English.`,
+        noHtml: `She <span class="text-rose-700 font-black">doesn't</span> study English.`,
+        yesSay: "She studies English.",
+        noSay: "She doesn't study English.",
+        clue: "🇪🇹 እንግሊዝኛ ታጠናለች / አታጠናም"
+      },
+      {
+        name: "My friend",
+        img: "images/routines/eat_out.svg",
+        yesHtml: `He <span class="text-emerald-700 underline decoration-2">eat<strong>s</strong></span> out.`,
+        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> eat out.`,
+        yesSay: "He eats out.",
+        noSay: "He doesn't eat out.",
+        clue: "🇪🇹 ውጭ ይበላል / አይበላም"
+      }
+    ];
+
+    function renderHeSheCards() {
+      const container = document.getElementById('heshe-cards-container');
+      container.innerHTML = '';
+      HESHE_CARDS.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-2xl bg-white border border-stone-200 shadow-xs flex flex-col sm:flex-row items-center gap-4';
+        card.innerHTML = `
+          <img src="${item.img}" alt="" class="w-20 h-20 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+          <div class="flex-1 text-center sm:text-left space-y-1.5">
+            <p id="hs-text-${i}" class="font-display font-extrabold text-lg text-stone-900">${item.yesHtml}</p>
+            <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="toggleHeShe(${i}, 'yes')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs">
+              🟢 YES (-s)
+            </button>
+            <button type="button" onclick="toggleHeShe(${i}, 'no')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-xs">
+              🔴 NO (doesn't)
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleHeShe(idx, mode) {
+      const item = HESHE_CARDS[idx];
+      const textEl = document.getElementById(`hs-text-${idx}`);
+      if (mode === 'yes') {
+        textEl.innerHTML = item.yesHtml;
+        speak(item.yesSay);
+      } else {
+        textEl.innerHTML = item.noHtml;
+        speak(item.noSay);
+      }
+      addXP(10);
+    }
+
+    /* ================= 4. EASY SENTENCE BUILDER (3-5 WORDS) ================= */
+    const BUILDER_CHALLENGES = [
+      {
+        words: ["I", "don't", "watch", "TV."],
+        img: "images/routines/no_tv.svg",
+        meaning: "🇪🇹 ቲቪ አላይም። (Say NO for TV)"
+      },
+      {
+        words: ["I", "watch", "my", "phone."],
+        img: "images/routines/watch_phone.svg",
+        meaning: "🇪🇹 ስልኬን አያለሁ። (Say YES for phone)"
+      },
+      {
+        words: ["Yes,", "I", "do."],
+        img: "images/routines/drink_coffee.svg",
+        meaning: "🇪🇹 አዎ። (Short YES answer)"
+      },
+      {
+        words: ["I", "eat", "at", "home."],
+        img: "images/routines/cook_dinner.png",
+        meaning: "🇪🇹 ቤት ውስጥ እበላለሁ።"
+      },
+      {
+        words: ["He", "doesn't", "eat", "out."],
+        img: "images/routines/eat_out.svg",
+        meaning: "🇪🇹 እሱ ውጭ አይበላም። (No -s after doesn't!)"
+      }
+    ];
+
+    let builderIndex = 0;
+    let builtWords = [];
+    let shuffledWords = [];
+
+    function initBuilder() {
+      const item = BUILDER_CHALLENGES[builderIndex];
+      builtWords = [];
+      shuffledWords = [...item.words].sort(() => Math.random() - 0.5);
+      // Avoid already-in-order start when possible
+      if (shuffledWords.join(' ') === item.words.join(' ') && item.words.length > 2) {
+        shuffledWords.reverse();
+      }
+      document.getElementById('builder-progress').textContent = `${builderIndex + 1} / ${BUILDER_CHALLENGES.length}`;
+      document.getElementById('builder-img').src = item.img;
+      document.getElementById('builder-meaning').textContent = item.meaning;
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function renderBuilder() {
+      const ansBox = document.getElementById('builder-answer-box');
+      const pool = document.getElementById('builder-chips-pool');
+
+      if (builtWords.length === 0) {
+        ansBox.innerHTML = `<span class="text-xs text-stone-400 font-semibold">Tap the words below in order...</span>`;
+      } else {
+        ansBox.innerHTML = '';
+        builtWords.forEach((wObj) => {
+          const span = document.createElement('button');
+          span.type = 'button';
+          span.className = 'px-3.5 py-2 rounded-xl bg-emerald-700 text-white font-display font-bold text-sm shadow-xs';
+          span.textContent = wObj.word;
+          span.onclick = () => removeBuiltWord(wObj.poolIdx);
+          ansBox.appendChild(span);
+        });
+      }
+
+      pool.innerHTML = '';
+      shuffledWords.forEach((word, pIdx) => {
+        const isUsed = builtWords.some(b => b.poolIdx === pIdx);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `word-chip px-4 py-2.5 rounded-xl bg-white border-2 border-stone-300 hover:border-emerald-500 text-stone-900 font-display font-bold text-sm shadow-2xs ${isUsed ? 'chip-used' : ''}`;
+        btn.textContent = word;
+        btn.onclick = () => selectPoolWord(word, pIdx);
+        pool.appendChild(btn);
+      });
+    }
+
+    function selectPoolWord(word, poolIdx) {
+      speak(word);
+      builtWords.push({ word, poolIdx });
+      renderBuilder();
+      checkBuilderComplete();
+    }
+
+    function removeBuiltWord(poolIdx) {
+      builtWords = builtWords.filter(b => b.poolIdx !== poolIdx);
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function checkBuilderComplete() {
+      const target = BUILDER_CHALLENGES[builderIndex].words;
+      if (builtWords.length !== target.length) return;
+
+      const attempt = builtWords.map(b => b.word).join(' ');
+      const correct = target.join(' ');
+      const fb = document.getElementById('builder-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-rose-50', 'text-rose-800', 'border-rose-300');
+      fb.classList.add('border');
+
+      if (attempt === correct) {
+        fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+        fb.innerHTML = `✅ Great job Abdi! <strong>"${correct}"</strong>`;
+        setTimeout(() => speak(correct), 350);
+        addXP(25);
+        triggerConfetti();
+      } else {
+        fb.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-300');
+        fb.innerHTML = `❌ Try again! Tap <strong>Clear</strong> or tap a green word to remove it.`;
+      }
+    }
+
+    function resetBuilder() {
+      builtWords = [];
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function nextBuilder() {
+      builderIndex = (builderIndex + 1) % BUILDER_CHALLENGES.length;
+      initBuilder();
+    }
+
+    function speakBuilderTarget() {
+      speak(BUILDER_CHALLENGES[builderIndex].words.join(' '));
+    }
+
+    /* ================= 5. EASY QUIZ (3 OPTIONS EACH) ================= */
+    const QUIZ_ITEMS = [
+      {
+        q: "How do you say NO for TV?",
+        img: "images/routines/no_tv.svg",
+        options: [
+          "I don't watch TV.",
+          "I'm not watch TV.",
+          "I watching not TV."
+        ],
+        answer: "I don't watch TV.",
+        explain: "Use 'I don't' to say NO!"
+      },
+      {
+        q: "Which sentence is correct for every day?",
+        img: "images/clocks/clock_08_30.svg",
+        options: [
+          "I'm eating eight half.",
+          "I eat at half past eight.",
+          "I eating at half past eight."
+        ],
+        answer: "I eat at half past eight.",
+        explain: "For habits, say 'I eat at...' (not I'm eating)."
+      },
+      {
+        q: "Teacher: 'Do you drink coffee?' — Pick a YES answer:",
+        img: "images/routines/drink_coffee.svg",
+        options: [
+          "Yes, I do.",
+          "Yes, I am.",
+          "Yes, I don't."
+        ],
+        answer: "Yes, I do.",
+        explain: "'Do you...?' ➔ 'Yes, I do.'"
+      },
+      {
+        q: "Teacher: 'Do you eat out?' — Pick a NO answer:",
+        img: "images/routines/eat_out.svg",
+        options: [
+          "No, I'm not.",
+          "No, I don't.",
+          "No, I doesn't."
+        ],
+        answer: "No, I don't.",
+        explain: "With 'I', always say 'No, I don't.'"
+      },
+      {
+        q: "Pick the right preposition: 'I go to the market ____ Friday.'",
+        img: "images/routines/go_market.svg",
+        options: ["at", "in", "on"],
+        answer: "on",
+        explain: "Days of the week use ON (on Friday)."
+      },
+      {
+        q: "Change to NO: 'He plays football.'",
+        img: "images/routines/play_football.svg",
+        options: [
+          "He doesn't play football.",
+          "He doesn't plays football.",
+          "He don't play football."
+        ],
+        answer: "He doesn't play football.",
+        explain: "'doesn't' takes away the -s!"
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-white border border-stone-200 space-y-2.5';
+        let optsHtml = '';
+        q.options.forEach(opt => {
+          optsHtml += `
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 border border-stone-200 cursor-pointer text-xs sm:text-sm font-bold">
+              <input type="radio" name="l5_quiz_${idx}" value="${opt}" class="w-4 h-4 text-purple-600 focus:ring-purple-500">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${q.img}" alt="" class="w-12 h-12 rounded-xl object-contain bg-stone-50 border border-stone-100 p-1 shrink-0">
+            <p class="font-bold text-xs sm:text-sm text-stone-900 flex-1">${idx + 1}. ${q.q}</p>
+            <button type="button" onclick="speak('${q.q.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high text-xs"></i>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 gap-2">${optsHtml}</div>
+          <div id="l5-quiz-fb-${idx}" class="hidden p-2 rounded-xl text-xs font-bold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function gradeQuiz() {
+      let score = 0;
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="l5_quiz_${idx}"]:checked`);
+        const fb = document.getElementById(`l5-quiz-fb-${idx}`);
+        fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-rose-50', 'text-rose-800', 'border-rose-300');
+        fb.classList.add('border');
+        if (selected && selected.value === q.answer) {
+          score++;
+          fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+          fb.innerHTML = `✅ Correct! ${q.explain}`;
+        } else {
+          fb.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-300');
+          fb.innerHTML = `❌ Answer: <strong>${q.answer}</strong> (${q.explain})`;
+        }
+      });
+      document.getElementById('quiz-score-badge').textContent = `Score: ${score} / ${QUIZ_ITEMS.length}`;
+      if (score >= 4) {
+        speak("Great job Abdi!");
+        triggerConfetti();
+        addXP(score * 20);
+      } else {
+        addXP(score * 10);
+      }
+    }
+
+    /* ================= PREPLY MODAL ================= */
+    function generatePreplyTextL5() {
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const scoreText = document.getElementById('quiz-score-badge')?.textContent || 'Score: 0 / 6';
+      const lines = Object.entries(abdiRealAnswers).map(([q, a]) => `• ${q} ➔ ${a}`);
+      const answersBlock = lines.length > 0
+        ? lines.join('\n')
+        : '• I watch my phone.\n• I don\'t watch TV.\n• I eat at home.\n• I go to the market on Friday.';
+
+      return `👋 Hello Teacher Lewis! Here is Abdi's Lesson 5 Practice (Ethiopia 🇪🇹)
+📅 Date: ${today}
+📚 Topic: Lesson 5 - Yes & No (I do / I don't / He doesn't)
+🏆 ${scoreText} | XP: ${currentXP}
+
+🗣️ My True Sentences:
+${answersBlock}
+
+✨ Completed on English with Abdi`;
+    }
+
+    function openPreplyModalL5() {
+      document.getElementById('preply-message-text-l5').value = generatePreplyTextL5();
+      document.getElementById('preply-modal-l5').classList.remove('hidden');
+      document.getElementById('preply-copy-toast-l5').classList.add('hidden');
+    }
+
+    function closePreplyModalL5() {
+      document.getElementById('preply-modal-l5').classList.add('hidden');
+    }
+
+    function copyPreplyTextL5() {
+      const ta = document.getElementById('preply-message-text-l5');
+      ta.select();
+      ta.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(ta.value).then(() => {
+        document.getElementById('preply-copy-toast-l5').classList.remove('hidden');
+        document.getElementById('btn-copy-preply-l5').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => {
+          document.getElementById('btn-copy-preply-l5').innerHTML = '<i class="fa-solid fa-copy text-sm"></i> Copy for Preply Chat';
+        }, 2500);
+      }).catch(() => alert('Please copy the text manually.'));
+    }
+
+    function shareViaMobileL5() {
+      const text = document.getElementById('preply-message-text-l5').value;
+      if (navigator.share) {
+        navigator.share({ title: "Abdi's Lesson 5 Practice", text }).catch(() => {});
+      } else {
+        copyPreplyTextL5();
+      }
+    }
+
+    function toggleKodamaBubble() {
+      const bubble = document.getElementById('kodama-bubble');
+      bubble.classList.toggle('hidden');
+      if (!bubble.classList.contains('hidden')) {
+        speak("I don't watch TV. I watch my phone. Great job Abdi!");
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWarmupFixes();
+      renderYesNoCards();
+      renderQuestions();
+      renderHeSheCards();
+      initBuilder();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
