@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <meta name="theme-color" content="#15803d">
-  <title>Lesson 5: Yes &amp; No • English with Abdi (Ethiopia 🇪🇹)</title>
+  <title>Lesson 6: Places &amp; Does He/She? • English with Abdi (Ethiopia 🇪🇹)</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -61,7 +61,7 @@
     }
     .btn-tap:active { transform: scale(0.97); }
 
-    .l5-tab-active {
+    .l6-tab-active {
       background-color: #15803d !important;
       color: #ffffff !important;
       border-color: #166534 !important;
@@ -87,14 +87,14 @@
         <!-- Brand -->
         <div class="flex items-center gap-2 min-w-0">
           <div class="w-9 h-9 rounded-xl bg-emerald-700 text-white flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-comments text-sm"></i>
+            <i class="fa-solid fa-location-dot text-sm"></i>
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-1.5">
-              <h1 class="font-display font-extrabold text-base text-emerald-950 truncate">Abdi • Lesson 5</h1>
+              <h1 class="font-display font-extrabold text-base text-emerald-950 truncate">Abdi • Lesson 6</h1>
               <span class="text-xs">🇪🇹</span>
             </div>
-            <p class="text-[11px] text-stone-600 font-semibold truncate">Yes &amp; No (I do / I don't)</p>
+            <p class="text-[11px] text-stone-600 font-semibold truncate">Places I Go &amp; Does He/She?</p>
           </div>
         </div>
 
@@ -105,7 +105,7 @@
             <span id="speed-label">Slow</span>
           </button>
 
-          <button type="button" onclick="openPreplyModalL5()" class="btn-tap px-2.5 py-2 rounded-xl bg-rose-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-xs" title="Send to Teacher">
+          <button type="button" onclick="openPreplyModalL6()" class="btn-tap px-2.5 py-2 rounded-xl bg-rose-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-xs" title="Send to Teacher">
             <i class="fa-solid fa-paper-plane text-[11px]"></i>
             <span>Send</span>
           </button>
@@ -115,7 +115,7 @@
             <span id="global-xp">0</span>
           </div>
 
-          <button type="button" onclick="toggleOlderLessons()" class="btn-tap w-9 h-9 rounded-xl bg-stone-100 border border-stone-300 text-stone-700 text-xs font-bold flex items-center justify-center" title="Older Lessons (1-4)" aria-label="Older Lessons">
+          <button type="button" onclick="toggleOlderLessons()" class="btn-tap w-9 h-9 rounded-xl bg-stone-100 border border-stone-300 text-stone-700 text-xs font-bold flex items-center justify-center" title="Older Lessons (1-5)" aria-label="Older Lessons">
             <i class="fa-solid fa-book"></i>
           </button>
         </div>
@@ -124,10 +124,11 @@
       <!-- Collapsible Older Lessons Drawer (Hidden by default so screen stays calm!) -->
       <div id="older-lessons-drawer" class="hidden pt-1.5 border-t border-stone-200 flex items-center gap-1.5 flex-wrap text-xs font-bold">
         <span class="text-stone-500 text-[11px] mr-1">Older:</span>
-        <a href="lesson-01.html" class="px-2.5 py-1.5 rounded-lg bg-stone-100 border border-stone-300 text-stone-800">L1 Homework</a>
-        <a href="jobs_flashcards.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900">L2 Jobs</a>
-        <a href="daily_routines.html" class="px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900">L3 Time</a>
+        <a href="yes_no_routines.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-100 border border-emerald-400 text-emerald-950">L5 Yes/No</a>
         <a href="weekly_routines.html" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-300 text-indigo-900">L4 Week</a>
+        <a href="daily_routines.html" class="px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900">L3 Time</a>
+        <a href="jobs_flashcards.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900">L2 Jobs</a>
+        <a href="lesson-01.html" class="px-2.5 py-1.5 rounded-lg bg-stone-100 border border-stone-300 text-stone-800">L1 Homework</a>
         <a href="verb_practice.html" class="px-2.5 py-1.5 rounded-lg bg-teal-50 border border-teal-300 text-teal-900">Verbs</a>
       </div>
     </div>
@@ -136,19 +137,19 @@
   <!-- 5 BIG PHONE TABS -->
   <nav class="bg-white border-b-2 border-stone-200 px-2.5 py-2">
     <div class="max-w-2xl mx-auto grid grid-cols-3 sm:grid-cols-5 gap-1.5">
-      <button type="button" onclick="switchView('yesno')" id="tab-btn-yesno" class="l5-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 flex items-center justify-center gap-1 transition l5-tab-active">
-        <span>1. Yes / No</span>
+      <button type="button" onclick="switchView('places')" id="tab-btn-places" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 flex items-center justify-center gap-1 transition l6-tab-active">
+        <span>1. Places</span>
       </button>
-      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l5-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
-        <span>2. Do you?</span>
+      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>2. Do you go?</span>
       </button>
-      <button type="button" onclick="switchView('heshe')" id="tab-btn-heshe" class="l5-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
-        <span>3. He / She</span>
+      <button type="button" onclick="switchView('does')" id="tab-btn-does" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>3. Does he/she?</span>
       </button>
-      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l5-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
         <span>4. Build</span>
       </button>
-      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l5-tab-btn col-span-2 sm:col-span-1 min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l6-tab-btn col-span-2 sm:col-span-1 min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
         <span>5. Easy Quiz</span>
       </button>
     </div>
@@ -158,16 +159,16 @@
   <main class="flex-1 max-w-2xl w-full mx-auto p-3 sm:p-4 space-y-4">
 
     <!-- ========================================================
-         TAB 1: SAY YES & NO (I ... vs I DON'T ...)
+         TAB 1: PLACES I GO & DON'T GO (I GO TO THE ... vs I DON'T GO TO THE ...)
          ======================================================== -->
-    <section id="view-yesno" class="view-panel space-y-4">
+    <section id="view-places" class="view-panel space-y-4">
 
-      <!-- Quick Review Fixes -->
+      <!-- Quick Review Fixes from Nov 17 Lesson -->
       <div class="solid-card p-4 space-y-3 border-l-4 border-l-amber-500">
         <div class="flex items-center justify-between gap-2">
           <div>
-            <span class="text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-950">Step 1 • Review</span>
-            <h2 class="font-display font-extrabold text-lg text-stone-900 mt-1">Say "I" — Not "I'm"! 👍</h2>
+            <span class="text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-950">Step 1 • From Last Lesson</span>
+            <h2 class="font-display font-extrabold text-lg text-stone-900 mt-1">4 Quick Upgrades 👍</h2>
           </div>
           <span class="text-xs font-bold text-stone-600">Tap 🔊</span>
         </div>
@@ -175,30 +176,45 @@
         <div class="grid grid-cols-1 gap-2.5" id="warmup-fixes-grid"></div>
       </div>
 
-      <!-- Main I vs I don't Cards -->
+      <!-- Main Places Cards -->
       <div class="solid-card p-4 space-y-3.5">
         <div class="text-center space-y-1">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs font-extrabold">
-            <span>🟢 EEYYEE: I ...</span>
+            <span>🟢 I go to the...</span>
             <span>|</span>
-            <span>🔴 LAKKI: I don't ...</span>
+            <span>🔴 I don't go to the...</span>
           </div>
-          <h2 class="font-display font-extrabold text-xl text-stone-900">Tap YES or NO &amp; Say It 2 Times</h2>
-          <p class="text-xs text-stone-600 font-medium">Afaan Oromoo: <strong>don't</strong> = Lakki ❌</p>
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Places in Town (Tap &amp; Say 2x)</h2>
+          <p class="text-xs text-stone-600 font-medium">Afaan Oromoo: <strong>nan deema</strong> (🟢) / <strong>hin deemu</strong> (🔴)</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="yesno-cards-grid"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="places-cards-grid"></div>
+
+        <!-- Town Places vs Countries Rule Card -->
+        <div class="p-3.5 rounded-2xl bg-amber-50 border-2 border-amber-300 space-y-2">
+          <p class="font-display font-extrabold text-sm text-amber-950">🌍 Remember: Town vs Country!</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
+            <button type="button" onclick="speak('I go to the coffee shop.')" class="btn-tap p-2.5 rounded-xl bg-white border border-amber-300 text-left text-emerald-950 flex items-center justify-between">
+              <span>🏙️ I go <u>to the</u> coffee shop.</span>
+              <i class="fa-solid fa-volume-high text-emerald-700"></i>
+            </button>
+            <button type="button" onclick="speak('I go to Japan.')" class="btn-tap p-2.5 rounded-xl bg-white border border-amber-300 text-left text-blue-950 flex items-center justify-between">
+              <span>🇯🇵 I go <u>to</u> Japan. (NO "the"!)</span>
+              <i class="fa-solid fa-volume-high text-blue-700"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ========================================================
-         TAB 2: DO YOU...? (REAL-LIFE YES / NO ANSWERS)
+         TAB 2: DO YOU GO TO...? (REAL-LIFE YES / NO ANSWERS)
          ======================================================== -->
     <section id="view-questions" class="view-panel hidden space-y-4">
       <div class="solid-card p-4 space-y-3.5">
         <div class="text-center space-y-1">
           <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900">Step 2 • Gaaffii &amp; Deebii</span>
-          <h2 class="font-display font-extrabold text-xl text-stone-900">Do You...? (About You!)</h2>
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Do You Go To...? (About You!)</h2>
           <p class="text-xs text-stone-600">Tap 🔊 to hear, then tap <strong>Yes, I do</strong> or <strong>No, I don't</strong>.</p>
         </div>
 
@@ -207,35 +223,36 @@
     </section>
 
     <!-- ========================================================
-         TAB 3: HE / SHE + DOESN'T
+         TAB 3: DOES HE / SHE...? (YES, HE DOES / NO, HE DOESN'T)
          ======================================================== -->
-    <section id="view-heshe" class="view-panel hidden space-y-4">
+    <section id="view-does" class="view-panel hidden space-y-4">
       <div class="solid-card p-4 space-y-3.5">
         <div class="text-center space-y-2">
           <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-900">Step 3 • Inni / Isheen</span>
-          <h2 class="font-display font-extrabold text-xl text-stone-900">He Plays 🟢 vs He Doesn't Play 🔴</h2>
-          <div class="p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm text-amber-950 font-bold">
-            ✨ Easy Rule: With <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold">doesn't</span>, NO <strong>-s</strong> on the verb!
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Does He / She...?</h2>
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm text-amber-950 font-bold space-y-1">
+            <div>🟢 <strong>Yes, he does.</strong> He play<span class="px-1 py-0.5 rounded bg-emerald-100 text-emerald-800 font-extrabold">s</span>.</div>
+            <div>🔴 <strong>No, he doesn't.</strong> He <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold">doesn't</span> play. (NO <strong>-s</strong>!)</div>
           </div>
         </div>
 
-        <div class="space-y-3" id="heshe-cards-container"></div>
+        <div class="space-y-3" id="does-cards-container"></div>
       </div>
     </section>
 
     <!-- ========================================================
-         TAB 4: EASY SENTENCE BUILDER (3-5 WORDS)
+         TAB 4: EASY SENTENCE BUILDER (4-5 WORDS)
          ======================================================== -->
     <section id="view-builder" class="view-panel hidden space-y-4">
       <div class="solid-card p-4 sm:p-5 space-y-4 text-center">
         <div class="flex items-center justify-between">
           <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900">Step 4 • Hima Ijaari</span>
-          <span id="builder-progress" class="text-xs font-extrabold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg border border-stone-300">1 / 5</span>
+          <span id="builder-progress" class="text-xs font-extrabold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg border border-stone-300">1 / 6</span>
         </div>
 
         <div class="flex flex-col items-center space-y-2">
           <div class="w-32 h-32 rounded-2xl bg-stone-50 border border-stone-200 p-2 flex items-center justify-center">
-            <img id="builder-img" src="images/routines/no_tv.svg" alt="Clue" width="112" height="112" class="w-28 h-28 object-contain">
+            <img id="builder-img" src="images/routines/coffee_shop.svg" alt="Clue" width="112" height="112" class="w-28 h-28 object-contain">
           </div>
           <p id="builder-meaning" class="text-sm font-bold text-stone-800"></p>
           <button type="button" onclick="speakBuilderTarget()" class="btn-tap px-4 py-2.5 rounded-xl bg-teal-700 text-white text-xs font-extrabold flex items-center gap-1.5">
@@ -273,7 +290,7 @@
         <div class="flex items-center justify-between gap-2">
           <div>
             <span class="text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900">Step 5 • Qormaata</span>
-            <h2 class="font-display font-extrabold text-xl text-stone-900 mt-1">Lesson 5 Easy Quiz 🌟</h2>
+            <h2 class="font-display font-extrabold text-xl text-stone-900 mt-1">Lesson 6 Easy Quiz 🌟</h2>
           </div>
           <span id="quiz-score-badge" class="px-3 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-xs font-extrabold text-stone-800">0 / 6</span>
         </div>
@@ -285,7 +302,7 @@
             <i class="fa-solid fa-check-double"></i>
             <span>Check My Answers</span>
           </button>
-          <button type="button" onclick="openPreplyModalL5()" class="btn-tap min-h-[48px] px-4 py-3 rounded-xl bg-rose-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm">
+          <button type="button" onclick="openPreplyModalL6()" class="btn-tap min-h-[48px] px-4 py-3 rounded-xl bg-rose-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Send to Teacher</span>
           </button>
@@ -301,28 +318,28 @@
   </main>
 
   <!-- SOLID PREPLY SHARE MODAL -->
-  <div id="preply-modal-l5" class="fixed inset-0 z-50 bg-black/70 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+  <div id="preply-modal-l6" class="fixed inset-0 z-50 bg-black/70 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl border-2 border-stone-200 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-2 border-b border-stone-200">
         <div>
-          <h3 class="font-display font-extrabold text-base text-stone-900">Send Lesson 5 to Teacher Lewis</h3>
+          <h3 class="font-display font-extrabold text-base text-stone-900">Send Lesson 6 to Teacher Lewis</h3>
           <p class="text-xs text-stone-500 font-semibold">Abdi • Ethiopia 🇪🇹 (Afaan Oromoo)</p>
         </div>
-        <button type="button" onclick="closePreplyModalL5()" class="w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center text-base font-bold">✕</button>
+        <button type="button" onclick="closePreplyModalL6()" class="w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center text-base font-bold">✕</button>
       </div>
 
-      <textarea id="preply-message-text-l5" rows="7" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-300 rounded-xl text-stone-900" readonly></textarea>
+      <textarea id="preply-message-text-l6" rows="7" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-300 rounded-xl text-stone-900" readonly></textarea>
 
-      <div id="preply-copy-toast-l5" class="hidden p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold text-center">
+      <div id="preply-copy-toast-l6" class="hidden p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold text-center">
         ✅ Copied! Paste it in Preply Chat!
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <button type="button" onclick="shareViaMobileL5()" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+        <button type="button" onclick="shareViaMobileL6()" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-2">
           <i class="fa-solid fa-share-nodes"></i>
           <span>Share on Phone</span>
         </button>
-        <button type="button" onclick="copyPreplyTextL5()" id="btn-copy-preply-l5" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-rose-600 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+        <button type="button" onclick="copyPreplyTextL6()" id="btn-copy-preply-l6" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-rose-600 text-white font-extrabold text-xs flex items-center justify-center gap-2">
           <i class="fa-solid fa-copy"></i>
           <span>Copy for Preply</span>
         </button>
@@ -382,41 +399,41 @@
     function switchView(viewName) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
       document.getElementById(`view-${viewName}`).classList.remove('hidden');
-      document.querySelectorAll('.l5-tab-btn').forEach(btn => {
-        btn.classList.remove('l5-tab-active');
+      document.querySelectorAll('.l6-tab-btn').forEach(btn => {
+        btn.classList.remove('l6-tab-active');
         btn.classList.add('text-stone-800', 'bg-stone-50');
       });
       const activeBtn = document.getElementById(`tab-btn-${viewName}`);
-      activeBtn.classList.add('l5-tab-active');
+      activeBtn.classList.add('l6-tab-active');
       activeBtn.classList.remove('text-stone-800', 'bg-stone-50');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ================= 1. WARM-UP & YES/NO CARDS (AFAAN OROMOO) ================= */
+    /* ================= 1. WARM-UP FIXES (FROM NOV 17 LESSON) & PLACES ================= */
     const WARMUP_FIXES = [
       {
-        wrong: "I'm eating 8:30",
-        right: "I eat at half past eight.",
-        img: "images/clocks/clock_08_30.svg",
-        clue: "🇪🇹 Sa'aatii 8:30tti nan nyaadha."
+        wrong: "Yes, I don't.",
+        right: "Yes, I do. / No, I don't.",
+        img: "images/routines/drink_coffee.svg",
+        clue: "🇪🇹 Eeyyee, nan godha. / Lakki, hin godhu."
       },
       {
-        wrong: "I'm going market Friday",
+        wrong: "Coffee shop. I'm well in the coffee shop.",
+        right: "I go to the coffee shop.",
+        img: "images/routines/coffee_shop.svg",
+        clue: "🇪🇹 Mana bunaa nan deema."
+      },
+      {
+        wrong: "I go to the market at Friday.",
         right: "I go to the market on Friday.",
         img: "images/routines/go_market.svg",
-        clue: "🇪🇹 Jimaata gabaa nan deema."
+        clue: "🇪🇹 Jimaata gabaa nan deema. (on + Guyyaa)"
       },
       {
-        wrong: "Am eating in kitchen",
-        right: "I eat at home.",
-        img: "images/routines/cook_dinner.png",
-        clue: "🇪🇹 Mana keessatti nan nyaadha."
-      },
-      {
-        wrong: "I'm not look TV, I phone",
-        right: "I don't watch TV. I watch my phone.",
-        img: "images/routines/watch_phone.svg",
-        clue: "🇪🇹 TV hin ilaalu. Bilbila koo nan ilaala."
+        wrong: "He doesn't plays football.",
+        right: "He doesn't play football.",
+        img: "images/routines/play_football.svg",
+        clue: "🇪🇹 Inni kubbaa miilaa hin taphatu. (NO -s!)"
       }
     ];
 
@@ -445,34 +462,27 @@
       });
     }
 
-    const YESNO_CARDS = [
+    const PLACES_CARDS = [
       {
-        title: "Phone (Bilbila)",
-        img: "images/routines/watch_phone.svg",
-        yes: "I watch my phone.",
-        no: "I don't watch my phone.",
-        clue: "🇪🇹 Bilbila koo nan ilaala / hin ilaalu"
+        title: "Coffee Shop (Mana Bunaa)",
+        img: "images/routines/coffee_shop.svg",
+        yes: "I go to the coffee shop.",
+        no: "I don't go to the coffee shop.",
+        clue: "🇪🇹 Mana bunaa nan deema / hin deemu"
       },
       {
-        title: "TV",
-        img: "images/routines/no_tv.svg",
-        yes: "I watch TV.",
-        no: "I don't watch TV.",
-        clue: "🇪🇹 TV nan ilaala / hin ilaalu"
+        title: "Park (Paarkii)",
+        img: "images/routines/go_park.svg",
+        yes: "I go to the park.",
+        no: "I don't go to the park.",
+        clue: "🇪🇹 Paarkii nan deema / hin deemu"
       },
       {
-        title: "Coffee (Buna)",
-        img: "images/routines/drink_coffee.svg",
-        yes: "I drink coffee.",
-        no: "I don't drink coffee.",
-        clue: "🇪🇹 Buna nan dhuga / hin dhugu"
-      },
-      {
-        title: "Eat Out (Alaatti)",
-        img: "images/routines/eat_out.svg",
-        yes: "I eat out.",
-        no: "I don't eat out.",
-        clue: "🇪🇹 Alaatti nan nyaadha / hin nyaadhu"
+        title: "Gym (Mana Ispoortii)",
+        img: "images/routines/go_gym.svg",
+        yes: "I go to the gym.",
+        no: "I don't go to the gym.",
+        clue: "🇪🇹 Mana ispoortii nan deema / hin deemu"
       },
       {
         title: "Market (Gabaa)",
@@ -482,18 +492,25 @@
         clue: "🇪🇹 Gabaa nan deema / hin deemu"
       },
       {
-        title: "Music (Muuziqaa)",
-        img: "images/routines/listen_music.svg",
-        yes: "I listen to music.",
-        no: "I don't listen to music.",
-        clue: "🇪🇹 Muuziqaa nan dhaggeeffadha"
+        title: "Cinema (Mana Filmii)",
+        img: "images/routines/go_cinema.svg",
+        yes: "I go to the cinema.",
+        no: "I don't go to the cinema.",
+        clue: "🇪🇹 Mana filmii nan deema / hin deemu"
+      },
+      {
+        title: "Eat at Home (Mana Keessatti)",
+        img: "images/routines/cook_dinner.png",
+        yes: "I eat at home.",
+        no: "I don't eat out.",
+        clue: "🇪🇹 Mana keessatti nan nyaadha"
       }
     ];
 
-    function renderYesNoCards() {
-      const grid = document.getElementById('yesno-cards-grid');
+    function renderPlacesCards() {
+      const grid = document.getElementById('places-cards-grid');
       grid.innerHTML = '';
-      YESNO_CARDS.forEach((c, i) => {
+      PLACES_CARDS.forEach((c, i) => {
         const card = document.createElement('div');
         card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-3 flex flex-col';
         card.innerHTML = `
@@ -504,14 +521,14 @@
             <div class="min-w-0 flex-1">
               <h3 class="font-display font-extrabold text-base text-stone-900">${c.title}</h3>
               <p class="text-xs text-stone-600 font-medium mt-0.5">${c.clue}</p>
-              <p id="yn-out-${i}" class="text-sm font-extrabold text-emerald-900 mt-1 min-h-[20px]">Tap YES or NO 👇</p>
+              <p id="pl-out-${i}" class="text-sm font-extrabold text-emerald-900 mt-1 min-h-[20px]">Tap YES or NO 👇</p>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2 mt-auto">
-            <button type="button" onclick="playYesNo(${i}, 'yes')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-emerald-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
-              <span>🟢</span><span>I do</span>
+            <button type="button" onclick="playPlaceCard(${i}, 'yes')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-emerald-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
+              <span>🟢</span><span>I go</span>
             </button>
-            <button type="button" onclick="playYesNo(${i}, 'no')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-rose-100 border-2 border-rose-500 text-rose-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
+            <button type="button" onclick="playPlaceCard(${i}, 'no')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-rose-100 border-2 border-rose-500 text-rose-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
               <span>🔴</span><span>I don't</span>
             </button>
           </div>
@@ -520,59 +537,59 @@
       });
     }
 
-    function playYesNo(index, kind) {
-      const item = YESNO_CARDS[index];
+    function playPlaceCard(index, kind) {
+      const item = PLACES_CARDS[index];
       const sentence = kind === 'yes' ? item.yes : item.no;
-      const out = document.getElementById(`yn-out-${index}`);
+      const out = document.getElementById(`pl-out-${index}`);
       out.textContent = (kind === 'yes' ? '✅ ' : '❌ ') + sentence;
       out.className = `text-sm font-extrabold mt-1 min-h-[20px] ${kind === 'yes' ? 'text-emerald-800' : 'text-rose-800'}`;
       speak(sentence);
       addXP(10);
     }
 
-    /* ================= 2. DO YOU...? ================= */
+    /* ================= 2. DO YOU GO TO...? ================= */
     const DO_YOU_QUESTIONS = [
       {
-        q: "Do you watch TV?",
-        img: "images/routines/no_tv.svg",
-        yesSay: "Yes, I do. I watch TV.",
-        noSay: "No, I don't. I don't watch TV.",
-        clue: "🇪🇹 TV ni ilaaltaa?"
+        q: "Do you go to the coffee shop?",
+        img: "images/routines/coffee_shop.svg",
+        yesSay: "Yes, I do. I go to the coffee shop.",
+        noSay: "No, I don't. I don't go to the coffee shop.",
+        clue: "🇪🇹 Mana bunaa ni deemtaa?"
       },
       {
-        q: "Do you watch your phone?",
-        img: "images/routines/watch_phone.svg",
-        yesSay: "Yes, I do. I watch my phone every day.",
-        noSay: "No, I don't.",
-        clue: "🇪🇹 Bilbila kee ni ilaaltaa?"
+        q: "Do you go to the park?",
+        img: "images/routines/go_park.svg",
+        yesSay: "Yes, I do. I go to the park.",
+        noSay: "No, I don't. I don't go to the park.",
+        clue: "🇪🇹 Paarkii ni deemtaa?"
       },
       {
-        q: "Do you drink coffee in the morning?",
-        img: "images/routines/drink_coffee.svg",
-        yesSay: "Yes, I do. I drink coffee in the morning.",
-        noSay: "No, I don't. I don't drink coffee.",
-        clue: "🇪🇹 Ganama buna ni dhugdaa?"
+        q: "Do you go to the gym?",
+        img: "images/routines/go_gym.svg",
+        yesSay: "Yes, I do. I go to the gym.",
+        noSay: "No, I don't. I don't go to the gym.",
+        clue: "🇪🇹 Mana ispoortii (jimii) ni deemtaa?"
       },
       {
-        q: "Do you eat at home?",
-        img: "images/routines/cook_dinner.png",
-        yesSay: "Yes, I do. I eat at home.",
-        noSay: "No, I don't. I eat out.",
-        clue: "🇪🇹 Mana keessatti ni nyaattaa?"
+        q: "Do you go to the cinema?",
+        img: "images/routines/go_cinema.svg",
+        yesSay: "Yes, I do. I go to the cinema.",
+        noSay: "No, I don't. I watch my phone at home.",
+        clue: "🇪🇹 Mana filmii (sinimaa) ni deemtaa?"
       },
       {
         q: "Do you go to the market on Friday?",
         img: "images/routines/go_market.svg",
         yesSay: "Yes, I do. I go to the market on Friday.",
-        noSay: "No, I don't.",
+        noSay: "No, I don't. I don't go to the market.",
         clue: "🇪🇹 Jimaata gabaa ni deemtaa?"
       },
       {
-        q: "Do you study English every week?",
-        img: "images/routines/study_english.svg",
-        yesSay: "Yes, I do. I study English!",
+        q: "Do you drink coffee every day?",
+        img: "images/routines/drink_coffee.svg",
+        yesSay: "Yes, I do. I drink coffee every day.",
         noSay: "No, I don't.",
-        clue: "🇪🇹 Torban hunda Ingilizii ni barattaa?"
+        clue: "🇪🇹 Guyyaa hunda buna ni dhugdaa?"
       }
     ];
 
@@ -629,54 +646,59 @@
       addXP(15);
     }
 
-    /* ================= 3. HE / SHE + DOESN'T ================= */
-    const HESHE_CARDS = [
+    /* ================= 3. DOES HE / SHE...? ================= */
+    const DOES_CARDS = [
       {
         img: "images/routines/play_football.svg",
-        yesHtml: `He <span class="text-emerald-800 underline decoration-2">play<strong>s</strong></span> football.`,
-        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> play football.`,
-        yesSay: "He plays football.",
-        noSay: "He doesn't play football.",
-        clue: "🇪🇹 Kubbaa miilaa ni taphata / hin taphatu"
+        question: "Does he play football?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">play<strong>s</strong></span> football.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> play football.`,
+        yesSay: "Yes, he does. He plays football.",
+        noSay: "No, he doesn't. He doesn't play football.",
+        clue: "🇪🇹 Inni kubbaa miilaa ni taphataa?"
+      },
+      {
+        img: "images/routines/coffee_shop.svg",
+        question: "Does he go to the coffee shop?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">go<strong>es</strong></span> to the coffee shop.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> go to the coffee shop.`,
+        yesSay: "Yes, he does. He goes to the coffee shop.",
+        noSay: "No, he doesn't. He doesn't go to the coffee shop.",
+        clue: "🇪🇹 Inni mana bunaa ni deemaa?"
       },
       {
         img: "images/routines/cook_dinner.png",
-        yesHtml: `She <span class="text-emerald-800 underline decoration-2">cook<strong>s</strong></span> dinner.`,
-        noHtml: `She <span class="text-rose-700 font-black">doesn't</span> cook dinner.`,
-        yesSay: "She cooks dinner.",
-        noSay: "She doesn't cook dinner.",
-        clue: "🇪🇹 Irbaata ni bilcheessiti / hin bilcheessitu"
-      },
-      {
-        img: "images/routines/no_tv.svg",
-        yesHtml: `He <span class="text-emerald-800 underline decoration-2">watch<strong>es</strong></span> TV.`,
-        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> watch TV.`,
-        yesSay: "He watches TV.",
-        noSay: "He doesn't watch TV.",
-        clue: "🇪🇹 TV ni ilaala / hin ilaalu"
+        question: "Does she cook dinner at home?",
+        yesHtml: `✅ <strong>Yes, she does.</strong> She <span class="text-emerald-800 underline decoration-2">cook<strong>s</strong></span> dinner.`,
+        noHtml: `❌ <strong>No, she doesn't.</strong> She <span class="text-rose-700 font-black">doesn't</span> cook dinner.`,
+        yesSay: "Yes, she does. She cooks dinner.",
+        noSay: "No, she doesn't. She doesn't cook dinner.",
+        clue: "🇪🇹 Isheen mana keessatti irbaata ni bilcheessitii?"
       },
       {
         img: "images/routines/study_english.svg",
-        yesHtml: `She <span class="text-emerald-800 underline decoration-2">stud<strong>ies</strong></span> English.`,
-        noHtml: `She <span class="text-rose-700 font-black">doesn't</span> study English.`,
-        yesSay: "She studies English.",
-        noSay: "She doesn't study English.",
-        clue: "🇪🇹 Ingilizii ni baratti / hin barattu"
+        question: "Does she study English?",
+        yesHtml: `✅ <strong>Yes, she does.</strong> She <span class="text-emerald-800 underline decoration-2">stud<strong>ies</strong></span> English.`,
+        noHtml: `❌ <strong>No, she doesn't.</strong> She <span class="text-rose-700 font-black">doesn't</span> study English.`,
+        yesSay: "Yes, she does. She studies English.",
+        noSay: "No, she doesn't. She doesn't study English.",
+        clue: "🇪🇹 Isheen Ingilizii ni barattii?"
       },
       {
         img: "images/routines/eat_out.svg",
-        yesHtml: `He <span class="text-emerald-800 underline decoration-2">eat<strong>s</strong></span> out.`,
-        noHtml: `He <span class="text-rose-700 font-black">doesn't</span> eat out.`,
-        yesSay: "He eats out.",
-        noSay: "He doesn't eat out.",
-        clue: "🇪🇹 Alaatti ni nyaata / hin nyaatu"
+        question: "Does he eat out every day?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">eat<strong>s</strong></span> out.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> eat out.`,
+        yesSay: "Yes, he does. He eats out.",
+        noSay: "No, he doesn't. He doesn't eat out.",
+        clue: "🇪🇹 Inni guyyaa hunda alaatti ni nyaataa?"
       }
     ];
 
-    function renderHeSheCards() {
-      const container = document.getElementById('heshe-cards-container');
+    function renderDoesCards() {
+      const container = document.getElementById('does-cards-container');
       container.innerHTML = '';
-      HESHE_CARDS.forEach((item, i) => {
+      DOES_CARDS.forEach((item, i) => {
         const card = document.createElement('div');
         card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-3';
         card.innerHTML = `
@@ -685,16 +707,20 @@
               <img src="${item.img}" alt="" width="56" height="56" class="w-14 h-14 object-contain">
             </div>
             <div class="flex-1 min-w-0">
-              <p id="hs-text-${i}" class="font-display font-extrabold text-lg text-stone-900">${item.yesHtml}</p>
+              <p class="font-display font-extrabold text-base text-indigo-950">❓ ${item.question}</p>
               <p class="text-xs text-stone-600 font-medium">${item.clue}</p>
             </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <button type="button" onclick="toggleHeShe(${i}, 'yes')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-emerald-600 text-white text-xs sm:text-sm font-extrabold">
-              🟢 YES (-s)
+            <button type="button" onclick="speak('${item.question.replace(/'/g, "\\'")}')" class="btn-tap w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high text-sm"></i>
             </button>
-            <button type="button" onclick="toggleHeShe(${i}, 'no')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-rose-600 text-white text-xs sm:text-sm font-extrabold">
-              🔴 NO (doesn't)
+          </div>
+          <div id="does-text-${i}" class="p-2.5 rounded-xl bg-white border border-stone-200 text-sm text-stone-900 font-semibold">${item.yesHtml}</div>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="toggleDoes(${i}, 'yes')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-emerald-600 text-white text-xs sm:text-sm font-extrabold">
+              🟢 Yes, he/she does
+            </button>
+            <button type="button" onclick="toggleDoes(${i}, 'no')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-rose-600 text-white text-xs sm:text-sm font-extrabold">
+              🔴 No, he/she doesn't
             </button>
           </div>
         `;
@@ -702,9 +728,9 @@
       });
     }
 
-    function toggleHeShe(idx, mode) {
-      const item = HESHE_CARDS[idx];
-      const textEl = document.getElementById(`hs-text-${idx}`);
+    function toggleDoes(idx, mode) {
+      const item = DOES_CARDS[idx];
+      const textEl = document.getElementById(`does-text-${idx}`);
       if (mode === 'yes') {
         textEl.innerHTML = item.yesHtml;
         speak(item.yesSay);
@@ -718,29 +744,34 @@
     /* ================= 4. EASY SENTENCE BUILDER ================= */
     const BUILDER_CHALLENGES = [
       {
-        words: ["I", "don't", "watch", "TV."],
-        img: "images/routines/no_tv.svg",
-        meaning: "🇪🇹 Ani TV hin ilaalu."
+        words: ["I", "go", "to", "the", "coffee", "shop."],
+        img: "images/routines/coffee_shop.svg",
+        meaning: "🇪🇹 Ani mana bunaa nan deema."
       },
       {
-        words: ["I", "watch", "my", "phone."],
-        img: "images/routines/watch_phone.svg",
-        meaning: "🇪🇹 Ani bilbila koo nan ilaala."
+        words: ["I", "go", "to", "the", "park."],
+        img: "images/routines/go_park.svg",
+        meaning: "🇪🇹 Ani paarkii nan deema."
       },
       {
-        words: ["Yes,", "I", "do."],
-        img: "images/routines/drink_coffee.svg",
-        meaning: "🇪🇹 Eeyyee, nan godha."
+        words: ["I", "don't", "go", "to", "the", "cinema."],
+        img: "images/routines/go_cinema.svg",
+        meaning: "🇪🇹 Ani mana filmii hin deemu."
       },
       {
-        words: ["I", "eat", "at", "home."],
-        img: "images/routines/cook_dinner.png",
-        meaning: "🇪🇹 Ani mana keessatti nan nyaadha."
+        words: ["He", "doesn't", "play", "football."],
+        img: "images/routines/play_football.svg",
+        meaning: "🇪🇹 Inni kubbaa miilaa hin taphatu."
       },
       {
-        words: ["He", "doesn't", "eat", "out."],
+        words: ["Yes,", "she", "does."],
+        img: "images/routines/study_english.svg",
+        meaning: "🇪🇹 Eeyyee, isheen ni gooti."
+      },
+      {
+        words: ["No,", "he", "doesn't."],
         img: "images/routines/eat_out.svg",
-        meaning: "🇪🇹 Inni alaatti hin nyaatu."
+        meaning: "🇪🇹 Lakki, inni hin godhu."
       }
     ];
 
@@ -845,46 +876,46 @@
     /* ================= 5. EASY QUIZ ================= */
     const QUIZ_ITEMS = [
       {
-        q: "How do you say NO for TV?",
-        img: "images/routines/no_tv.svg",
-        options: ["I don't watch TV.", "I'm not watch TV.", "I watching not TV."],
-        answer: "I don't watch TV.",
-        explain: "Use 'I don't' to say NO!"
-      },
-      {
-        q: "Which sentence is correct for every day?",
-        img: "images/clocks/clock_08_30.svg",
-        options: ["I'm eating eight half.", "I eat at half past eight.", "I eating at half past eight."],
-        answer: "I eat at half past eight.",
-        explain: "Say 'I eat at...' for habits."
-      },
-      {
-        q: "Do you drink coffee? — Pick YES:",
+        q: "Do you drink coffee? — Pick the YES answer:",
         img: "images/routines/drink_coffee.svg",
-        options: ["Yes, I do.", "Yes, I am.", "Yes, I don't."],
+        options: ["Yes, I do.", "Yes, I don't.", "Yes, I'm."],
         answer: "Yes, I do.",
-        explain: "'Do you...?' ➔ 'Yes, I do.'"
+        explain: "YES = 'Yes, I do.' (Never say 'Yes, I don't'!)"
       },
       {
-        q: "Do you eat out? — Pick NO:",
-        img: "images/routines/eat_out.svg",
-        options: ["No, I'm not.", "No, I don't.", "No, I doesn't."],
-        answer: "No, I don't.",
-        explain: "With 'I', say 'No, I don't.'"
-      },
-      {
-        q: "I go to the market ____ Friday.",
-        img: "images/routines/go_market.svg",
-        options: ["at", "in", "on"],
-        answer: "on",
-        explain: "Days of the week use ON."
+        q: "Which sentence is correct for the coffee shop?",
+        img: "images/routines/coffee_shop.svg",
+        options: ["I'm well in the coffee shop.", "I go to the coffee shop.", "I go coffee shop."],
+        answer: "I go to the coffee shop.",
+        explain: "Say 'I go to the coffee shop.'"
       },
       {
         q: "Change to NO: 'He plays football.'",
         img: "images/routines/play_football.svg",
         options: ["He doesn't play football.", "He doesn't plays football.", "He don't play football."],
         answer: "He doesn't play football.",
-        explain: "'doesn't' takes away the -s!"
+        explain: "With 'doesn't', NO -s on play!"
+      },
+      {
+        q: "Does she study English? — Pick YES:",
+        img: "images/routines/study_english.svg",
+        options: ["Yes, she does.", "Yes, she do.", "Yes, she doesn't."],
+        answer: "Yes, she does.",
+        explain: "'Does she...?' ➔ 'Yes, she does.'"
+      },
+      {
+        q: "I go to the market ____ Friday.",
+        img: "images/routines/go_market.svg",
+        options: ["at", "in", "on"],
+        answer: "on",
+        explain: "Days of the week use ON (on Friday)."
+      },
+      {
+        q: "Which sentence is correct for a country (Japan)?",
+        img: "images/routines/go_park.svg",
+        options: ["I go to Japan.", "I go to the Japan.", "I going to Japan."],
+        answer: "I go to Japan.",
+        explain: "Countries and cities don't use 'the'!"
       }
     ];
 
@@ -898,7 +929,7 @@
         q.options.forEach(opt => {
           optsHtml += `
             <label class="flex items-center gap-3 min-h-[48px] p-3 rounded-xl bg-white border-2 border-stone-200 cursor-pointer text-sm font-bold">
-              <input type="radio" name="l5_quiz_${idx}" value="${opt}" class="w-5 h-5 text-purple-600 focus:ring-purple-500">
+              <input type="radio" name="l6_quiz_${idx}" value="${opt}" class="w-5 h-5 text-purple-600 focus:ring-purple-500">
               <span>${opt}</span>
             </label>
           `;
@@ -914,7 +945,7 @@
             </button>
           </div>
           <div class="grid grid-cols-1 gap-2">${optsHtml}</div>
-          <div id="l5-quiz-fb-${idx}" class="hidden p-2.5 rounded-xl text-xs font-bold"></div>
+          <div id="l6-quiz-fb-${idx}" class="hidden p-2.5 rounded-xl text-xs font-bold"></div>
         `;
         container.appendChild(card);
       });
@@ -923,8 +954,8 @@
     function gradeQuiz() {
       let score = 0;
       QUIZ_ITEMS.forEach((q, idx) => {
-        const selected = document.querySelector(`input[name="l5_quiz_${idx}"]:checked`);
-        const fb = document.getElementById(`l5-quiz-fb-${idx}`);
+        const selected = document.querySelector(`input[name="l6_quiz_${idx}"]:checked`);
+        const fb = document.getElementById(`l6-quiz-fb-${idx}`);
         fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-rose-50', 'text-rose-900', 'border-rose-300');
         fb.classList.add('border');
         if (selected && selected.value === q.answer) {
@@ -947,15 +978,15 @@
     }
 
     /* ================= PREPLY MODAL ================= */
-    function generatePreplyTextL5() {
+    function generatePreplyTextL6() {
       const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
       const scoreText = document.getElementById('quiz-score-badge')?.textContent || '0 / 6';
       const lines = Object.entries(abdiRealAnswers).map(([q, a]) => `• ${q} ➔ ${a}`);
       const answersBlock = lines.length > 0
         ? lines.join('\n')
-        : '• I watch my phone.\n• I don\'t watch TV.\n• I eat at home.\n• I go to the market on Friday.';
+        : '• I go to the coffee shop.\n• I don\'t go to the cinema.\n• I eat at home.\n• He doesn\'t play football.';
 
-      return `👋 Hello Teacher Lewis! Abdi's Lesson 5 (Ethiopia 🇪🇹 • Afaan Oromoo)
+      return `👋 Hello Teacher Lewis! Abdi's Lesson 6 (Ethiopia 🇪🇹 • Afaan Oromoo)
 📅 Date: ${today}
 🏆 Quiz: ${scoreText} | XP: ${currentXP}
 
@@ -963,43 +994,43 @@
 ${answersBlock}`;
     }
 
-    function openPreplyModalL5() {
-      document.getElementById('preply-message-text-l5').value = generatePreplyTextL5();
-      document.getElementById('preply-modal-l5').classList.remove('hidden');
-      document.getElementById('preply-copy-toast-l5').classList.add('hidden');
+    function openPreplyModalL6() {
+      document.getElementById('preply-message-text-l6').value = generatePreplyTextL6();
+      document.getElementById('preply-modal-l6').classList.remove('hidden');
+      document.getElementById('preply-copy-toast-l6').classList.add('hidden');
     }
 
-    function closePreplyModalL5() {
-      document.getElementById('preply-modal-l5').classList.add('hidden');
+    function closePreplyModalL6() {
+      document.getElementById('preply-modal-l6').classList.add('hidden');
     }
 
-    function copyPreplyTextL5() {
-      const ta = document.getElementById('preply-message-text-l5');
+    function copyPreplyTextL6() {
+      const ta = document.getElementById('preply-message-text-l6');
       ta.select();
       ta.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(ta.value).then(() => {
-        document.getElementById('preply-copy-toast-l5').classList.remove('hidden');
-        document.getElementById('btn-copy-preply-l5').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        document.getElementById('preply-copy-toast-l6').classList.remove('hidden');
+        document.getElementById('btn-copy-preply-l6').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
         setTimeout(() => {
-          document.getElementById('btn-copy-preply-l5').innerHTML = '<i class="fa-solid fa-copy"></i> Copy for Preply';
+          document.getElementById('btn-copy-preply-l6').innerHTML = '<i class="fa-solid fa-copy"></i> Copy for Preply';
         }, 2500);
       }).catch(() => alert('Please copy the text manually.'));
     }
 
-    function shareViaMobileL5() {
-      const text = document.getElementById('preply-message-text-l5').value;
+    function shareViaMobileL6() {
+      const text = document.getElementById('preply-message-text-l6').value;
       if (navigator.share) {
-        navigator.share({ title: "Abdi's Lesson 5 Practice", text }).catch(() => {});
+        navigator.share({ title: "Abdi's Lesson 6 Practice", text }).catch(() => {});
       } else {
-        copyPreplyTextL5();
+        copyPreplyTextL6();
       }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       renderWarmupFixes();
-      renderYesNoCards();
+      renderPlacesCards();
       renderQuestions();
-      renderHeSheCards();
+      renderDoesCards();
       initBuilder();
       renderQuiz();
     });

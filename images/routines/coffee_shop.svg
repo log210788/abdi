@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cafeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="50%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+    <filter id="cafeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#78350f" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" rx="40" fill="url(#cafeBg)"/>
+  <circle cx="250" cy="235" r="185" fill="#ffffff" opacity="0.65"/>
+
+  <!-- Coffee Shop Building -->
+  <g filter="url(#cafeShadow)" transform="translate(85, 85)">
+    <!-- Shop Body -->
+    <rect x="25" y="75" width="280" height="220" rx="14" fill="#fff7ed" stroke="#92400e" stroke-width="5"/>
+    <!-- Roof Sign Board -->
+    <rect x="45" y="20" width="240" height="52" rx="12" fill="#78350f" stroke="#451a03" stroke-width="4"/>
+    <text x="165" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" text-anchor="middle" fill="#fef3c7" letter-spacing="2">COFFEE ☕</text>
+    <!-- Striped Awning -->
+    <path d="M10 130 L30 75 L300 75 L320 130 Z" fill="#15803d" stroke="#14532d" stroke-width="4"/>
+    <path d="M68 75 L56 130 L102 130 L110 75 Z" fill="#ffffff"/>
+    <path d="M150 75 L146 130 L186 130 L182 75 Z" fill="#ffffff"/>
+    <path d="M225 75 L230 130 L276 130 L264 75 Z" fill="#ffffff"/>
+    <!-- Door -->
+    <rect x="52" y="155" width="76" height="140" rx="8" fill="#b45309" stroke="#78350f" stroke-width="4"/>
+    <rect x="64" y="168" width="52" height="58" rx="6" fill="#bae6fd"/>
+    <circle cx="114" cy="232" r="5" fill="#fde047"/>
+    <!-- Large Cafe Window with Cup -->
+    <rect x="150" y="155" width="132" height="100" rx="10" fill="#e0f2fe" stroke="#78350f" stroke-width="4"/>
+    <!-- Cup inside window -->
+    <path d="M196 215 L202 240 L230 240 L236 215 Z" fill="#d97706"/>
+    <path d="M210 202 Q 204 190, 214 180" fill="none" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+    <path d="M222 202 Q 216 190, 226 180" fill="none" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+    <!-- Sidewalk base -->
+    <rect x="5" y="295" width="320" height="18" rx="8" fill="#a8a29e"/>
+  </g>
+
+  <text x="250" y="462" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" text-anchor="middle" fill="#78350f" letter-spacing="1">THE COFFEE SHOP ☕</text>
+</svg>

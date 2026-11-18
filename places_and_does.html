@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#15803d">
+  <title>Lesson 6: Places &amp; Does He/She? • English with Abdi (Ethiopia 🇪🇹)</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --card-bg: #ffffff;
+      --card-border: #d6e2d8;
+      --page-bg: #eaf3ec;
+      --text-main: #1c241e;
+    }
+
+    body {
+      background-color: var(--page-bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        background-image: linear-gradient(rgba(234, 243, 236, 0.72), rgba(234, 243, 236, 0.72)), url('images/ghibli/bg.webp');
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+
+    /* 100% Solid, High-Contrast Mobile Cards */
+    .solid-card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      box-shadow: 0 4px 14px rgba(21, 56, 32, 0.08);
+      border-radius: 1.25rem;
+    }
+
+    .btn-tap {
+      transition: transform 0.12s ease;
+      touch-action: manipulation;
+    }
+    .btn-tap:active { transform: scale(0.97); }
+
+    .l6-tab-active {
+      background-color: #15803d !important;
+      color: #ffffff !important;
+      border-color: #166534 !important;
+      box-shadow: 0 3px 8px rgba(21, 128, 61, 0.28);
+    }
+
+    .word-chip {
+      user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    .word-chip:active { transform: scale(0.95); }
+    .chip-used { opacity: 0.3; pointer-events: none; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
+
+  <!-- CLEAN PHONE-FIRST TOP BAR -->
+  <header class="sticky top-0 z-40 bg-white border-b-2 border-emerald-100 px-3 py-2.5 shadow-sm">
+    <div class="max-w-2xl mx-auto space-y-2">
+      <div class="flex items-center justify-between gap-2">
+        <!-- Brand -->
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-emerald-700 text-white flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <h1 class="font-display font-extrabold text-base text-emerald-950 truncate">Abdi • Lesson 6</h1>
+              <span class="text-xs">🇪🇹</span>
+            </div>
+            <p class="text-[11px] text-stone-600 font-semibold truncate">Places I Go &amp; Does He/She?</p>
+          </div>
+        </div>
+
+        <!-- Simple Action Buttons -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-tap px-2.5 py-2 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Voice speed">
+            <span id="speed-icon">🐢</span>
+            <span id="speed-label">Slow</span>
+          </button>
+
+          <button type="button" onclick="openPreplyModalL6()" class="btn-tap px-2.5 py-2 rounded-xl bg-rose-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-xs" title="Send to Teacher">
+            <i class="fa-solid fa-paper-plane text-[11px]"></i>
+            <span>Send</span>
+          </button>
+
+          <div class="px-2.5 py-2 rounded-xl bg-amber-100 border border-amber-300 text-amber-950 text-xs font-extrabold flex items-center gap-1">
+            <span>⭐</span>
+            <span id="global-xp">0</span>
+          </div>
+
+          <button type="button" onclick="toggleOlderLessons()" class="btn-tap w-9 h-9 rounded-xl bg-stone-100 border border-stone-300 text-stone-700 text-xs font-bold flex items-center justify-center" title="Older Lessons (1-5)" aria-label="Older Lessons">
+            <i class="fa-solid fa-book"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible Older Lessons Drawer (Hidden by default so screen stays calm!) -->
+      <div id="older-lessons-drawer" class="hidden pt-1.5 border-t border-stone-200 flex items-center gap-1.5 flex-wrap text-xs font-bold">
+        <span class="text-stone-500 text-[11px] mr-1">Older:</span>
+        <a href="yes_no_routines.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-100 border border-emerald-400 text-emerald-950">L5 Yes/No</a>
+        <a href="weekly_routines.html" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-300 text-indigo-900">L4 Week</a>
+        <a href="daily_routines.html" class="px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900">L3 Time</a>
+        <a href="jobs_flashcards.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900">L2 Jobs</a>
+        <a href="lesson-01.html" class="px-2.5 py-1.5 rounded-lg bg-stone-100 border border-stone-300 text-stone-800">L1 Homework</a>
+        <a href="verb_practice.html" class="px-2.5 py-1.5 rounded-lg bg-teal-50 border border-teal-300 text-teal-900">Verbs</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 5 BIG PHONE TABS -->
+  <nav class="bg-white border-b-2 border-stone-200 px-2.5 py-2">
+    <div class="max-w-2xl mx-auto grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+      <button type="button" onclick="switchView('places')" id="tab-btn-places" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 flex items-center justify-center gap-1 transition l6-tab-active">
+        <span>1. Places</span>
+      </button>
+      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>2. Do you go?</span>
+      </button>
+      <button type="button" onclick="switchView('does')" id="tab-btn-does" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>3. Does he/she?</span>
+      </button>
+      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l6-tab-btn min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>4. Build</span>
+      </button>
+      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l6-tab-btn col-span-2 sm:col-span-1 min-h-[42px] py-2 px-2 rounded-xl text-xs font-extrabold border-2 border-stone-200 bg-stone-50 text-stone-800 flex items-center justify-center gap-1 transition">
+        <span>5. Easy Quiz</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT (SINGLE-COLUMN PHONE FRIENDLY) -->
+  <main class="flex-1 max-w-2xl w-full mx-auto p-3 sm:p-4 space-y-4">
+
+    <!-- ========================================================
+         TAB 1: PLACES I GO & DON'T GO (I GO TO THE ... vs I DON'T GO TO THE ...)
+         ======================================================== -->
+    <section id="view-places" class="view-panel space-y-4">
+
+      <!-- Quick Review Fixes from Nov 17 Lesson -->
+      <div class="solid-card p-4 space-y-3 border-l-4 border-l-amber-500">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-950">Step 1 • From Last Lesson</span>
+            <h2 class="font-display font-extrabold text-lg text-stone-900 mt-1">4 Quick Upgrades 👍</h2>
+          </div>
+          <span class="text-xs font-bold text-stone-600">Tap 🔊</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2.5" id="warmup-fixes-grid"></div>
+      </div>
+
+      <!-- Main Places Cards -->
+      <div class="solid-card p-4 space-y-3.5">
+        <div class="text-center space-y-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs font-extrabold">
+            <span>🟢 I go to the...</span>
+            <span>|</span>
+            <span>🔴 I don't go to the...</span>
+          </div>
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Places in Town (Tap &amp; Say 2x)</h2>
+          <p class="text-xs text-stone-600 font-medium">Afaan Oromoo: <strong>nan deema</strong> (🟢) / <strong>hin deemu</strong> (🔴)</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="places-cards-grid"></div>
+
+        <!-- Town Places vs Countries Rule Card -->
+        <div class="p-3.5 rounded-2xl bg-amber-50 border-2 border-amber-300 space-y-2">
+          <p class="font-display font-extrabold text-sm text-amber-950">🌍 Remember: Town vs Country!</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
+            <button type="button" onclick="speak('I go to the coffee shop.')" class="btn-tap p-2.5 rounded-xl bg-white border border-amber-300 text-left text-emerald-950 flex items-center justify-between">
+              <span>🏙️ I go <u>to the</u> coffee shop.</span>
+              <i class="fa-solid fa-volume-high text-emerald-700"></i>
+            </button>
+            <button type="button" onclick="speak('I go to Japan.')" class="btn-tap p-2.5 rounded-xl bg-white border border-amber-300 text-left text-blue-950 flex items-center justify-between">
+              <span>🇯🇵 I go <u>to</u> Japan. (NO "the"!)</span>
+              <i class="fa-solid fa-volume-high text-blue-700"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 2: DO YOU GO TO...? (REAL-LIFE YES / NO ANSWERS)
+         ======================================================== -->
+    <section id="view-questions" class="view-panel hidden space-y-4">
+      <div class="solid-card p-4 space-y-3.5">
+        <div class="text-center space-y-1">
+          <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900">Step 2 • Gaaffii &amp; Deebii</span>
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Do You Go To...? (About You!)</h2>
+          <p class="text-xs text-stone-600">Tap 🔊 to hear, then tap <strong>Yes, I do</strong> or <strong>No, I don't</strong>.</p>
+        </div>
+
+        <div class="space-y-3" id="questions-container"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 3: DOES HE / SHE...? (YES, HE DOES / NO, HE DOESN'T)
+         ======================================================== -->
+    <section id="view-does" class="view-panel hidden space-y-4">
+      <div class="solid-card p-4 space-y-3.5">
+        <div class="text-center space-y-2">
+          <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-900">Step 3 • Inni / Isheen</span>
+          <h2 class="font-display font-extrabold text-xl text-stone-900">Does He / She...?</h2>
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm text-amber-950 font-bold space-y-1">
+            <div>🟢 <strong>Yes, he does.</strong> He play<span class="px-1 py-0.5 rounded bg-emerald-100 text-emerald-800 font-extrabold">s</span>.</div>
+            <div>🔴 <strong>No, he doesn't.</strong> He <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold">doesn't</span> play. (NO <strong>-s</strong>!)</div>
+          </div>
+        </div>
+
+        <div class="space-y-3" id="does-cards-container"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 4: EASY SENTENCE BUILDER (4-5 WORDS)
+         ======================================================== -->
+    <section id="view-builder" class="view-panel hidden space-y-4">
+      <div class="solid-card p-4 sm:p-5 space-y-4 text-center">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900">Step 4 • Hima Ijaari</span>
+          <span id="builder-progress" class="text-xs font-extrabold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg border border-stone-300">1 / 6</span>
+        </div>
+
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-32 h-32 rounded-2xl bg-stone-50 border border-stone-200 p-2 flex items-center justify-center">
+            <img id="builder-img" src="images/routines/coffee_shop.svg" alt="Clue" width="112" height="112" class="w-28 h-28 object-contain">
+          </div>
+          <p id="builder-meaning" class="text-sm font-bold text-stone-800"></p>
+          <button type="button" onclick="speakBuilderTarget()" class="btn-tap px-4 py-2.5 rounded-xl bg-teal-700 text-white text-xs font-extrabold flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>Listen Hint</span>
+          </button>
+        </div>
+
+        <!-- Answer Drop Zone -->
+        <div id="builder-answer-box" class="min-h-[64px] p-3 rounded-2xl bg-stone-50 border-2 border-dashed border-emerald-500 flex flex-wrap items-center justify-center gap-2">
+          <span class="text-xs text-stone-500 font-semibold">Tap the words below in order...</span>
+        </div>
+
+        <!-- Word Chips -->
+        <div id="builder-chips-pool" class="flex flex-wrap items-center justify-center gap-2.5"></div>
+
+        <div id="builder-feedback" class="hidden p-3 rounded-xl text-sm font-bold"></div>
+
+        <div class="grid grid-cols-2 gap-2.5 pt-1">
+          <button type="button" onclick="resetBuilder()" class="btn-tap min-h-[46px] py-2.5 rounded-xl bg-stone-100 border-2 border-stone-300 text-stone-800 text-xs font-extrabold">
+            <i class="fa-solid fa-rotate-left"></i> Clear
+          </button>
+          <button type="button" onclick="nextBuilder()" class="btn-tap min-h-[46px] py-2.5 rounded-xl bg-emerald-700 text-white text-xs font-extrabold">
+            Next <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 5: EASY QUIZ (3 BIG OPTIONS)
+         ======================================================== -->
+    <section id="view-quiz" class="view-panel hidden space-y-4">
+      <div class="solid-card p-4 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900">Step 5 • Qormaata</span>
+            <h2 class="font-display font-extrabold text-xl text-stone-900 mt-1">Lesson 6 Easy Quiz 🌟</h2>
+          </div>
+          <span id="quiz-score-badge" class="px-3 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-xs font-extrabold text-stone-800">0 / 6</span>
+        </div>
+
+        <div id="quiz-container" class="space-y-3.5"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+          <button type="button" onclick="gradeQuiz()" class="btn-tap min-h-[48px] px-4 py-3 rounded-xl bg-purple-700 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Check My Answers</span>
+          </button>
+          <button type="button" onclick="openPreplyModalL6()" class="btn-tap min-h-[48px] px-4 py-3 rounded-xl bg-rose-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send to Teacher</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLEAN FOOTER BANNER (NO FLOATING OVERLAP ON PHONE) -->
+    <footer class="solid-card p-3.5 text-center text-xs font-semibold text-stone-700">
+      🇪🇹 <strong>Akkam Abdi! Jabaadhu!</strong> Tap <strong>Send</strong> at the top when you finish to message Teacher Lewis on Preply.
+    </footer>
+
+  </main>
+
+  <!-- SOLID PREPLY SHARE MODAL -->
+  <div id="preply-modal-l6" class="fixed inset-0 z-50 bg-black/70 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl border-2 border-stone-200 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-200">
+        <div>
+          <h3 class="font-display font-extrabold text-base text-stone-900">Send Lesson 6 to Teacher Lewis</h3>
+          <p class="text-xs text-stone-500 font-semibold">Abdi • Ethiopia 🇪🇹 (Afaan Oromoo)</p>
+        </div>
+        <button type="button" onclick="closePreplyModalL6()" class="w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center text-base font-bold">✕</button>
+      </div>
+
+      <textarea id="preply-message-text-l6" rows="7" class="w-full p-3 text-xs font-mono bg-stone-50 border border-stone-300 rounded-xl text-stone-900" readonly></textarea>
+
+      <div id="preply-copy-toast-l6" class="hidden p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold text-center">
+        ✅ Copied! Paste it in Preply Chat!
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <button type="button" onclick="shareViaMobileL6()" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+          <i class="fa-solid fa-share-nodes"></i>
+          <span>Share on Phone</span>
+        </button>
+        <button type="button" onclick="copyPreplyTextL6()" id="btn-copy-preply-l6" class="btn-tap min-h-[46px] w-full py-3 rounded-xl bg-rose-600 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+          <i class="fa-solid fa-copy"></i>
+          <span>Copy for Preply</span>
+        </button>
+      </div>
+
+      <a href="https://preply.com/messages" target="_blank" rel="noopener noreferrer" class="btn-tap min-h-[44px] w-full py-2.5 rounded-xl bg-stone-100 border border-stone-300 text-stone-800 font-bold text-xs flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Open Preply Chat</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* ================= GLOBAL STATE & AUDIO ================= */
+    let currentXP = parseInt(localStorage.getItem('abdi_xp') || '0', 10);
+    let isSlowSpeech = true;
+
+    function updateXPDisplay() {
+      document.getElementById('global-xp').textContent = `${currentXP}`;
+    }
+    updateXPDisplay();
+
+    function addXP(amount) {
+      currentXP += amount;
+      localStorage.setItem('abdi_xp', currentXP.toString());
+      updateXPDisplay();
+    }
+
+    function toggleOlderLessons() {
+      document.getElementById('older-lessons-drawer').classList.toggle('hidden');
+    }
+
+    function toggleSpeed() {
+      isSlowSpeech = !isSlowSpeech;
+      document.getElementById('speed-icon').textContent = isSlowSpeech ? '🐢' : '🔊';
+      document.getElementById('speed-label').textContent = isSlowSpeech ? 'Slow' : 'Normal';
+      speak(isSlowSpeech ? "Slow voice." : "Normal voice.");
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = isSlowSpeech ? 0.78 : 0.94;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.75 } });
+      }
+    }
+
+    /* ================= TAB NAVIGATION ================= */
+    function switchView(viewName) {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+      document.querySelectorAll('.l6-tab-btn').forEach(btn => {
+        btn.classList.remove('l6-tab-active');
+        btn.classList.add('text-stone-800', 'bg-stone-50');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${viewName}`);
+      activeBtn.classList.add('l6-tab-active');
+      activeBtn.classList.remove('text-stone-800', 'bg-stone-50');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ================= 1. WARM-UP FIXES (FROM NOV 17 LESSON) & PLACES ================= */
+    const WARMUP_FIXES = [
+      {
+        wrong: "Yes, I don't.",
+        right: "Yes, I do. / No, I don't.",
+        img: "images/routines/drink_coffee.svg",
+        clue: "🇪🇹 Eeyyee, nan godha. / Lakki, hin godhu."
+      },
+      {
+        wrong: "Coffee shop. I'm well in the coffee shop.",
+        right: "I go to the coffee shop.",
+        img: "images/routines/coffee_shop.svg",
+        clue: "🇪🇹 Mana bunaa nan deema."
+      },
+      {
+        wrong: "I go to the market at Friday.",
+        right: "I go to the market on Friday.",
+        img: "images/routines/go_market.svg",
+        clue: "🇪🇹 Jimaata gabaa nan deema. (on + Guyyaa)"
+      },
+      {
+        wrong: "He doesn't plays football.",
+        right: "He doesn't play football.",
+        img: "images/routines/play_football.svg",
+        clue: "🇪🇹 Inni kubbaa miilaa hin taphatu. (NO -s!)"
+      }
+    ];
+
+    function renderWarmupFixes() {
+      const grid = document.getElementById('warmup-fixes-grid');
+      grid.innerHTML = '';
+      WARMUP_FIXES.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => { speak(item.right); addXP(5); };
+        btn.className = 'btn-tap text-left p-3 rounded-2xl bg-stone-50 border-2 border-stone-200 active:border-emerald-500 flex items-center gap-3 w-full';
+        btn.innerHTML = `
+          <div class="w-14 h-14 rounded-xl bg-white border border-stone-200 p-1 shrink-0 flex items-center justify-center">
+            <img src="${item.img}" alt="" width="48" height="48" class="w-12 h-12 object-contain">
+          </div>
+          <div class="min-w-0 flex-1 space-y-0.5">
+            <p class="text-xs text-rose-700 line-through font-semibold">❌ ${item.wrong}</p>
+            <p class="text-base font-extrabold text-emerald-900 leading-snug">✅ ${item.right}</p>
+            <p class="text-xs text-stone-600 font-medium">${item.clue}</p>
+          </div>
+          <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-volume-high text-sm"></i>
+          </span>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    const PLACES_CARDS = [
+      {
+        title: "Coffee Shop (Mana Bunaa)",
+        img: "images/routines/coffee_shop.svg",
+        yes: "I go to the coffee shop.",
+        no: "I don't go to the coffee shop.",
+        clue: "🇪🇹 Mana bunaa nan deema / hin deemu"
+      },
+      {
+        title: "Park (Paarkii)",
+        img: "images/routines/go_park.svg",
+        yes: "I go to the park.",
+        no: "I don't go to the park.",
+        clue: "🇪🇹 Paarkii nan deema / hin deemu"
+      },
+      {
+        title: "Gym (Mana Ispoortii)",
+        img: "images/routines/go_gym.svg",
+        yes: "I go to the gym.",
+        no: "I don't go to the gym.",
+        clue: "🇪🇹 Mana ispoortii nan deema / hin deemu"
+      },
+      {
+        title: "Market (Gabaa)",
+        img: "images/routines/go_market.svg",
+        yes: "I go to the market.",
+        no: "I don't go to the market.",
+        clue: "🇪🇹 Gabaa nan deema / hin deemu"
+      },
+      {
+        title: "Cinema (Mana Filmii)",
+        img: "images/routines/go_cinema.svg",
+        yes: "I go to the cinema.",
+        no: "I don't go to the cinema.",
+        clue: "🇪🇹 Mana filmii nan deema / hin deemu"
+      },
+      {
+        title: "Eat at Home (Mana Keessatti)",
+        img: "images/routines/cook_dinner.png",
+        yes: "I eat at home.",
+        no: "I don't eat out.",
+        clue: "🇪🇹 Mana keessatti nan nyaadha"
+      }
+    ];
+
+    function renderPlacesCards() {
+      const grid = document.getElementById('places-cards-grid');
+      grid.innerHTML = '';
+      PLACES_CARDS.forEach((c, i) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-3 flex flex-col';
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-20 h-20 rounded-xl bg-white border border-stone-200 p-1 shrink-0 flex items-center justify-center">
+              <img src="${c.img}" alt="${c.title}" width="64" height="64" class="w-16 h-16 object-contain">
+            </div>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-display font-extrabold text-base text-stone-900">${c.title}</h3>
+              <p class="text-xs text-stone-600 font-medium mt-0.5">${c.clue}</p>
+              <p id="pl-out-${i}" class="text-sm font-extrabold text-emerald-900 mt-1 min-h-[20px]">Tap YES or NO 👇</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mt-auto">
+            <button type="button" onclick="playPlaceCard(${i}, 'yes')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-emerald-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
+              <span>🟢</span><span>I go</span>
+            </button>
+            <button type="button" onclick="playPlaceCard(${i}, 'no')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-rose-100 border-2 border-rose-500 text-rose-950 font-extrabold text-sm flex items-center justify-center gap-1.5">
+              <span>🔴</span><span>I don't</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function playPlaceCard(index, kind) {
+      const item = PLACES_CARDS[index];
+      const sentence = kind === 'yes' ? item.yes : item.no;
+      const out = document.getElementById(`pl-out-${index}`);
+      out.textContent = (kind === 'yes' ? '✅ ' : '❌ ') + sentence;
+      out.className = `text-sm font-extrabold mt-1 min-h-[20px] ${kind === 'yes' ? 'text-emerald-800' : 'text-rose-800'}`;
+      speak(sentence);
+      addXP(10);
+    }
+
+    /* ================= 2. DO YOU GO TO...? ================= */
+    const DO_YOU_QUESTIONS = [
+      {
+        q: "Do you go to the coffee shop?",
+        img: "images/routines/coffee_shop.svg",
+        yesSay: "Yes, I do. I go to the coffee shop.",
+        noSay: "No, I don't. I don't go to the coffee shop.",
+        clue: "🇪🇹 Mana bunaa ni deemtaa?"
+      },
+      {
+        q: "Do you go to the park?",
+        img: "images/routines/go_park.svg",
+        yesSay: "Yes, I do. I go to the park.",
+        noSay: "No, I don't. I don't go to the park.",
+        clue: "🇪🇹 Paarkii ni deemtaa?"
+      },
+      {
+        q: "Do you go to the gym?",
+        img: "images/routines/go_gym.svg",
+        yesSay: "Yes, I do. I go to the gym.",
+        noSay: "No, I don't. I don't go to the gym.",
+        clue: "🇪🇹 Mana ispoortii (jimii) ni deemtaa?"
+      },
+      {
+        q: "Do you go to the cinema?",
+        img: "images/routines/go_cinema.svg",
+        yesSay: "Yes, I do. I go to the cinema.",
+        noSay: "No, I don't. I watch my phone at home.",
+        clue: "🇪🇹 Mana filmii (sinimaa) ni deemtaa?"
+      },
+      {
+        q: "Do you go to the market on Friday?",
+        img: "images/routines/go_market.svg",
+        yesSay: "Yes, I do. I go to the market on Friday.",
+        noSay: "No, I don't. I don't go to the market.",
+        clue: "🇪🇹 Jimaata gabaa ni deemtaa?"
+      },
+      {
+        q: "Do you drink coffee every day?",
+        img: "images/routines/drink_coffee.svg",
+        yesSay: "Yes, I do. I drink coffee every day.",
+        noSay: "No, I don't.",
+        clue: "🇪🇹 Guyyaa hunda buna ni dhugdaa?"
+      }
+    ];
+
+    const abdiRealAnswers = {};
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-container');
+      container.innerHTML = '';
+      DO_YOU_QUESTIONS.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-3';
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-xl bg-white border border-stone-200 p-1 shrink-0 flex items-center justify-center">
+              <img src="${item.img}" alt="" width="56" height="56" class="w-14 h-14 object-contain">
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-extrabold text-base text-stone-900">${item.q}</p>
+              <p class="text-xs text-stone-600 font-medium">${item.clue}</p>
+            </div>
+            <button type="button" onclick="speak('${item.q.replace(/'/g, "\\'")}')" class="btn-tap w-11 h-11 rounded-xl bg-blue-100 border border-blue-300 text-blue-800 flex items-center justify-center shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="answerDoYou(${idx}, 'yes')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-emerald-950 font-extrabold text-xs sm:text-sm">
+              ✅ Yes, I do.
+            </button>
+            <button type="button" onclick="answerDoYou(${idx}, 'no')" class="btn-tap min-h-[48px] py-2.5 px-2 rounded-xl bg-rose-100 border-2 border-rose-500 text-rose-950 font-extrabold text-xs sm:text-sm">
+              ❌ No, I don't.
+            </button>
+          </div>
+          <div id="doyou-fb-${idx}" class="hidden p-2.5 rounded-xl text-sm font-bold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function answerDoYou(idx, choice) {
+      const item = DO_YOU_QUESTIONS[idx];
+      const fb = document.getElementById(`doyou-fb-${idx}`);
+      const reply = choice === 'yes' ? item.yesSay : item.noSay;
+      abdiRealAnswers[item.q] = reply;
+
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-950', 'border-emerald-300', 'bg-rose-50', 'text-rose-950', 'border-rose-300');
+      fb.classList.add('border');
+      if (choice === 'yes') {
+        fb.classList.add('bg-emerald-50', 'text-emerald-950', 'border-emerald-300');
+      } else {
+        fb.classList.add('bg-rose-50', 'text-rose-950', 'border-rose-300');
+      }
+      fb.innerHTML = `🗣️ Say: <strong>"${reply}"</strong>`;
+      speak(reply);
+      addXP(15);
+    }
+
+    /* ================= 3. DOES HE / SHE...? ================= */
+    const DOES_CARDS = [
+      {
+        img: "images/routines/play_football.svg",
+        question: "Does he play football?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">play<strong>s</strong></span> football.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> play football.`,
+        yesSay: "Yes, he does. He plays football.",
+        noSay: "No, he doesn't. He doesn't play football.",
+        clue: "🇪🇹 Inni kubbaa miilaa ni taphataa?"
+      },
+      {
+        img: "images/routines/coffee_shop.svg",
+        question: "Does he go to the coffee shop?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">go<strong>es</strong></span> to the coffee shop.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> go to the coffee shop.`,
+        yesSay: "Yes, he does. He goes to the coffee shop.",
+        noSay: "No, he doesn't. He doesn't go to the coffee shop.",
+        clue: "🇪🇹 Inni mana bunaa ni deemaa?"
+      },
+      {
+        img: "images/routines/cook_dinner.png",
+        question: "Does she cook dinner at home?",
+        yesHtml: `✅ <strong>Yes, she does.</strong> She <span class="text-emerald-800 underline decoration-2">cook<strong>s</strong></span> dinner.`,
+        noHtml: `❌ <strong>No, she doesn't.</strong> She <span class="text-rose-700 font-black">doesn't</span> cook dinner.`,
+        yesSay: "Yes, she does. She cooks dinner.",
+        noSay: "No, she doesn't. She doesn't cook dinner.",
+        clue: "🇪🇹 Isheen mana keessatti irbaata ni bilcheessitii?"
+      },
+      {
+        img: "images/routines/study_english.svg",
+        question: "Does she study English?",
+        yesHtml: `✅ <strong>Yes, she does.</strong> She <span class="text-emerald-800 underline decoration-2">stud<strong>ies</strong></span> English.`,
+        noHtml: `❌ <strong>No, she doesn't.</strong> She <span class="text-rose-700 font-black">doesn't</span> study English.`,
+        yesSay: "Yes, she does. She studies English.",
+        noSay: "No, she doesn't. She doesn't study English.",
+        clue: "🇪🇹 Isheen Ingilizii ni barattii?"
+      },
+      {
+        img: "images/routines/eat_out.svg",
+        question: "Does he eat out every day?",
+        yesHtml: `✅ <strong>Yes, he does.</strong> He <span class="text-emerald-800 underline decoration-2">eat<strong>s</strong></span> out.`,
+        noHtml: `❌ <strong>No, he doesn't.</strong> He <span class="text-rose-700 font-black">doesn't</span> eat out.`,
+        yesSay: "Yes, he does. He eats out.",
+        noSay: "No, he doesn't. He doesn't eat out.",
+        clue: "🇪🇹 Inni guyyaa hunda alaatti ni nyaataa?"
+      }
+    ];
+
+    function renderDoesCards() {
+      const container = document.getElementById('does-cards-container');
+      container.innerHTML = '';
+      DOES_CARDS.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-3';
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-xl bg-white border border-stone-200 p-1 shrink-0 flex items-center justify-center">
+              <img src="${item.img}" alt="" width="56" height="56" class="w-14 h-14 object-contain">
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-extrabold text-base text-indigo-950">❓ ${item.question}</p>
+              <p class="text-xs text-stone-600 font-medium">${item.clue}</p>
+            </div>
+            <button type="button" onclick="speak('${item.question.replace(/'/g, "\\'")}')" class="btn-tap w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high text-sm"></i>
+            </button>
+          </div>
+          <div id="does-text-${i}" class="p-2.5 rounded-xl bg-white border border-stone-200 text-sm text-stone-900 font-semibold">${item.yesHtml}</div>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="toggleDoes(${i}, 'yes')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-emerald-600 text-white text-xs sm:text-sm font-extrabold">
+              🟢 Yes, he/she does
+            </button>
+            <button type="button" onclick="toggleDoes(${i}, 'no')" class="btn-tap min-h-[46px] py-2 rounded-xl bg-rose-600 text-white text-xs sm:text-sm font-extrabold">
+              🔴 No, he/she doesn't
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleDoes(idx, mode) {
+      const item = DOES_CARDS[idx];
+      const textEl = document.getElementById(`does-text-${idx}`);
+      if (mode === 'yes') {
+        textEl.innerHTML = item.yesHtml;
+        speak(item.yesSay);
+      } else {
+        textEl.innerHTML = item.noHtml;
+        speak(item.noSay);
+      }
+      addXP(10);
+    }
+
+    /* ================= 4. EASY SENTENCE BUILDER ================= */
+    const BUILDER_CHALLENGES = [
+      {
+        words: ["I", "go", "to", "the", "coffee", "shop."],
+        img: "images/routines/coffee_shop.svg",
+        meaning: "🇪🇹 Ani mana bunaa nan deema."
+      },
+      {
+        words: ["I", "go", "to", "the", "park."],
+        img: "images/routines/go_park.svg",
+        meaning: "🇪🇹 Ani paarkii nan deema."
+      },
+      {
+        words: ["I", "don't", "go", "to", "the", "cinema."],
+        img: "images/routines/go_cinema.svg",
+        meaning: "🇪🇹 Ani mana filmii hin deemu."
+      },
+      {
+        words: ["He", "doesn't", "play", "football."],
+        img: "images/routines/play_football.svg",
+        meaning: "🇪🇹 Inni kubbaa miilaa hin taphatu."
+      },
+      {
+        words: ["Yes,", "she", "does."],
+        img: "images/routines/study_english.svg",
+        meaning: "🇪🇹 Eeyyee, isheen ni gooti."
+      },
+      {
+        words: ["No,", "he", "doesn't."],
+        img: "images/routines/eat_out.svg",
+        meaning: "🇪🇹 Lakki, inni hin godhu."
+      }
+    ];
+
+    let builderIndex = 0;
+    let builtWords = [];
+    let shuffledWords = [];
+
+    function initBuilder() {
+      const item = BUILDER_CHALLENGES[builderIndex];
+      builtWords = [];
+      shuffledWords = [...item.words].sort(() => Math.random() - 0.5);
+      if (shuffledWords.join(' ') === item.words.join(' ') && item.words.length > 2) {
+        shuffledWords.reverse();
+      }
+      document.getElementById('builder-progress').textContent = `${builderIndex + 1} / ${BUILDER_CHALLENGES.length}`;
+      document.getElementById('builder-img').src = item.img;
+      document.getElementById('builder-meaning').textContent = item.meaning;
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function renderBuilder() {
+      const ansBox = document.getElementById('builder-answer-box');
+      const pool = document.getElementById('builder-chips-pool');
+
+      if (builtWords.length === 0) {
+        ansBox.innerHTML = `<span class="text-xs text-stone-500 font-semibold">Tap the words below in order...</span>`;
+      } else {
+        ansBox.innerHTML = '';
+        builtWords.forEach((wObj) => {
+          const span = document.createElement('button');
+          span.type = 'button';
+          span.className = 'min-h-[44px] px-4 py-2 rounded-xl bg-emerald-700 text-white font-display font-bold text-base';
+          span.textContent = wObj.word;
+          span.onclick = () => removeBuiltWord(wObj.poolIdx);
+          ansBox.appendChild(span);
+        });
+      }
+
+      pool.innerHTML = '';
+      shuffledWords.forEach((word, pIdx) => {
+        const isUsed = builtWords.some(b => b.poolIdx === pIdx);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `word-chip min-h-[46px] px-4 py-2.5 rounded-xl bg-white border-2 border-stone-300 text-stone-900 font-display font-bold text-base shadow-xs ${isUsed ? 'chip-used' : ''}`;
+        btn.textContent = word;
+        btn.onclick = () => selectPoolWord(word, pIdx);
+        pool.appendChild(btn);
+      });
+    }
+
+    function selectPoolWord(word, poolIdx) {
+      speak(word);
+      builtWords.push({ word, poolIdx });
+      renderBuilder();
+      checkBuilderComplete();
+    }
+
+    function removeBuiltWord(poolIdx) {
+      builtWords = builtWords.filter(b => b.poolIdx !== poolIdx);
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function checkBuilderComplete() {
+      const target = BUILDER_CHALLENGES[builderIndex].words;
+      if (builtWords.length !== target.length) return;
+
+      const attempt = builtWords.map(b => b.word).join(' ');
+      const correct = target.join(' ');
+      const fb = document.getElementById('builder-feedback');
+      fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-rose-50', 'text-rose-900', 'border-rose-300');
+      fb.classList.add('border');
+
+      if (attempt === correct) {
+        fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border-emerald-300');
+        fb.innerHTML = `✅ Great job Abdi! <strong>"${correct}"</strong>`;
+        setTimeout(() => speak(correct), 350);
+        addXP(25);
+        triggerConfetti();
+      } else {
+        fb.classList.add('bg-rose-50', 'text-rose-900', 'border-rose-300');
+        fb.innerHTML = `❌ Try again! Tap <strong>Clear</strong> or tap a green word.`;
+      }
+    }
+
+    function resetBuilder() {
+      builtWords = [];
+      document.getElementById('builder-feedback').className = 'hidden';
+      renderBuilder();
+    }
+
+    function nextBuilder() {
+      builderIndex = (builderIndex + 1) % BUILDER_CHALLENGES.length;
+      initBuilder();
+    }
+
+    function speakBuilderTarget() {
+      speak(BUILDER_CHALLENGES[builderIndex].words.join(' '));
+    }
+
+    /* ================= 5. EASY QUIZ ================= */
+    const QUIZ_ITEMS = [
+      {
+        q: "Do you drink coffee? — Pick the YES answer:",
+        img: "images/routines/drink_coffee.svg",
+        options: ["Yes, I do.", "Yes, I don't.", "Yes, I'm."],
+        answer: "Yes, I do.",
+        explain: "YES = 'Yes, I do.' (Never say 'Yes, I don't'!)"
+      },
+      {
+        q: "Which sentence is correct for the coffee shop?",
+        img: "images/routines/coffee_shop.svg",
+        options: ["I'm well in the coffee shop.", "I go to the coffee shop.", "I go coffee shop."],
+        answer: "I go to the coffee shop.",
+        explain: "Say 'I go to the coffee shop.'"
+      },
+      {
+        q: "Change to NO: 'He plays football.'",
+        img: "images/routines/play_football.svg",
+        options: ["He doesn't play football.", "He doesn't plays football.", "He don't play football."],
+        answer: "He doesn't play football.",
+        explain: "With 'doesn't', NO -s on play!"
+      },
+      {
+        q: "Does she study English? — Pick YES:",
+        img: "images/routines/study_english.svg",
+        options: ["Yes, she does.", "Yes, she do.", "Yes, she doesn't."],
+        answer: "Yes, she does.",
+        explain: "'Does she...?' ➔ 'Yes, she does.'"
+      },
+      {
+        q: "I go to the market ____ Friday.",
+        img: "images/routines/go_market.svg",
+        options: ["at", "in", "on"],
+        answer: "on",
+        explain: "Days of the week use ON (on Friday)."
+      },
+      {
+        q: "Which sentence is correct for a country (Japan)?",
+        img: "images/routines/go_park.svg",
+        options: ["I go to Japan.", "I go to the Japan.", "I going to Japan."],
+        answer: "I go to Japan.",
+        explain: "Countries and cities don't use 'the'!"
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-2.5';
+        let optsHtml = '';
+        q.options.forEach(opt => {
+          optsHtml += `
+            <label class="flex items-center gap-3 min-h-[48px] p-3 rounded-xl bg-white border-2 border-stone-200 cursor-pointer text-sm font-bold">
+              <input type="radio" name="l6_quiz_${idx}" value="${opt}" class="w-5 h-5 text-purple-600 focus:ring-purple-500">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-white border border-stone-200 p-1 shrink-0 flex items-center justify-center">
+              <img src="${q.img}" alt="" width="40" height="40" class="w-10 h-10 object-contain">
+            </div>
+            <p class="font-bold text-sm text-stone-900 flex-1">${idx + 1}. ${q.q}</p>
+            <button type="button" onclick="speak('${q.q.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0" title="Listen">
+              <i class="fa-solid fa-volume-high text-sm"></i>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 gap-2">${optsHtml}</div>
+          <div id="l6-quiz-fb-${idx}" class="hidden p-2.5 rounded-xl text-xs font-bold"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function gradeQuiz() {
+      let score = 0;
+      QUIZ_ITEMS.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="l6_quiz_${idx}"]:checked`);
+        const fb = document.getElementById(`l6-quiz-fb-${idx}`);
+        fb.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-rose-50', 'text-rose-900', 'border-rose-300');
+        fb.classList.add('border');
+        if (selected && selected.value === q.answer) {
+          score++;
+          fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border-emerald-300');
+          fb.innerHTML = `✅ Correct! ${q.explain}`;
+        } else {
+          fb.classList.add('bg-rose-50', 'text-rose-900', 'border-rose-300');
+          fb.innerHTML = `❌ Answer: <strong>${q.answer}</strong> (${q.explain})`;
+        }
+      });
+      document.getElementById('quiz-score-badge').textContent = `${score} / ${QUIZ_ITEMS.length}`;
+      if (score >= 4) {
+        speak("Great job Abdi!");
+        triggerConfetti();
+        addXP(score * 20);
+      } else {
+        addXP(score * 10);
+      }
+    }
+
+    /* ================= PREPLY MODAL ================= */
+    function generatePreplyTextL6() {
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const scoreText = document.getElementById('quiz-score-badge')?.textContent || '0 / 6';
+      const lines = Object.entries(abdiRealAnswers).map(([q, a]) => `• ${q} ➔ ${a}`);
+      const answersBlock = lines.length > 0
+        ? lines.join('\n')
+        : '• I go to the coffee shop.\n• I don\'t go to the cinema.\n• I eat at home.\n• He doesn\'t play football.';
+
+      return `👋 Hello Teacher Lewis! Abdi's Lesson 6 (Ethiopia 🇪🇹 • Afaan Oromoo)
+📅 Date: ${today}
+🏆 Quiz: ${scoreText} | XP: ${currentXP}
+
+🗣️ My Sentences:
+${answersBlock}`;
+    }
+
+    function openPreplyModalL6() {
+      document.getElementById('preply-message-text-l6').value = generatePreplyTextL6();
+      document.getElementById('preply-modal-l6').classList.remove('hidden');
+      document.getElementById('preply-copy-toast-l6').classList.add('hidden');
+    }
+
+    function closePreplyModalL6() {
+      document.getElementById('preply-modal-l6').classList.add('hidden');
+    }
+
+    function copyPreplyTextL6() {
+      const ta = document.getElementById('preply-message-text-l6');
+      ta.select();
+      ta.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(ta.value).then(() => {
+        document.getElementById('preply-copy-toast-l6').classList.remove('hidden');
+        document.getElementById('btn-copy-preply-l6').innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => {
+          document.getElementById('btn-copy-preply-l6').innerHTML = '<i class="fa-solid fa-copy"></i> Copy for Preply';
+        }, 2500);
+      }).catch(() => alert('Please copy the text manually.'));
+    }
+
+    function shareViaMobileL6() {
+      const text = document.getElementById('preply-message-text-l6').value;
+      if (navigator.share) {
+        navigator.share({ title: "Abdi's Lesson 6 Practice", text }).catch(() => {});
+      } else {
+        copyPreplyTextL6();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWarmupFixes();
+      renderPlacesCards();
+      renderQuestions();
+      renderDoesCards();
+      initBuilder();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
