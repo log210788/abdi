@@ -42,18 +42,37 @@
     :root {
       --ghibli-bg-url: url('images/ghibli/bg.webp');
       --ghibli-accent-gold: #2d5a27;
+      --ghibli-card-bg: #fffdf7 !important;
     }
-    body.theme-night { --ghibli-bg-url: url('images/ghibli/night.webp'); }
-    body.theme-sunset { --ghibli-bg-url: url('images/ghibli/sunset.webp'); }
-    .chapter-nav-bar { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; flex-wrap: wrap; background: rgba(255,255,255,0.86); backdrop-filter: blur(8px); border-radius: 24px; margin: 0 auto 16px auto; max-width: 960px; border: 1.5px solid rgba(45,90,39,0.2); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    .ch-nav-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: all 0.2s; border: 1.5px solid #cbd5e1; color: #1e293b; background: #ffffff; }
+    body.theme-sunset, html.theme-sunset body {
+      --ghibli-bg-url: url('images/ghibli/sunset.webp');
+      --ghibli-card-bg: #fff8ef !important;
+    }
+    body.theme-night, html.theme-night body {
+      --ghibli-bg-url: url('images/ghibli/night.webp');
+      --ghibli-card-bg: #182334 !important;
+    }
+
+    /* Make all containers 100% solid & eliminate backdrop-filter scroll glitches */
+    .ghibli-header, .ghibli-hero-card, .ghibli-card, .ghibli-card-letter,
+    .chapter-nav-bar, .l5-spotlight-card, .hw-student-bar, .preply-submit-card,
+    .mascot-min-bar, .mascot-bubble {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .ghibli-header, .ghibli-hero-card, .ghibli-card, .ghibli-card-letter {
+      background-color: var(--ghibli-card-bg) !important;
+    }
+
+    .chapter-nav-bar { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; flex-wrap: wrap; background: #ffffff; border-radius: 24px; margin: 0 auto 16px auto; max-width: 960px; border: 2px solid #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .ch-nav-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: all 0.2s; border: 1.5px solid #cbd5e1; color: #1e293b; background: #f8fafc; }
     .ch-nav-pill:hover { background: #ecfdf5; color: #14532d; border-color: #48825c; transform: translateY(-1px); }
     .ch-nav-pill.active { background: #2d5a27; color: #ffffff; border-color: #2d5a27; }
     .ch-nav-pill.submit-pill { background: linear-gradient(135deg, #d97706, #b45309); color: #ffffff; border-color: #b45309; box-shadow: 0 3px 10px rgba(180, 83, 9, 0.3); }
 
-    /* Lesson 5 Top Spotlight Card */
+    /* Lesson 5 Top Spotlight Card (100% solid) */
     .l5-spotlight-card {
-      background: linear-gradient(135deg, rgba(255, 253, 247, 0.98), rgba(236, 253, 245, 0.96));
+      background: #f2fbf5;
       border: 2.5px solid #15803d;
       border-radius: 24px;
       padding: 20px 24px;
@@ -66,13 +85,13 @@
       gap: 16px;
     }
     body.theme-night .l5-spotlight-card {
-      background: linear-gradient(135deg, rgba(20, 35, 32, 0.97), rgba(15, 23, 42, 0.97));
+      background: #142420;
       border-color: #4ade80;
       color: #f8fafc;
     }
     body.theme-night .chapter-nav-bar {
-      background: rgba(15, 23, 42, 0.88);
-      border-color: #334155;
+      background: #182334;
+      border-color: #384a63;
     }
     body.theme-night .ch-nav-pill {
       background: #1e293b;
@@ -113,9 +132,9 @@
       .l5-cta-btn { width: 100%; justify-content: center; }
     }
 
-    /* Student Homework Top Bar */
+    /* Student Homework Top Bar (100% solid) */
     .hw-student-bar {
-      background: rgba(255, 253, 247, 0.95);
+      background: #fffdf7;
       border: 2px solid #2d5a27;
       border-radius: 20px;
       padding: 18px 24px;
@@ -128,7 +147,7 @@
       gap: 16px;
     }
     body.theme-night .hw-student-bar {
-      background: rgba(24, 36, 48, 0.95);
+      background: #182334;
       border-color: #48825c;
       color: #f1f5f9;
     }
@@ -188,9 +207,9 @@
       background: rgba(72, 130, 92, 0.25);
     }
 
-    /* Preply Submission & Instructions Card */
+    /* Preply Submission & Instructions Card (100% solid) */
     .preply-submit-card {
-      background: rgba(255, 253, 247, 0.97);
+      background: #fffdf7;
       border: 3px solid #2d5a27;
       border-radius: 26px;
       padding: 32px;
@@ -200,7 +219,7 @@
       overflow: hidden;
     }
     body.theme-night .preply-submit-card {
-      background: rgba(22, 33, 44, 0.97);
+      background: #182334;
       border-color: #48825c;
       color: #f1f5f9;
     }
@@ -231,8 +250,8 @@
       gap: 10px;
     }
     body.theme-night .preply-step-box {
-      background: rgba(30, 44, 58, 0.95);
-      border-color: rgba(255,255,255,0.12);
+      background: #1e293b;
+      border-color: #475569;
     }
     .preply-step-badge {
       display: inline-flex;

@@ -12,7 +12,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -22,61 +22,69 @@
 
   <style>
     :root {
-      --ghibli-bg-green: #2c4a38;
-      --ghibli-parchment: #fdfaf2;
-      --ghibli-card-bg: rgba(255, 253, 246, 0.96);
-      --ghibli-card-border: rgba(226, 215, 195, 0.85);
-      --ghibli-text-main: #2b261f;
+      --ghibli-card-bg: #fffdf7;
+      --ghibli-card-border: #dfd3bd;
+      --ghibli-text-main: #231f1a;
       --ghibli-bg-url: url('images/ghibli/bg.webp');
+      --ghibli-page-bg: #dce8dc;
     }
 
     .theme-sunset {
       --ghibli-bg-url: url('images/ghibli/sunset.webp');
-      --ghibli-card-bg: rgba(255, 247, 237, 0.96);
+      --ghibli-card-bg: #fff8ef;
+      --ghibli-card-border: #ecc8a2;
+      --ghibli-page-bg: #f6dcc4;
     }
 
     .theme-night {
       --ghibli-bg-url: url('images/ghibli/night.webp');
-      --ghibli-card-bg: rgba(27, 38, 54, 0.95);
-      --ghibli-card-border: rgba(67, 85, 112, 0.75);
+      --ghibli-card-bg: #182334;
+      --ghibli-card-border: #384a63;
       --ghibli-text-main: #f8fafc;
-      --ghibli-parchment: #0f172a;
+      --ghibli-page-bg: #0f172a;
     }
 
     body {
-      background-color: #dce8dc;
-      background-image: var(--ghibli-bg-url);
-      background-size: cover;
-      background-position: center top;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
+      background-color: var(--ghibli-page-bg);
       color: var(--ghibli-text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      transition: background-image 0.5s ease;
       -webkit-tap-highlight-color: transparent;
       overflow-x: hidden;
     }
 
+    /* Fixed background in its own composited layer — prevents scroll & container glitches */
+    .scenery-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image: var(--ghibli-bg-url);
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      transform: translateZ(0);
+    }
+
     .font-ghibli { font-family: 'Playfair Display', serif; }
     .font-display { font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
-    .font-ethiopic { font-family: 'Noto Sans Ethiopic', 'Plus Jakarta Sans', sans-serif; }
 
-    .ghibli-card {
-      background: var(--ghibli-card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid var(--ghibli-card-border);
-      box-shadow: 0 10px 25px -5px rgba(34, 52, 40, 0.14), 0 4px 6px -2px rgba(0, 0, 0, 0.06);
+    /* 100% SOLID, OPAQUE CONTAINERS (No rgba transparency, no backdrop-filter glitches) */
+    .solid-card {
+      background-color: var(--ghibli-card-bg);
+      border: 2px solid var(--ghibli-card-border);
+      box-shadow: 0 10px 26px -6px rgba(24, 38, 28, 0.22);
       border-radius: 1.25rem;
     }
 
-    .theme-night .ghibli-card h2,
-    .theme-night .ghibli-card h3,
-    .theme-night .ghibli-card p.text-stone-900,
-    .theme-night .ghibli-card p.text-stone-700 {
+    .theme-night .solid-card h2,
+    .theme-night .solid-card h3,
+    .theme-night .solid-card p.text-stone-900,
+    .theme-night .solid-card p.text-stone-800,
+    .theme-night .solid-card p.text-stone-700 {
       color: #f8fafc;
     }
-    .theme-night .ghibli-card p.text-stone-600 {
+    .theme-night .solid-card p.text-stone-600,
+    .theme-night .solid-card p.text-stone-500 {
       color: #cbd5e1;
     }
 
@@ -88,7 +96,7 @@
     .btn-bounce:active { transform: scale(0.97); }
 
     .l5-tab-active {
-      background: #15803d !important;
+      background-color: #15803d !important;
       color: #ffffff !important;
       border-color: #166534 !important;
       box-shadow: 0 3px 10px rgba(21, 128, 61, 0.3);
@@ -106,8 +114,10 @@
 
 <body class="min-h-screen flex flex-col antialiased selection:bg-emerald-200">
 
-  <!-- TOP HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 px-3 py-2.5 shadow-sm">
+  <div class="scenery-layer" aria-hidden="true"></div>
+
+  <!-- SOLID TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white border-b-2 border-stone-200 px-3 py-2.5 shadow-sm">
     <div class="max-w-3xl mx-auto space-y-2">
       <div class="flex items-center justify-between gap-2 flex-wrap">
         <!-- Brand & Title -->
@@ -118,25 +128,25 @@
           <div>
             <div class="flex items-center gap-1.5 flex-wrap">
               <h1 class="font-ghibli font-bold text-base tracking-tight text-emerald-950">English with Abdi</h1>
-              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 5 🇪🇹</span>
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">Lesson 5 🇪🇹 Oromoo</span>
             </div>
             <p class="text-[11px] text-stone-600 font-semibold leading-tight mt-0.5">Yes &amp; No: I do / I don't • He/She doesn't</p>
           </div>
         </div>
 
-        <!-- Primary Controls (Always Readable on Mobile & Desktop) -->
+        <!-- Primary Controls -->
         <div class="flex items-center gap-1.5 flex-wrap">
-          <button id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Switch voice speed">
+          <button type="button" id="speed-toggle-btn" onclick="toggleSpeed()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 text-xs font-extrabold flex items-center gap-1" title="Switch voice speed">
             <span id="speed-icon">🐢</span>
             <span id="speed-label">Slow</span>
           </button>
 
-          <button onclick="openPreplyModalL5()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-sm flex items-center gap-1.5 border border-rose-500" title="Send Lesson 5 to Teacher on Preply">
+          <button type="button" onclick="openPreplyModalL5()" class="btn-bounce px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-sm flex items-center gap-1.5 border border-rose-500" title="Send Lesson 5 to Teacher on Preply">
             <i class="fa-solid fa-paper-plane text-[11px]"></i>
             <span>Preply</span>
           </button>
 
-          <button id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-stone-800 text-xs font-bold hover:bg-stone-200 flex items-center justify-center" title="Toggle Day/Sunset/Night">
+          <button type="button" id="tod-toggle-btn" onclick="cycleTimeOfDay()" class="px-2.5 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-stone-800 text-xs font-bold hover:bg-stone-200 flex items-center justify-center" title="Toggle Day/Sunset/Night">
             <span id="tod-icon">☀️</span>
           </button>
 
@@ -159,26 +169,26 @@
     </div>
   </header>
 
-  <!-- SUB-NAVIGATION: 5 EASY MODES (ALL VISIBLE ON MOBILE GRID) -->
-  <nav class="bg-stone-50/95 backdrop-blur-md border-b border-stone-200 px-2 py-2 shadow-xs">
+  <!-- SOLID SUB-NAVIGATION: 5 EASY MODES -->
+  <nav class="bg-stone-100 border-b-2 border-stone-200 px-2 py-2 shadow-xs">
     <div class="max-w-3xl mx-auto grid grid-cols-3 sm:grid-cols-5 gap-1.5">
-      <button type="button" onclick="switchView('yesno')" id="tab-btn-yesno" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white flex items-center justify-center gap-1 transition l5-tab-active">
+      <button type="button" onclick="switchView('yesno')" id="tab-btn-yesno" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-300 bg-white flex items-center justify-center gap-1 transition l5-tab-active">
         <i class="fa-solid fa-check-double"></i>
         <span>1. Yes/No</span>
       </button>
-      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('questions')" id="tab-btn-questions" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-circle-question"></i>
         <span>2. Do you?</span>
       </button>
-      <button type="button" onclick="switchView('heshe')" id="tab-btn-heshe" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('heshe')" id="tab-btn-heshe" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-user-group"></i>
         <span>3. He/She</span>
       </button>
-      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('builder')" id="tab-btn-builder" class="l5-tab-btn py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-puzzle-piece"></i>
         <span>4. Build</span>
       </button>
-      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l5-tab-btn col-span-2 sm:col-span-1 py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-200 bg-white text-stone-700 hover:bg-stone-100 flex items-center justify-center gap-1 transition">
+      <button type="button" onclick="switchView('quiz')" id="tab-btn-quiz" class="l5-tab-btn col-span-2 sm:col-span-1 py-2 px-2 rounded-xl text-xs font-extrabold border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-trophy"></i>
         <span>5. Quiz</span>
       </button>
@@ -194,29 +204,29 @@
     <section id="view-yesno" class="view-panel space-y-4">
 
       <!-- Quick Warmup Fix Banner (From Last Class) -->
-      <div class="ghibli-card p-4 sm:p-5 space-y-3 border-l-4 border-l-amber-500">
+      <div class="solid-card p-4 sm:p-5 space-y-3 border-l-4 border-l-amber-500">
         <div class="flex items-center justify-between flex-wrap gap-2">
           <div>
-            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">Step 1 • Warm-Up Review</span>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">Step 1 • Irra Deebii (Review)</span>
             <h2 class="font-ghibli font-bold text-lg sm:text-xl text-stone-900 mt-1">Say "I" — Not "I'm"! 👍</h2>
           </div>
-          <span class="text-xs font-semibold text-stone-500">Tap to listen 🔊</span>
+          <span class="text-xs font-semibold text-stone-600">Tuqiitii dhaggeeffadhu 🔊</span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="warmup-fixes-grid"></div>
       </div>
 
       <!-- Main I vs I don't Picture Cards -->
-      <div class="ghibli-card p-4 sm:p-5 space-y-4">
+      <div class="solid-card p-4 sm:p-5 space-y-4">
         <div class="text-center space-y-1.5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold">
-            <span>🟢 YES: I ...</span>
+            <span>🟢 EEYYEE: I ...</span>
             <span>|</span>
-            <span>🔴 NO: I don't ...</span>
+            <span>🔴 LAKKI: I don't ...</span>
           </div>
           <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">Tap YES or NO &amp; Listen!</h2>
           <p class="text-xs sm:text-sm text-stone-600">
-            <strong>don't</strong> = NO ❌. Tap a green or red button, listen, and say it <strong>2 times</strong>!
+            <strong>don't</strong> = LAKKI ❌. Tap a green or red button, listen, and say it <strong>2 times</strong>!
           </p>
         </div>
 
@@ -228,12 +238,12 @@
          VIEW 2: DO YOU...? (REAL-LIFE YES / NO ANSWERS)
          ======================================================== -->
     <section id="view-questions" class="view-panel hidden space-y-4">
-      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+      <div class="solid-card p-4 sm:p-6 space-y-4">
         <div class="text-center space-y-1.5">
-          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-300">Real Life Speaking</span>
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-300">Gaaffii &amp; Deebii • Q&amp;A</span>
           <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">Do You...? (About You, Abdi!)</h2>
           <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
-            Listen to the question, then tap <strong>Yes, I do</strong> or <strong>No, I don't</strong>.
+            Listen to the question, then tap <strong>Yes, I do</strong> (Eeyyee) or <strong>No, I don't</strong> (Lakki).
           </p>
         </div>
 
@@ -245,9 +255,9 @@
          VIEW 3: HE / SHE + DOESN'T (GENTLE BRIDGE FROM LESSON 4)
          ======================================================== -->
     <section id="view-heshe" class="view-panel hidden space-y-4">
-      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+      <div class="solid-card p-4 sm:p-6 space-y-4">
         <div class="text-center space-y-2">
-          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">He / She Magic Rule</span>
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">Inni / Isheen • He / She</span>
           <h2 class="font-ghibli font-bold text-xl sm:text-2xl text-stone-900">He Plays 🟢 vs He Doesn't Play 🔴</h2>
           <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-950 font-semibold max-w-lg mx-auto">
             ✨ <strong>Easy Trick:</strong> When you see <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-extrabold">doesn't</span>, the <strong>-s</strong> goes away!
@@ -262,9 +272,9 @@
          VIEW 4: EASY TAP-TO-BUILD SENTENCES (3–5 WORDS)
          ======================================================== -->
     <section id="view-builder" class="view-panel hidden space-y-4">
-      <div class="ghibli-card p-4 sm:p-6 space-y-4 text-center">
+      <div class="solid-card p-4 sm:p-6 space-y-4 text-center">
         <div class="flex items-center justify-between">
-          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300">Easy Sentence Builder</span>
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300">Hima Ijaari • Build</span>
           <span id="builder-progress" class="text-xs font-extrabold text-stone-700 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">1 / 5</span>
         </div>
 
@@ -305,10 +315,10 @@
          VIEW 5: EASY PICTURE QUIZ (3 OPTIONS EACH)
          ======================================================== -->
     <section id="view-quiz" class="view-panel hidden space-y-4">
-      <div class="ghibli-card p-4 sm:p-6 space-y-4">
+      <div class="solid-card p-4 sm:p-6 space-y-4">
         <div class="flex items-center justify-between flex-wrap gap-2">
           <div>
-            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300">Step 5 • Check</span>
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300">Step 5 • Qormaata Salphaa</span>
             <h2 class="font-ghibli font-bold text-xl text-stone-900 mt-1">Lesson 5 Easy Quiz 🌟</h2>
           </div>
           <span id="quiz-score-badge" class="px-3 py-1 rounded-xl bg-stone-100 border border-stone-200 text-xs font-extrabold text-stone-700">Score: 0 / 6</span>
@@ -331,19 +341,19 @@
 
   </main>
 
-  <!-- KODAMA MASCOT FLOATER (COMPACT, DOES NOT BLOCK CONTENT) -->
+  <!-- SOLID KODAMA MASCOT FLOATER -->
   <div class="fixed bottom-3 right-3 z-40 flex items-end gap-2">
-    <div id="kodama-bubble" class="hidden ghibli-card p-3 max-w-[220px] text-xs font-semibold text-stone-800 shadow-lg border border-stone-300 rounded-2xl">
-      🇪🇹 በርታ አብዲ! Say it slowly: <strong>"I don't watch TV. I watch my phone."</strong> 🌟
+    <div id="kodama-bubble" class="hidden solid-card p-3 max-w-[230px] text-xs font-semibold text-stone-800 shadow-lg rounded-2xl">
+      🇪🇹 Akkam Abdi! Jabaadhu! Say it slowly: <strong>"I don't watch TV. I watch my phone."</strong> 🌟
     </div>
-    <button type="button" onclick="toggleKodamaBubble()" class="w-11 h-11 rounded-full bg-white/95 border-2 border-emerald-600 shadow-md flex items-center justify-center text-lg hover:scale-105 active:scale-95 transition" title="Mascot Helper">
+    <button type="button" onclick="toggleKodamaBubble()" class="w-11 h-11 rounded-full bg-white border-2 border-emerald-600 shadow-md flex items-center justify-center text-lg hover:scale-105 active:scale-95 transition" title="Mascot Helper">
       🌱
     </button>
   </div>
 
-  <!-- PREPLY SHARE MODAL -->
-  <div id="preply-modal-l5" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border border-stone-200 max-h-[90vh] overflow-y-auto">
+  <!-- SOLID PREPLY SHARE MODAL -->
+  <div id="preply-modal-l5" class="fixed inset-0 z-50 bg-black/70 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border-2 border-stone-200 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-2 border-b border-stone-100">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold">
@@ -351,7 +361,7 @@
           </div>
           <div>
             <h3 class="font-display font-extrabold text-base text-stone-900 leading-tight">Send Lesson 5 to Teacher on Preply</h3>
-            <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹)</p>
+            <p class="text-[11px] text-stone-500 font-semibold">Student: Abdi (Ethiopia 🇪🇹 • Afaan Oromoo)</p>
           </div>
         </div>
         <button type="button" onclick="closePreplyModalL5()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm font-bold">✕</button>
@@ -446,31 +456,31 @@
       activeBtn.classList.remove('text-stone-700', 'bg-white');
     }
 
-    /* ================= 1. WARM-UP FIXES & I / I DON'T CARDS ================= */
+    /* ================= 1. WARM-UP FIXES & I / I DON'T CARDS (AFAAN OROMOO) ================= */
     const WARMUP_FIXES = [
       {
         wrong: "I'm eating 8:30",
         right: "I eat at half past eight.",
         img: "images/clocks/clock_08_30.svg",
-        clue: "🇪🇹 በስምንት ተኩል እበላለሁ"
+        clue: "🇪🇹 Sa'aatii 8:30tti nan nyaadha."
       },
       {
         wrong: "I'm going market Friday",
         right: "I go to the market on Friday.",
         img: "images/routines/go_market.svg",
-        clue: "🇪🇹 አርብ ገበያ እሄዳለሁ"
+        clue: "🇪🇹 Jimaata gabaa nan deema."
       },
       {
         wrong: "Am eating in kitchen",
         right: "I eat at home.",
         img: "images/routines/cook_dinner.png",
-        clue: "🇪🇹 ቤት ውስጥ እበላለሁ"
+        clue: "🇪🇹 Mana keessatti nan nyaadha."
       },
       {
         wrong: "I'm not look TV, I phone",
         right: "I don't watch TV. I watch my phone.",
         img: "images/routines/watch_phone.svg",
-        clue: "🇪🇹 ቲቪ አላይም። ስልኬን አያለሁ"
+        clue: "🇪🇹 TV hin ilaalu. Bilbila koo nan ilaala."
       }
     ];
 
@@ -489,7 +499,7 @@
           <div class="min-w-0 flex-1 space-y-0.5">
             <p class="text-[11px] text-rose-600 line-through font-semibold">❌ ${item.wrong}</p>
             <p class="text-sm font-extrabold text-emerald-900 leading-snug">✅ ${item.right}</p>
-            <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+            <p class="text-[11px] text-stone-600 font-medium">${item.clue}</p>
           </div>
           <span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-volume-high text-xs"></i>
@@ -501,46 +511,46 @@
 
     const YESNO_CARDS = [
       {
-        title: "Phone",
+        title: "Phone (Bilbila)",
         img: "images/routines/watch_phone.svg",
         yes: "I watch my phone.",
         no: "I don't watch my phone.",
-        clue: "🇪🇹 ስልኬን አያለሁ | 🇸🇴 Taleefan"
+        clue: "🇪🇹 Bilbila koo nan ilaala / hin ilaalu"
       },
       {
         title: "TV",
         img: "images/routines/no_tv.svg",
         yes: "I watch TV.",
         no: "I don't watch TV.",
-        clue: "🇪🇹 ቲቪ አላይም | 🇸🇴 TV ma daawado"
+        clue: "🇪🇹 TV nan ilaala / hin ilaalu"
       },
       {
-        title: "Coffee (Bunna)",
+        title: "Coffee (Buna)",
         img: "images/routines/drink_coffee.svg",
         yes: "I drink coffee.",
         no: "I don't drink coffee.",
-        clue: "🇪🇹 ቡና እጠጣለሁ | 🇸🇴 Bun baan cabbaa"
+        clue: "🇪🇹 Buna nan dhuga / hin dhugu"
       },
       {
-        title: "Eat Out",
+        title: "Eat Out (Alaatti nyaachuu)",
         img: "images/routines/eat_out.svg",
         yes: "I eat out.",
         no: "I don't eat out.",
-        clue: "🇪🇹 ውጭ እበላለሁ | 🇸🇴 Dibadda"
+        clue: "🇪🇹 Alaatti nan nyaadha / hin nyaadhu"
       },
       {
-        title: "Market",
+        title: "Market (Gabaa)",
         img: "images/routines/go_market.svg",
         yes: "I go to the market.",
         no: "I don't go to the market.",
-        clue: "🇪🇹 ገበያ እሄዳለሁ | 🇸🇴 Suuqa"
+        clue: "🇪🇹 Gabaa nan deema / hin deemu"
       },
       {
-        title: "Music",
+        title: "Music (Muuziqaa)",
         img: "images/routines/listen_music.svg",
         yes: "I listen to music.",
         no: "I don't listen to music.",
-        clue: "🇪🇹 ሙዚቃ እሰማለሁ | 🇸🇴 Muusig"
+        clue: "🇪🇹 Muuziqaa nan dhaggeeffadha"
       }
     ];
 
@@ -557,7 +567,7 @@
             </div>
             <div class="min-w-0 flex-1">
               <h3 class="font-display font-extrabold text-base text-stone-900">${c.title}</h3>
-              <p class="text-[11px] text-stone-500 font-ethiopic mt-0.5">${c.clue}</p>
+              <p class="text-[11px] text-stone-600 font-medium mt-0.5">${c.clue}</p>
               <p id="yn-out-${i}" class="text-xs font-extrabold text-emerald-800 mt-1.5 min-h-[18px]">Tap YES or NO 👇</p>
             </div>
           </div>
@@ -591,42 +601,42 @@
         img: "images/routines/no_tv.svg",
         yesSay: "Yes, I do. I watch TV.",
         noSay: "No, I don't. I don't watch TV.",
-        clue: "🇪🇹 ቲቪ ታያለህ? | 🇸🇴 TV ma daawataa?"
+        clue: "🇪🇹 TV ni ilaaltaa?"
       },
       {
         q: "Do you watch your phone?",
         img: "images/routines/watch_phone.svg",
         yesSay: "Yes, I do. I watch my phone every day.",
         noSay: "No, I don't.",
-        clue: "🇪🇹 ስልክህን ታያለህ? | 🇸🇴 Taleefanka ma daawataa?"
+        clue: "🇪🇹 Bilbila kee ni ilaaltaa?"
       },
       {
         q: "Do you drink coffee in the morning?",
         img: "images/routines/drink_coffee.svg",
         yesSay: "Yes, I do. I drink coffee in the morning.",
         noSay: "No, I don't. I don't drink coffee.",
-        clue: "🇪🇹 ጠዋት ቡና ትጠጣለህ? | 🇸🇴 Subaxdii bun ma cabtaa?"
+        clue: "🇪🇹 Ganama buna ni dhugdaa?"
       },
       {
         q: "Do you eat at home?",
         img: "images/routines/cook_dinner.png",
         yesSay: "Yes, I do. I eat at home.",
         noSay: "No, I don't. I eat out.",
-        clue: "🇪🇹 ቤት ውስጥ ትበላለህ? | 🇸🇴 Guriga ma ku cuntaa?"
+        clue: "🇪🇹 Mana keessatti ni nyaattaa?"
       },
       {
         q: "Do you go to the market on Friday?",
         img: "images/routines/go_market.svg",
         yesSay: "Yes, I do. I go to the market on Friday.",
         noSay: "No, I don't.",
-        clue: "🇪🇹 አርብ ገበያ ትሄዳለህ? | 🇸🇴 Jimcaha suuqa ma tagtaa?"
+        clue: "🇪🇹 Jimaata gabaa ni deemtaa?"
       },
       {
         q: "Do you study English every week?",
         img: "images/routines/study_english.svg",
         yesSay: "Yes, I do. I study English!",
         noSay: "No, I don't.",
-        clue: "🇪🇹 እንግሊዝኛ ታጠናለህ? | 🇸🇴 Ingiriis ma barataa?"
+        clue: "🇪🇹 Torban hunda Ingilizii ni barattaa?"
       }
     ];
 
@@ -645,7 +655,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <p class="font-display font-extrabold text-base sm:text-lg text-stone-900">${item.q}</p>
-              <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+              <p class="text-[11px] text-stone-600 font-medium">${item.clue}</p>
             </div>
             <button type="button" onclick="speak('${item.q.replace(/'/g, "\\'")}')" class="btn-bounce w-10 h-10 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0" title="Listen to question">
               <i class="fa-solid fa-volume-high"></i>
@@ -653,10 +663,10 @@
           </div>
           <div class="grid grid-cols-2 gap-2.5">
             <button type="button" onclick="answerDoYou(${idx}, 'yes')" class="btn-bounce py-3 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold text-xs sm:text-sm whitespace-nowrap">
-              ✅ Yes, I do.
+              ✅ Yes, I do. (Eeyyee)
             </button>
             <button type="button" onclick="answerDoYou(${idx}, 'no')" class="btn-bounce py-3 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-xs sm:text-sm whitespace-nowrap">
-              ❌ No, I don't.
+              ❌ No, I don't. (Lakki)
             </button>
           </div>
           <div id="doyou-fb-${idx}" class="hidden p-2.5 rounded-xl text-xs font-bold"></div>
@@ -686,40 +696,40 @@
     /* ================= 3. HE / SHE + DOESN'T ================= */
     const HESHE_CARDS = [
       {
-        name: "Dawit",
+        name: "Tolasa",
         img: "images/routines/play_football.svg",
         yesHtml: `He <span class="text-emerald-700 underline decoration-2">play<strong>s</strong></span> football on Saturday.`,
         noHtml: `He <span class="text-rose-700 font-black">doesn't</span> play football.`,
         yesSay: "He plays football on Saturday.",
         noSay: "He doesn't play football.",
-        clue: "🇪🇹 ቅዳሜ ኳስ ይጫወታል / አይጫወትም"
+        clue: "🇪🇹 Sanbata kubbaa miilaa ni taphata / hin taphatu"
       },
       {
-        name: "Almaz",
+        name: "Bontu",
         img: "images/routines/cook_dinner.png",
         yesHtml: `She <span class="text-emerald-700 underline decoration-2">cook<strong>s</strong></span> dinner at home.`,
         noHtml: `She <span class="text-rose-700 font-black">doesn't</span> cook dinner.`,
         yesSay: "She cooks dinner at home.",
         noSay: "She doesn't cook dinner.",
-        clue: "🇪🇹 ቤት እራት ታበስላለች / አታበስልም"
+        clue: "🇪🇹 Mana keessatti irbaata ni bilcheessiti / hin bilcheessitu"
       },
       {
-        name: "Dawit",
+        name: "Tolasa",
         img: "images/routines/no_tv.svg",
         yesHtml: `He <span class="text-emerald-700 underline decoration-2">watch<strong>es</strong></span> TV.`,
         noHtml: `He <span class="text-rose-700 font-black">doesn't</span> watch TV.`,
         yesSay: "He watches TV.",
         noSay: "He doesn't watch TV.",
-        clue: "🇪🇹 ቲቪ ይመለከታል / አይመለከትም"
+        clue: "🇪🇹 TV ni ilaala / hin ilaalu"
       },
       {
-        name: "Almaz",
+        name: "Bontu",
         img: "images/routines/study_english.svg",
         yesHtml: `She <span class="text-emerald-700 underline decoration-2">stud<strong>ies</strong></span> English.`,
         noHtml: `She <span class="text-rose-700 font-black">doesn't</span> study English.`,
         yesSay: "She studies English.",
         noSay: "She doesn't study English.",
-        clue: "🇪🇹 እንግሊዝኛ ታጠናለች / አታጠናም"
+        clue: "🇪🇹 Ingilizii ni baratti / hin barattu"
       },
       {
         name: "My friend",
@@ -728,7 +738,7 @@
         noHtml: `He <span class="text-rose-700 font-black">doesn't</span> eat out.`,
         yesSay: "He eats out.",
         noSay: "He doesn't eat out.",
-        clue: "🇪🇹 ውጭ ይበላል / አይበላም"
+        clue: "🇪🇹 Alaatti ni nyaata / hin nyaatu"
       }
     ];
 
@@ -744,7 +754,7 @@
           </div>
           <div class="flex-1 text-center sm:text-left space-y-1.5">
             <p id="hs-text-${i}" class="font-display font-extrabold text-lg text-stone-900">${item.yesHtml}</p>
-            <p class="text-[11px] text-stone-500 font-ethiopic">${item.clue}</p>
+            <p class="text-[11px] text-stone-600 font-medium">${item.clue}</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
             <button type="button" onclick="toggleHeShe(${i}, 'yes')" class="btn-bounce px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs whitespace-nowrap">
@@ -777,27 +787,27 @@
       {
         words: ["I", "don't", "watch", "TV."],
         img: "images/routines/no_tv.svg",
-        meaning: "🇪🇹 ቲቪ አላይም። (Say NO for TV)"
+        meaning: "🇪🇹 Ani TV hin ilaalu. (Say NO for TV)"
       },
       {
         words: ["I", "watch", "my", "phone."],
         img: "images/routines/watch_phone.svg",
-        meaning: "🇪🇹 ስልኬን አያለሁ። (Say YES for phone)"
+        meaning: "🇪🇹 Ani bilbila koo nan ilaala."
       },
       {
         words: ["Yes,", "I", "do."],
         img: "images/routines/drink_coffee.svg",
-        meaning: "🇪🇹 አዎ። (Short YES answer)"
+        meaning: "🇪🇹 Eeyyee, nan godha. (Short YES answer)"
       },
       {
         words: ["I", "eat", "at", "home."],
         img: "images/routines/cook_dinner.png",
-        meaning: "🇪🇹 ቤት ውስጥ እበላለሁ።"
+        meaning: "🇪🇹 Ani mana keessatti nan nyaadha."
       },
       {
         words: ["He", "doesn't", "eat", "out."],
         img: "images/routines/eat_out.svg",
-        meaning: "🇪🇹 እሱ ውጭ አይበላም። (No -s after doesn't!)"
+        meaning: "🇪🇹 Inni alaatti hin nyaatu. (No -s after doesn't!)"
       }
     ];
 
@@ -1032,7 +1042,7 @@
         ? lines.join('\n')
         : '• I watch my phone.\n• I don\'t watch TV.\n• I eat at home.\n• I go to the market on Friday.';
 
-      return `👋 Hello Teacher Lewis! Here is Abdi's Lesson 5 Practice (Ethiopia 🇪🇹)
+      return `👋 Hello Teacher Lewis! Here is Abdi's Lesson 5 Practice (Ethiopia 🇪🇹 • Afaan Oromoo)
 📅 Date: ${today}
 📚 Topic: Lesson 5 - Yes & No (I do / I don't / He doesn't)
 🏆 ${scoreText} | XP: ${currentXP}

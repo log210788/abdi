@@ -1,6 +1,6 @@
 # Lesson Plan — Abdi (Lesson 5)
 **Date:** Tuesday, November 17, 2026 (50 mins)  
-**Student Profile:** Abdi (26, Ethiopia 🇪🇹) — **Very Low A1 / Pre-A1** (uses his phone in class; responds best to 3–5 word sentences, pictures, slow modeling, and repeating clean sentences twice).  
+**Student Profile:** Abdi (26, Ethiopia 🇪🇹 • **Afaan Oromoo** speaker) — **Very Low A1 / Pre-A1** (uses his phone in class; responds best to 3–5 word sentences, pictures, slow modeling, and repeating clean sentences twice).  
 **Builds Off:** Lessons 3–4 (*Time, Daily Routines, `at/in/on`, `I` vs `he/she`*) + Nov 12 Transcript + Nov 16 Plan.  
 **Today's Core Goal:** Stop saying `"I'm + -ing"` / `"I'm not..."` for daily habits and master **simple YES & NO sentences**:
 - **I do / I don't:** *"I watch my phone."* / *"I **don't** watch TV."*
@@ -16,7 +16,7 @@
 ## 00–05 min | Gentle Warm-Up & 3-Question Routine Check
 *Keep it slow, warm, and super predictable. Give Abdi 5 full seconds to answer before helping.*
 
-1. **Greeting:** *"Hi Abdi! How are you today?"*
+1. **Greeting:** *"Akkam Abdi! Hi Abdi! How are you today?"*
 2. **Day & Time:** *"What day is it today?"* (*"Today is Tuesday."*) • *"What time is it in Ethiopia?"*
 3. **Quick Routine Check (Fix `I'm` ➔ `I`):**
    - *"What time do you wake up?"* ➔ Target: *"I wake up **at** [7:00]."*
